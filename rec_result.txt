@@ -1,0 +1,4 @@
+User name is AshadUser reseach interests are Recommender system explaination. Top 3 recommended advisor list:
+0. name: Z. Hong. Similarity score0.7035975447302919. Keywords: interactive agent system multi-agent system proposed system recommender system scripting language COTS software integration system Java technologyDeveloping software system Windows operating system agent-based workflow management system embedded system
+1. name: Rafael Muñoz. Similarity score0.6784005252999682. Keywords: temporal expression IR-n system TERSEO system NLP system automatic system NER system general QA system individual system knowledge-based system CL-QA system
+2. name: Christian Suttner. Similarity score0.6713450866373513. Keywords: CADE-13 ATP System Competition ATP system CADE ATP System Competition CADE-13 ATP System CompetitionThe CADE-19 ATP system competitionThe Twenty-five ATP system ATP community ATP research CADE-13 ATP System CADE-13 ATP System CompetitionOptimal
