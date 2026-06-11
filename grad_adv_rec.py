@@ -822,6 +822,33 @@ def reset_version_state():
                 st.session_state.question_asked = 0
                 st.session_state.session_id=None 
 
+def render_recommender_page(version, scenario_index):
+    st.title("Grad Student Advisor Recommender System")
+    st.divider()
+
+    st.markdown("_Grad Student Scenario:_")
+
+    scenario = st.session_state.selected_scenarios[scenario_index]
+
+    start_session(
+        st.session_state.user_name,
+        " ".join(scenario.split()[:2]),
+        version
+    )
+
+    st.info(scenario)
+
+    st.markdown(
+        "Enter keywords of your research interest separated by comma and get the system's recommendations."
+    )
+
+    keywords = st.multiselect(
+        "Select Research Keywords:",
+        options=options,
+        key=f"keywords_{version}"
+    )
+
+    return scenario, keywords
                 
 def render_v1(scenario):
     explain_container = st.empty()
