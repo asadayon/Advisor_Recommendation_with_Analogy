@@ -30,7 +30,7 @@ COOLDOWN_TIME_LONG = 30
 COOLDOWN_TIME_SHORT = 15
 NO_COOLDOWN = 0
 
-supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+supabase = create_client(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY)
 
 
         
