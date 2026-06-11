@@ -1030,21 +1030,65 @@ if st.session_state.page == "home":
 
         # 4.2) Two card-style buttons
         c1, c2 = st.columns(2, gap="large")
-
+          
         with c1:
-            st.info("""**Version 1**: Advisor Recommendation & AI Follow-up.
-                    \nEnter your research keywords to receive advisor recommendations.
-                        \nEngage with the AI chatbot by asking pre-selected follow-up questions or any additional questions you may have.""")
+            st.info("""
+            **Version 1**: Standard Explanation + Follow-Up Questions.
+
+            Enter your research keywords to receive advisor recommendations.
+
+            You will receive a standard natural language explanation and may ask follow-up questions to the AI chatbot.
+            """)
+
             if st.button("Go to Version 1"):
                 st.session_state.page = "v1"
                 reset_version_state()
                 st.rerun()
+
+
         with c2:
-            st.info("""**Version 2**: Advisor Recommendation with AI-Assisted Pre-Quiz.
-                    \nEnter your research keywords to receive advisor recommendations.
-                    \nTake a short pre-quiz on the recommendation, AI will explain your choice and answer follow-up questions.""")
+            st.info("""
+            **Version 2**: Standard Explanation + Quiz-Based Prompting.
+
+            Enter your research keywords to receive advisor recommendations.
+
+            You will receive a standard explanation plus 3 quiz-based prompts with explanatory feedback from the AI.
+            """)
+
             if st.button("Go to Version 2"):
                 st.session_state.page = "v2"
+                reset_version_state()
+                st.rerun()
+
+
+        c3, c4 = st.columns(2, gap="large")
+
+        with c3:
+            st.info("""
+            **Version 3**: Analogy-Based Explanation + Follow-Up Questions.
+
+            Enter your research keywords to receive advisor recommendations.
+
+            You will receive an analogy-based explanation and may ask follow-up questions to the AI chatbot.
+            """)
+
+            if st.button("Go to Version 3"):
+                st.session_state.page = "v3"
+                reset_version_state()
+                st.rerun()
+
+
+        with c4:
+            st.info("""
+            **Version 4**: Analogy-Based Explanation + Quiz-Based Prompting.
+
+            Enter your research keywords to receive advisor recommendations.
+
+            You will receive an analogy-based explanation plus 3 quiz-based prompts with analogy-based explanatory feedback from the AI.
+            """)
+
+            if st.button("Go to Version 4"):
+                st.session_state.page = "v4"
                 reset_version_state()
                 st.rerun()
                 
