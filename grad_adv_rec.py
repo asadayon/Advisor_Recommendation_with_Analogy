@@ -1129,23 +1129,16 @@ elif st.session_state.page == "v1" or st.session_state.page == "v2":
             reset_version_state()
             st.rerun()
     if st.session_state.page == "v1":
-        st.title("Grad Student Advisor Recommender System")
-        st.divider()
-        st.markdown("_Grad Student Scenario:_")
-        scenario = st.session_state.selected_scenarios[0]
-        start_session(st.session_state.user_name , " ".join(scenario.split()[:2]), "v1")
-        st.info(scenario)
-        st.markdown("Enter keywords of your reseach interest separated by comma and get system's recommendations.")
-        keywords = st.multiselect("Select Research Keywords:", options=options)
-    if st.session_state.page == "v2":
-        st.title("Grad Student Advisor Recommender System")
-        st.divider()
-        st.markdown("_Grad Stuedent Scenario:_")
-        scenario = st.session_state.selected_scenarios[1]
-        start_session(st.session_state.user_name , " ".join(scenario.split()[:2]), "v2")
-        st.info(scenario)
-        st.markdown("Enter keywords of your reseach interest separated by comma and get system's recommendations.")
-        keywords = st.multiselect("Select Research Keywords:", options=options)
+        scenario, keywords = render_recommender_page("v1", 0)
+
+    elif st.session_state.page == "v2":
+        scenario, keywords = render_recommender_page("v2", 1)
+
+    elif st.session_state.page == "v3":
+        scenario, keywords = render_recommender_page("v3", 2)
+
+    elif st.session_state.page == "v4":
+        scenario, keywords = render_recommender_page("v4", 3)
     if st.button("Predict"):
         if len(keywords) < 1:
             st.warning("Please select at least one keyword.")
