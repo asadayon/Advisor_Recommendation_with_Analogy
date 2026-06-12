@@ -24,6 +24,8 @@ doc_topic_matrix = joblib.load('doc_topic_matrix.pkl')
 options = ["software engineering", "software process", "software system", "software quality", "design debt", "case studies", "software development", "software evolution", "online communities", "websites", "web pages", "related websites", "web spam", "web communities", "web mining", "online community analysis", "spammy website networks", "rescue robots", "autonomous mobile robots", "autonomous mode", "tele-operation mode", "multiple robots", "mobile robot", "proposed system", "mobile applications", "mobile devices", "smart phones", "mobile Internet devices", "context information", "resource-constrained mobile devices", "mobile users", "mobile phone", "mobile devices adaptive"]
 API_URL= st.secrets["URL"]
 MODEL   = st.secrets["MODEL"] 
+OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
+OPENAI_MODEL   = st.secrets["OPENAI_MODEL"] 
 SUPABASE_URL = st.secrets["SUP_URL"]
 SUPABASE_KEY = st.secrets["SUP_KEY"]
 COOLDOWN_TIME_LONG = 30
@@ -183,25 +185,88 @@ def initialize_v2():
             st.session_state.v2_input_used = {}
             
 
-def chat_stream():
+
+def chat_stream(provider="openai"):
     """Send a message to the API and stream back the assistant's reply."""
-    headers = {"Content-Type": "application/json"}
-    payload = {
-        "model": MODEL,
-        "messages": [
-            {"role": m["role"], "content": m["content"]}
-                for m in st.session_state.messages
-                                                
-        ]
-    }
-    with requests.post(API_URL, headers=headers, data=json.dumps(payload), stream=True) as r:
-            for line in r.iter_lines():
-                if line:
-                    data = json.loads(line.decode("utf-8"))
-                    if "message" in data and "content" in data["message"]:
-                        yield data["message"]["content"]  # send token to Streamlit
-                    if data.get("done"):
-                        break
+    """
+    provider: "ollama" or "openai"
+    Streams assistant response token-by-token.
+    """
+
+    messages = [
+        {"role": m["role"], "content": m["content"]}
+        for m in st.session_state.messages
+    ]
+
+    if provider == "ollama":
+        headers = {"Content-Type": "application/json"}
+
+        payload = {
+            "model": MODEL,
+            "messages": messages,
+            "stream": True
+        }
+
+        with requests.post(
+            API_URL,
+            headers=headers,
+            json=payload,
+            stream=True
+        ) as r:
+            r.raise_for_status()
+
+            for line in r.iter_lines(decode_unicode=True):
+                if not line:
+                    continue
+
+                data = json.loads(line)
+
+                if "message" in data and "content" in data["message"]:
+                    yield data["message"]["content"]
+
+                if data.get("done"):
+                    break
+
+    elif provider == "openai":
+        headers = {
+            "Authorization": f"Bearer {OPENAI_API_KEY}",
+            "Content-Type": "application/json"
+        }
+
+        payload = {
+            "model": OPENAI_MODEL,
+            "input": messages,
+            "stream": True
+        }
+
+        with requests.post(
+            "https://api.openai.com/v1/responses",
+            headers=headers,
+            json=payload,
+            stream=True
+        ) as r:
+            r.raise_for_status()
+
+            for line in r.iter_lines(decode_unicode=True):
+                if not line:
+                    continue
+
+                # OpenAI uses Server-Sent Events: lines start with "data: "
+                if not line.startswith("data: "):
+                    continue
+
+                data_str = line[len("data: "):]
+
+                if data_str == "[DONE]":
+                    break
+
+                data = json.loads(data_str)
+
+                if data.get("type") == "response.output_text.delta":
+                    yield data.get("delta", "")
+
+                if data.get("type") == "response.completed":
+                    break
 
 def stream_llm_api(history):
     """
