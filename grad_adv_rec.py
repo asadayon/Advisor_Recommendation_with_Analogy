@@ -268,37 +268,133 @@ def chat_stream(provider="openai"):
                 if data.get("type") == "response.completed":
                     break
 
-def stream_llm_api(history):
+def stream_llm_api(history, provider="openai"):
     """
-    Streams assistant response from LLM API, chunk by chunk.
-    Yields text in real time for display in st.chat_message container.
+    Streams assistant response from either Ollama or OpenAI API.
+
+    Args:
+        history: List of chat messages, e.g.
+                 [{"role": "user", "content": "Hello"}]
+        provider: "ollama" or "openai"
+
+    Yields:
+        Text chunks in real time for Streamlit display.
     """
-    
+
+    try:
+        if provider == "ollama":
+            yield from stream_ollama(history)
+
+        elif provider == "openai":
+            yield from stream_openai(history)
+
+        else:
+            raise ValueError("provider must be either 'ollama' or 'openai'")
+
+    except requests.RequestException as e:
+        st.error(f"LLM stream error: {e}")
+
+    except Exception as e:
+        st.error(f"Unexpected error: {e}")
+
+
+def stream_ollama(history):
+    """
+    Stream response from Ollama /api/chat endpoint.
+    """
+
     payload = {
         "model": MODEL,
         "messages": history,
         "stream": True
     }
+
     headers = {
         "Content-Type": "application/json"
     }
-    
-    try:
-        with requests.post(API_URL, headers=headers, json=payload, stream=True, timeout=60) as resp:
-            resp.raise_for_status()
-            for line in resp.iter_lines(decode_unicode=True):
-                if line:
-                    try:
-                        obj = json.loads(line)
-                        chunk = obj.get("message", {}).get("content", "")
-                        if chunk:
-                            yield chunk
-                    except Exception as parse_err:
-                        print("⚠️ Chunk parsing error:", parse_err)
-                        continue
-    except requests.RequestException as e:
-        st.error(f"LLM stream error: {e}")
-        # raise RuntimeError(f"LLM stream failed: {e}")
+
+    with requests.post(
+        API_URL,
+        headers=headers,
+        json=payload,
+        stream=True,
+        timeout=60
+    ) as resp:
+
+        resp.raise_for_status()
+
+        for line in resp.iter_lines(decode_unicode=True):
+            if not line:
+                continue
+
+            try:
+                obj = json.loads(line)
+
+                chunk = obj.get("message", {}).get("content", "")
+                if chunk:
+                    yield chunk
+
+                if obj.get("done"):
+                    break
+
+            except json.JSONDecodeError as parse_err:
+                print("⚠️ Ollama chunk parsing error:", parse_err)
+                continue
+
+
+def stream_openai(history):
+    """
+    Stream response from OpenAI Responses API.
+    """
+
+    payload = {
+        "model": OPENAI_MODEL,
+        "input": history,
+        "stream": True
+    }
+
+    headers = {
+        "Authorization": f"Bearer {OPENAI_API_KEY}",
+        "Content-Type": "application/json"
+    }
+
+    with requests.post(
+        "https://api.openai.com/v1/responses",
+        headers=headers,
+        json=payload,
+        stream=True,
+        timeout=60
+    ) as resp:
+
+        resp.raise_for_status()
+
+        for line in resp.iter_lines(decode_unicode=True):
+            if not line:
+                continue
+
+            # OpenAI streaming uses Server-Sent Events.
+            if not line.startswith("data: "):
+                continue
+
+            data_str = line[len("data: "):]
+
+            if data_str == "[DONE]":
+                break
+
+            try:
+                obj = json.loads(data_str)
+
+                if obj.get("type") == "response.output_text.delta":
+                    chunk = obj.get("delta", "")
+                    if chunk:
+                        yield chunk
+
+                if obj.get("type") == "response.completed":
+                    break
+
+            except json.JSONDecodeError as parse_err:
+                print("⚠️ OpenAI chunk parsing error:", parse_err)
+                continue
 
 CORE_SYSTEM_KNOWLEDGE = """
                         Our system is designed to help prospective graduate students find suitable research advisors by matching them based on shared research interests and publications. The system uses two models: a **Text Similarity Model** and a **Topic Similarity Model**, each generating the top three advisor recommendations based on the user’s input keywords.
