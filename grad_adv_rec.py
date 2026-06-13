@@ -276,7 +276,7 @@ def stream_llm_api(history, provider="openai"):
     Yields:
         Text chunks in real time for Streamlit display.
     """
-    print(history)
+    print("History: ",history)
     try:
         if provider == "ollama":
             yield from stream_ollama(history)
