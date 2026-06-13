@@ -276,7 +276,6 @@ def stream_llm_api(history, provider="openai"):
     Yields:
         Text chunks in real time for Streamlit display.
     """
-    print("History: ",history)
     try:
         if provider == "ollama":
             yield from stream_ollama(history)
@@ -1070,8 +1069,6 @@ def start_llm_chat(scenario, questions):
         {"role": "user", "content": questions[0]}
     ]
     st.session_state.chat_history=chat_history
-    print(system_prompt)
-    print(st.session_state.chat_history)
     st.session_state.initial_prompt_sent = True
     st.session_state.explain_clicked = False
     st.session_state.followup_idx = 1  # reset index
