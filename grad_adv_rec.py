@@ -1064,11 +1064,12 @@ def start_llm_chat(scenario, questions):
         core_system_knowledge=CORE_SYSTEM_KNOWLEDGE
     )
 
-    st.session_state.chat_history = [
+    chat_history = [
         {"role": "system", "content": system_prompt},
         {"role": "dummy", "content": 'dummy'},
         {"role": "user", "content": questions[0]}
     ]
+    st.session_state.chat_history=chat_history
     print(system_prompt)
     print(st.session_state.chat_history)
     st.session_state.initial_prompt_sent = True
@@ -1082,7 +1083,7 @@ def start_llm_chat(scenario, questions):
     with st.chat_message("assistant"):
         response_container = st.empty()
         assistant_text = ""
-        for chunk in stream_llm_api(st.session_state.chat_history):
+        for chunk in stream_llm_api(chat_history):
             assistant_text += chunk
             response_container.markdown(assistant_text + "▌")
         response_container.markdown(assistant_text)
