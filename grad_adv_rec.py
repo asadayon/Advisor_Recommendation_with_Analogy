@@ -1069,6 +1069,8 @@ def start_llm_chat(scenario, questions):
         {"role": "dummy", "content": 'dummy'},
         {"role": "user", "content": questions[0]}
     ]
+    print(system_prompt)
+    print(st.session_state.chat_history)
     st.session_state.initial_prompt_sent = True
     st.session_state.explain_clicked = False
     st.session_state.followup_idx = 1  # reset index
