@@ -347,6 +347,7 @@ def stream_openai(history):
         "input": history,
         "stream": True
     }
+    print("payload: ",payload)
 
     headers = {
         "Authorization": f"Bearer {OPENAI_API_KEY}",
