@@ -141,10 +141,7 @@ def render_back_button(page):
 
 
 def reset_common_state():
-    st.session_state.initial_prompt_sent = False
-    st.session_state.chat_history = []
-    st.session_state.chat_html = ""
-    st.session_state.explain_clicked = False
+    reset_ai_state()
     st.session_state.show_explain_option = False
     st.session_state.session_id=None
 
