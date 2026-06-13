@@ -184,7 +184,6 @@ def initialize_v2():
 
 
 def chat_stream(provider="ollama"):
-    """Send a message to the API and stream back the assistant's reply."""
     """
     provider: "ollama" or "openai"
     Streams assistant response token-by-token.
