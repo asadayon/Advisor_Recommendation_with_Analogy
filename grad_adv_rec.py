@@ -1281,7 +1281,7 @@ if st.session_state.page == "home":
                 
                 
 
-elif st.session_state.page == "v1" or st.session_state.page == "v2":
+elif st.session_state.page == "v1" or st.session_state.page == "v2" or st.session_state.page == "v3" or st.session_state.page == "v4":
     # --- UI ---
     back_col, _ = st.columns([1, 4])
     with back_col:
@@ -1292,13 +1292,13 @@ elif st.session_state.page == "v1" or st.session_state.page == "v2":
     if st.session_state.page == "v1":
         scenario, keywords = render_recommender_page("v1", 0)
 
-    elif st.session_state.page == "v2":
+    if st.session_state.page == "v2":
         scenario, keywords = render_recommender_page("v2", 1)
 
-    elif st.session_state.page == "v3":
+    if st.session_state.page == "v3":
         scenario, keywords = render_recommender_page("v3", 2)
 
-    elif st.session_state.page == "v4":
+    if st.session_state.page == "v4":
         scenario, keywords = render_recommender_page("v4", 3)
     if st.button("Predict"):
         if len(keywords) < 1:
