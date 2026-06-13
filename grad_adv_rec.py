@@ -183,7 +183,7 @@ def initialize_v2():
             
 
 
-def chat_stream(provider="ollama"):
+def chat_stream(provider="openai"):
     """
     provider: "ollama" or "openai"
     Streams assistant response token-by-token.
@@ -264,7 +264,7 @@ def chat_stream(provider="ollama"):
                 if data.get("type") == "response.completed":
                     break
 
-def stream_llm_api(history, provider="ollama"):
+def stream_llm_api(history, provider="openai"):
     """
     Streams assistant response from either Ollama or OpenAI API.
 
