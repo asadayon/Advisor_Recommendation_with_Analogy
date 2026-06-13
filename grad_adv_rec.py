@@ -276,11 +276,13 @@ def stream_llm_api(history, provider="openai"):
     Yields:
         Text chunks in real time for Streamlit display.
     """
+    print("stream_llm_api")
     try:
         if provider == "ollama":
             yield from stream_ollama(history)
 
         elif provider == "openai":
+            print("stream_llm_api->stream_openai")
             yield from stream_openai(history)
 
         else:
@@ -297,7 +299,7 @@ def stream_ollama(history):
     """
     Stream response from Ollama /api/chat endpoint.
     """
-
+    
     payload = {
         "model": MODEL,
         "messages": history,
@@ -347,6 +349,7 @@ def stream_openai(history):
         "input": history,
         "stream": True
     }
+    print("stream_openai")
     print("payload: ",payload)
 
     headers = {
@@ -1081,6 +1084,7 @@ def start_llm_chat(scenario, questions):
     with st.chat_message("assistant"):
         response_container = st.empty()
         assistant_text = ""
+        print("start_llm_chat->stream_llm_api")
         for chunk in stream_llm_api(chat_history):
             assistant_text += chunk
             response_container.markdown(assistant_text + "▌")
@@ -1107,6 +1111,7 @@ def continue_llm_chat(questions):
         with st.chat_message("assistant"):
             response_container = st.empty()
             assistant_text = ""
+            print("start_llm_chat->stream_llm_api")
             for chunk in stream_llm_api(st.session_state.chat_history):
                 assistant_text += chunk
                 response_container.markdown(assistant_text + "▌")
