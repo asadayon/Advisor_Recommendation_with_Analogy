@@ -1069,7 +1069,6 @@ def start_llm_chat(scenario, questions):
 
     chat_history = [
         {"role": "system", "content": system_prompt},
-        {"role": "dummy", "content": 'dummy'},
         {"role": "user", "content": questions[0]}
     ]
     st.session_state.chat_history=chat_history
