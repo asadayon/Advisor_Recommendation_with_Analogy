@@ -1300,20 +1300,7 @@ if st.session_state.page == "home":
                     st.success(f"Hello, {st.session_state.user_name}!")
                     st.rerun()    
 
-        # 4.1) Name input
-        name_col, submit_col = st.columns([3, 1], vertical_alignment="bottom")
-        with name_col:
-            if st.session_state["user_name"] == "":
-                st.session_state["user_name"] = st.text_input("Your name:", value="", placeholder="Type your name here")
-                
-        
-        with submit_col:
-            if st.button("Start"):
-                if st.session_state["user_name"].strip() == "":
-                    st.warning("Please enter at least one character for your name.")
-                else:
-                    st.success(f"Hello, {st.session_state['user_name'].strip()}!")
-                    st.rerun()
+  
     
     if not st.session_state.scenarios_loaded:            
         scenarios = load_scenarios("grad_student_scenario.md")
