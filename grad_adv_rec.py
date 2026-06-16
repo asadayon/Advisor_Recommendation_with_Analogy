@@ -1184,12 +1184,121 @@ if 'clicked' not in st.session_state:
 questions=["How does the system work?","Tell me how the first advisor in text similarity model recommended?"]
 data_dict={}
 flag=0
+# Initialize session state variables
+if "user_name" not in st.session_state:
+    st.session_state.user_name = ""
+
+if "field_of_study" not in st.session_state:
+    st.session_state.field_of_study = ""
+
+if "specific_topics" not in st.session_state:
+    st.session_state.specific_topics = ""
+
+if "background_keywords" not in st.session_state:
+    st.session_state.background_keywords = ""
+field_options = [
+        "",
+        "Communication",
+        "Journalism and Media Communication",
+        "Media Studies",
+        "Public Relations and Advertising",
+        "Fine Arts",
+        "Studio Art",
+        "Art History",
+        "Music",
+        "Theatre",
+        "Creative Writing",
+        "Public Administration",
+        "Political Science",
+        "Criminology and Criminal Justice",
+        "Social Work",
+        "Emergency Management",
+        "Aviation",
+        "Urban Studies",
+        "Gerontology",
+        "Other"
+    ]
+topic_examples = (
+        "Examples: visual storytelling, media production, audience analysis, "
+        "public policy, nonprofit management, criminal justice, social work, "
+        "community engagement, public safety, art design, performance, communication strategy"
+    )
+
+keyword_examples = (
+        "Examples: audience, message, framing, campaign, policy, governance, "
+        "community, justice, service, creativity, design, performance, ethics"
+    )
 
 
 if st.session_state.page == "home":
     st.title("Grad Student Advisor Recommender System")
     if st.session_state.user_name == "":
-        st.markdown("### Please enter your name to get started:")
+        st.markdown("### Please enter your information to get started:")
+
+        # 1) Name input
+        st.text_input(
+                "Your name:",
+                value=st.session_state.user_name,
+                placeholder="Type your name here",
+                key="user_name_input"
+            )
+        # 2) Current or most recent field of study
+        selected_field = st.selectbox(
+                "What is your current or most recent field of study?",
+                options=field_options,
+                index=0,
+                help="Select the closest option. Choose 'Other' if your field is not listed."
+            )
+        
+        if selected_field == "Other":
+                custom_field = st.text_input(
+                    "Please type your field of study:",
+                    placeholder="Example: Sociology, Education, Psychology, Business"
+                )
+        else:
+                custom_field = selected_field
+        
+        # 3) Specific topics or subfields
+        specific_topics = st.text_area(
+                "What specific topics or subfields are you most familiar with?",
+                placeholder=topic_examples,
+                height=100
+            )
+        
+        # 4) Concepts or keywords
+        background_keywords = st.text_area(
+                "List 3–5 concepts or keywords from that topic that you understand well.",
+                placeholder=keyword_examples,
+                height=100
+            )
+        
+        # Submit button
+        if st.button("Start"):
+                name = st.session_state.user_name_input.strip()
+                field = custom_field.strip()
+                topics = specific_topics.strip()
+                keywords = background_keywords.strip()
+        
+                if name == "":
+                    st.warning("Please enter at least one character for your name.")
+        
+                elif field == "":
+                    st.warning("Please select or enter your field of study.")
+        
+                elif topics == "":
+                    st.warning("Please enter at least one specific topic or subfield.")
+        
+                elif keywords == "":
+                    st.warning("Please enter 3–5 concepts or keywords.")
+        
+                else:
+                    st.session_state.user_name = name
+                    st.session_state.field_of_study = field
+                    st.session_state.specific_topics = topics
+                    st.session_state.background_keywords = keywords
+        
+                    st.success(f"Hello, {st.session_state.user_name}!")
+                    st.rerun()    
 
         # 4.1) Name input
         name_col, submit_col = st.columns([3, 1], vertical_alignment="bottom")
