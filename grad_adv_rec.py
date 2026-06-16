@@ -425,7 +425,7 @@ def make_system_prompt(
     version == "v1": Standard explanation with follow-up questions
     version == "v3": Analogy-based explanation with follow-up questions
     """
-
+    version=st.session_state.page
     data_dict = st.session_state["cosine"]
     lda1 = st.session_state["lda1"]
     lda2 = st.session_state["lda2"]
@@ -739,6 +739,7 @@ def make_quiz_system_prompt(
     version == "v2": Standard quiz-based explanation
     version == "v4": Analogy-based quiz explanation using user's educational background
     """
+    version=st.session_state.page
 
     formatted_options = "\n".join([f"{i+1}. {opt}" for i, opt in enumerate(options)])
 
