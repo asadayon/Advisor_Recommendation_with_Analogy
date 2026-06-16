@@ -1375,7 +1375,7 @@ def render_v1(scenario):
     #     questions = ['Hi', 'Thank you','ok']
     if st.session_state.show_explain_option:
         # explain_container.markdown("**Do you want a more detailed explanation?**")
-        if countdown_with_button("Please read the results carefully", st.session_state.get("COOLDOWN_TIME_SHORT", COOLDOWN_TIME_SHORT), questions[0], "explain_btn"):
+        if countdown_with_button("Please read the results carefully", st.session_state.get("COOLDOWN_TIME_SHORT", COOLDOWN_TIME_SHORT), "Natural Language Explanation of given recommendation", "explain_btn"):
             st.session_state.show_explain_option = False
             st.session_state.explain_clicked = True
             explain_container.empty()
@@ -1417,13 +1417,12 @@ def start_llm_chat(scenario, questions):
     )
 
     chat_history = [
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": questions[0]}
+        {"role": "system", "content": system_prompt}
     ]
     st.session_state.chat_history=chat_history
     st.session_state.initial_prompt_sent = True
     st.session_state.explain_clicked = False
-    st.session_state.followup_idx = 1  # reset index
+    st.session_state.followup_idx = 4  # reset index
 
     # Always render what's in history first
     render_chat_transcript()
@@ -1440,7 +1439,7 @@ def start_llm_chat(scenario, questions):
 
     # Append the streamed message to history (so it shows next rerun)
     st.session_state.chat_history.append({"role": "assistant", "content": assistant_text})
-    log_chat_message("user", questions[0])
+    #log_chat_message("user", questions[0])
     log_chat_message("assistant", assistant_text)
     st.rerun()  # force rerun so transcript now includes it
 
