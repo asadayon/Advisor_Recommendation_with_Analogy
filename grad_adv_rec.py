@@ -476,39 +476,56 @@ You are now ready to answer the user’s questions about their recommended gradu
         """.strip()
 
 
-def make_quiz_system_prompt(question, options, correct_index, selected_topic, scenario, core_system_knowledge=CORE_SYSTEM_KNOWLEDGE):
+def make_quiz_system_prompt(
+    question,
+    options,
+    correct_index,
+    selected_topic,
+    scenario,
+    version="v2",
+    core_system_knowledge=CORE_SYSTEM_KNOWLEDGE
+):
+    """
+    Creates the system prompt for quiz-based explanation.
 
-    
+    version == "v2": Standard quiz-based explanation
+    version == "v4": Analogy-based quiz explanation using user's educational background
+    """
+
     formatted_options = "\n".join([f"{i+1}. {opt}" for i, opt in enumerate(options)])
-    data_dict=st.session_state["cosine"]
-    lda1=st.session_state["lda1"]
-    lda2=st.session_state["lda2"]
-    prompt = f"""
-        You are acting as an **explanation assistant** for a Grad Student Advisor recommender system.
-        You have full internal knowledge of how the system works.
 
-        ---
-        ## System Knowledge
-        {core_system_knowledge}
+    data_dict = st.session_state["cosine"]
+    lda1 = st.session_state["lda1"]
+    lda2 = st.session_state["lda2"]
 
-        ---
+    # User educational background for analogy-based explanation
+    field_of_study = st.session_state.get("field_of_study", "Not provided")
+    specific_topics = st.session_state.get("specific_topics", "Not provided")
+    background_keywords = st.session_state.get("background_keywords", "Not provided")
+
+    recommendation_context = f"""
         ## Current Student Context
         - Student Scenario: {scenario}
         - User selected topics: {selected_topic}
-        - Top 3 recommended advisor list based on Cosine similarity:: 
-            1. Name: {data_dict['Name'][0]}; Cosine similarity score: {data_dict['Similarity Score'][0]};  Keywords: {data_dict['Keywords'][0]}; Publication: {data_dict['Publication'][0]}; Affiliaiton: {data_dict['Affiliation'][0]}
-            2. Name: {data_dict['Name'][1]}; Cosine similarity score: {data_dict['Similarity Score'][1]};  Keywords: {data_dict['Keywords'][1]}; Publication: {data_dict['Publication'][1]}; Affiliaiton: {data_dict['Affiliation'][1]}
-            3. Name: {data_dict['Name'][2]}; Cosine similarity score: {data_dict['Similarity Score'][2]};  Keywords: {data_dict['Keywords'][2]}; Publication: {data_dict['Publication'][2]}; Affiliaiton: {data_dict['Affiliation'][2]}
-        - Top 3 recommended advisor list based on LDA Topic modeling:: 
-            1. Name: {lda1['LDA_Name'][0]}; Cosine similarity score: {lda1['Score'][0]};  Keywords: {lda1['Keywords_LDA'][0]}; Publication: {lda1['Publication'][0]}; Affiliaiton: {lda1['Affiliation'][0]}
-            2. Name: {lda1['LDA_Name'][1]}; Cosine similarity score: {lda1['Score'][1]};  Keywords: {lda1['Keywords_LDA'][1]}; Publication: {lda1['Publication'][1]}; Affiliaiton: {lda1['Affiliation'][1]}
-            3. Name: {lda1['LDA_Name'][2]}; Cosine similarity score: {lda1['Score'][2]};  Keywords: {lda1['Keywords_LDA'][2]}; Publication: {lda1['Publication'][2]}; Affiliaiton: {lda1['Affiliation'][2]}
+
+        - Top 3 recommended advisor list based on Cosine similarity:
+            1. Name: {data_dict['Name'][0]}; Cosine similarity score: {data_dict['Similarity Score'][0]}; Keywords: {data_dict['Keywords'][0]}; Publication: {data_dict['Publication'][0]}; Affiliation: {data_dict['Affiliation'][0]}
+            2. Name: {data_dict['Name'][1]}; Cosine similarity score: {data_dict['Similarity Score'][1]}; Keywords: {data_dict['Keywords'][1]}; Publication: {data_dict['Publication'][1]}; Affiliation: {data_dict['Affiliation'][1]}
+            3. Name: {data_dict['Name'][2]}; Cosine similarity score: {data_dict['Similarity Score'][2]}; Keywords: {data_dict['Keywords'][2]}; Publication: {data_dict['Publication'][2]}; Affiliation: {data_dict['Affiliation'][2]}
+
+        - Top 3 recommended advisor list based on LDA Topic modeling:
+            1. Name: {lda1['LDA_Name'][0]}; LDA similarity/topic score: {lda1['Score'][0]}; Keywords: {lda1['Keywords_LDA'][0]}; Publication: {lda1['Publication'][0]}; Affiliation: {lda1['Affiliation'][0]}
+            2. Name: {lda1['LDA_Name'][1]}; LDA similarity/topic score: {lda1['Score'][1]}; Keywords: {lda1['Keywords_LDA'][1]}; Publication: {lda1['Publication'][1]}; Affiliation: {lda1['Affiliation'][1]}
+            3. Name: {lda1['LDA_Name'][2]}; LDA similarity/topic score: {lda1['Score'][2]}; Keywords: {lda1['Keywords_LDA'][2]}; Publication: {lda1['Publication'][2]}; Affiliation: {lda1['Affiliation'][2]}
+
         - Top LDA Topic selected:
-                Topic id: {lda2['Topic'][0]}
-                Keywords: {lda2['Words'][0]}
-        ---
+            Topic id: {lda2['Topic'][0]}
+            Keywords: {lda2['Words'][0]}
+    """
+
+    quiz_context = f"""
         ## Current Quiz Task
-        The user is working through a **pre-quiz** designed to prepare them for a longer comprehension test.
+        The user is working through a pre-quiz designed to prepare them for a longer comprehension test.
         They are answering the following question:
 
         "{question}"
@@ -516,26 +533,109 @@ def make_quiz_system_prompt(question, options, correct_index, selected_topic, sc
         Options:
         {formatted_options}
 
-        The correct answer is **option {str(correct_index)}**. The user will select one of the options and you will provide feedback based on their selection.
+        The correct answer is option {correct_index}.
+        The user will select one of the options and you will provide feedback based on their selection.
+    """
+
+    # -----------------------------
+    # Version 2: Standard explanation
+    # -----------------------------
+    if version == "v2":
+        prompt = f"""
+        You are acting as an explanation assistant for a Grad Student Advisor recommender system.
+        You have full internal knowledge of how the system works.
+
+        ---
+        ## System Knowledge
+        {core_system_knowledge}
+
+        ---
+        {recommendation_context}
+
+        ---
+        {quiz_context}
 
         ---
         ## Special Instructions
-        - If the user says "Option [OPTION NUMBER] has been selected", you should respond as follows:'
-            - If the user selects the correct answer, explain why it is correct and if not done yet, explain about the system too.
-            - If they select an incorrect answer, provide explanation on why it was wrong and guide them to the correct reasoning.
-        - The first time the user selects an option, you should give a brief explaination of the system and how it works and then begin to answer as per the specific option selected.
-        
-        ## Your Role & Style Guide
-        - Your main goal is to help the user **understand the system reasoning** and explain why the selected options are either correct or not.
-        - Encourage step-by-step reasoning based on the system's recommendations, similarity scores, and reasoning logic.
-        - Avoid generic advice; always tie reasoning back to **how this specific system** would think.
-        - Keep explanations **short, targeted, and context-aware** - no long lectures.
-        - If the user asks follow up questions and seems unsure, ask small guiding questions rather than giving away the answer if they have not selected the correct option yet.
-        - When explaining, use simple language and avoid technical jargon unless the user asks for it.
+        - If the user says "Option [OPTION NUMBER] has been selected", respond as follows:
+            - If the user selects the correct answer, explain why it is correct. If not done yet, briefly explain how the system works.
+            - If the user selects an incorrect answer, explain why it is wrong and guide them toward the correct reasoning.
+        - The first time the user selects an option, give a brief explanation of the system and how it works, then answer based on the selected option.
 
-        Respond in a **supportive and educational tone**.
-            """
-    
+        ## Your Role & Style Guide
+        - Your main goal is to help the user understand the system reasoning and explain why the selected option is correct or incorrect.
+        - Encourage step-by-step reasoning based on the system's recommendations, similarity scores, and reasoning logic.
+        - Avoid generic advice; always tie reasoning back to how this specific system would think.
+        - Keep explanations short, targeted, and context-aware.
+        - Avoid long lectures.
+        - If the user asks follow-up questions and seems unsure, ask small guiding questions rather than giving away the answer if they have not selected the correct option yet.
+        - Use simple language and avoid technical jargon unless the user asks for it.
+
+        Respond in a supportive and educational tone.
+        """
+
+    # --------------------------------
+    # Version 4: Analogy-based explanation
+    # --------------------------------
+    elif version == "v4":
+        prompt = f"""
+        You are an AI explanation assistant for a Grad Student Advisor recommender system.
+        Your task is to explain how the advisor recommender system generated a recommendation using an analogy based on the participant's educational background and detailed topic interest.
+
+        ---
+        ## System Information
+        {core_system_knowledge}
+
+        ---
+        ## Participant Educational Background
+        - Current or most recent field of study: {field_of_study}
+        - Detailed topic interest within that background: {specific_topics}
+        - Familiar concepts or keywords from that topic: {background_keywords}
+
+        ---
+        {recommendation_context}
+
+        ---
+        {quiz_context}
+
+        ---
+        ## Analogy-Based Explanation Requirements
+        Generate feedback that satisfies the following requirements:
+
+        1. Explain how the system interprets the student's research interests.
+        2. Explain how the system compares the student's profile with advisor profiles.
+        3. Explain how text similarity, topic similarity, similarity scores, or topic matches are used to identify stronger matches.
+        4. Explain how the system ranks advisors and produces the final recommendation.
+        5. Use an analogy grounded in the participant's educational background and detailed topic interest.
+        6. Clearly map each part of the analogy to the recommender system process.
+        7. Preserve the technical meaning of the original recommendation process.
+        8. Avoid misleading, inaccurate, or overly complex mappings.
+        9. Use clear, concise, and non-technical language.
+
+        ---
+        ## Special Instructions
+        - If the user says "Option [OPTION NUMBER] has been selected", respond as follows:
+            - If the user selects the correct answer, explain why it is correct using the educational-background analogy.
+            - If the user selects an incorrect answer, explain why it is wrong and guide them toward the correct reasoning using the analogy.
+        - The first time the user selects an option, briefly explain how the recommender system works using the analogy, then answer based on the selected option.
+        - Do not create a vague analogy. Use the participant's actual field, topic, and keywords.
+        - Always connect the analogy back to the advisor recommender system.
+        - Keep the explanation short and focused.
+        - Do not over-explain the analogy.
+        - Do not change the correct answer.
+        - Do not invent recommendation data beyond the provided context.
+
+        ## Your Role & Style Guide
+        - Your main goal is to help the user understand the system reasoning through a familiar educational analogy.
+        - Tie the explanation to the selected option, advisor ranking, similarity scores, keyword matches, and topic matches.
+        - Use simple language.
+        - Avoid technical jargon unless the user asks for it.
+        - Respond in a supportive and educational tone.
+        """
+
+    else:
+        raise ValueError("version must be either 'v2' or 'v4'")
+
     return prompt.strip()
 
 def render_v2_quiz_flow(questions, idx, scenario):
