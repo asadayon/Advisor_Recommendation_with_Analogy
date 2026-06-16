@@ -1900,7 +1900,7 @@ You are now ready to answer the user’s questions about their recommended gradu
                 ),
                 })
                 st.write("Double clicking individual cell will provide detail texts.")
-                if st.session_state.page == "v3":
+                if st.session_state.page == "v5":
                         st.markdown("---")
                         
                         st.markdown("## 📋 How the Advisor Recommender System Works")
@@ -1947,9 +1947,13 @@ You are now ready to answer the user’s questions about their recommended gradu
 
                 if st.session_state.page == "v2":
                         render_v2(st.session_state.selected_scenarios[1])
+                if st.session_state.page == "v4":
+                        render_v2(st.session_state.selected_scenarios[3])
                        
                 if st.session_state.page == "v1":
                         render_v1(st.session_state.selected_scenarios[0])
+                if st.session_state.page == "v3":
+                        render_v1(st.session_state.selected_scenarios[2])
                         
                         # if "messages"  in st.session_state:
                         #     for message in st.session_state.messages:
