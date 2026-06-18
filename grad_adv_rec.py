@@ -964,7 +964,6 @@ def render_v2_quiz_flow(questions, idx, scenario):
             scenario
         )
         chat_history.append({"role": "system", "content": system_prompt})
-        chat_history.append({"role": "dummy", "content": "Option 1 has been selected."})
         st.session_state.v2_sent_system_prompt[qid] = True
 
     # Render all messages excluding system
