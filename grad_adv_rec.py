@@ -1477,6 +1477,7 @@ def continue_llm_chat(questions):
         def ask_and_advance(q):
             # Add user message
             st.session_state.chat_history.append({"role": "user", "content": q})
+            log_chat_message("user", q)
             st.session_state.is_streaming = True  # Set streaming flag to True for next rerun
             st.session_state.followup_idx += 1
             st.rerun()
