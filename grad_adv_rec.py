@@ -63,11 +63,15 @@ def log_chat_message(role, content):
       - current_turn() for role == 'assistant'
     """
     sid = st.session_state["session_id"]
+    username=st.session_state["user_name"]
+    version=st.session_state["page"]
 
     payload = {
         "session_id": sid,
         "role": role,                   # 'user' | 'assistant' | 'system'
-        "content": content
+        "content": content,
+        "username": username,
+        "version": version
     }
 
     return supabase.table("chat_message").insert(payload).execute()
