@@ -1022,6 +1022,7 @@ def render_v2_quiz_flow(questions, idx, scenario):
 
                 if user_input:
                     chat_history.append({"role": "user", "content": user_input})
+                    log_chat_message("user", user_input)
                     with st.chat_message("user"):
                         st.markdown(user_input)
                     # Set streaming flag to true to trigger streaming on next rerun
@@ -1092,6 +1093,7 @@ def render_v2_quiz_flow(questions, idx, scenario):
 
                     st.session_state.final_streaming = False
                     st.session_state.final_chat_history.append({"role": "assistant", "content": assistant_text})
+                    log_chat_message("assistant", assistant_text)
                     st.rerun()
 
                 else:
@@ -1105,6 +1107,7 @@ def render_v2_quiz_flow(questions, idx, scenario):
 
                     if user_input:
                         st.session_state.final_chat_history.append({"role": "user", "content": user_input})
+                        log_chat_message("user", user_input)
                         with st.chat_message("user"):
                             st.markdown(user_input)
                         st.session_state.final_streaming = True
@@ -1470,6 +1473,7 @@ def continue_llm_chat(questions):
         # Update streaming flag and rerun after done
         st.session_state.is_streaming = False
         st.session_state.chat_history.append({"role": "assistant", "content": assistant_text})
+        log_chat_message("assistant", assistant_text)
         st.rerun()
 
     # Only if not streaming, render buttons/forms for next user input
