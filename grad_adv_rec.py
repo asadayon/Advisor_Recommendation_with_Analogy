@@ -926,6 +926,8 @@ def render_v2_quiz_flow(questions, idx, scenario):
 
             # Append to history
             chat_history.append({"role": "user", "content": selection_msg})
+            log_chat_message("system", question+"Options: \n"+options)
+            log_chat_message("user", selection_msg)
 
             # Show immediately
             with st.chat_message("user"):
