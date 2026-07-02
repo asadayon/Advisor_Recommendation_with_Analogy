@@ -2051,12 +2051,12 @@ You are now ready to answer the user’s questions about their recommended gradu
                     padding: 6px 10px;
                 }
                 /* Column widths: Ranking | Name | Keywords | Score | Publication | Affiliation */
-                div[data-testid="stTable"] th:nth-child(1) { width: 12%;  }
-                div[data-testid="stTable"] th:nth-child(2) { width: 14%; }
+                div[data-testid="stTable"] th:nth-child(1) { width: 10%;  }
+                div[data-testid="stTable"] th:nth-child(2) { width: 16%; }
                 div[data-testid="stTable"] th:nth-child(3) { width: 8%; }
-                div[data-testid="stTable"] th:nth-child(4) { width: 24%;  }
-                div[data-testid="stTable"] th:nth-child(5) { width: 27%; }
-                div[data-testid="stTable"] th:nth-child(6) { width: 15%; }
+                div[data-testid="stTable"] th:nth-child(4) { width: 32%;  }
+                div[data-testid="stTable"] th:nth-child(5) { width: 28%; }
+                div[data-testid="stTable"] th:nth-child(6) { width: 1%; }
                 </style>
                 """,
                 unsafe_allow_html=True,
