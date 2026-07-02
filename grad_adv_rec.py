@@ -2051,12 +2051,12 @@ You are now ready to answer the user’s questions about their recommended gradu
                     padding: 6px 10px;
                 }
                 /* Column widths: Ranking | Name | Keywords | Score | Publication | Affiliation */
-                div[data-testid="stTable"] th:nth-child(1) { width: 6%;  }
+                div[data-testid="stTable"] th:nth-child(1) { width: 12%;  }
                 div[data-testid="stTable"] th:nth-child(2) { width: 14%; }
-                div[data-testid="stTable"] th:nth-child(3) { width: 24%; }
-                div[data-testid="stTable"] th:nth-child(4) { width: 9%;  }
+                div[data-testid="stTable"] th:nth-child(3) { width: 8%; }
+                div[data-testid="stTable"] th:nth-child(4) { width: 24%;  }
                 div[data-testid="stTable"] th:nth-child(5) { width: 27%; }
-                div[data-testid="stTable"] th:nth-child(6) { width: 20%; }
+                div[data-testid="stTable"] th:nth-child(6) { width: 25%; }
                 </style>
                 """,
                 unsafe_allow_html=True,
@@ -2084,13 +2084,7 @@ You are now ready to answer the user’s questions about their recommended gradu
                          "Keywords_LDA": "Keywords (LDA)"}
             )
             st.table(df2_new.set_index("Ranking"))
-         
-            # NOTE: st.table is static, so the old "double-click a cell to see the
-            # full text" tip is no longer needed -- all text is already visible.
-            # If you still want an expandable raw view, keep it in an expander:
-            with st.expander("Show interactive tables (sortable, copyable)"):
-                st.dataframe(df1_new, hide_index=True, use_container_width=True)
-                st.dataframe(df2_new, hide_index=True, use_container_width=True)
+
             if st.session_state.page == "v5":
                         st.markdown("---")
                         
