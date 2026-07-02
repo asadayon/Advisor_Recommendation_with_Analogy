@@ -2056,7 +2056,7 @@ You are now ready to answer the user’s questions about their recommended gradu
                 div[data-testid="stTable"] th:nth-child(3) { width: 8%; }
                 div[data-testid="stTable"] th:nth-child(4) { width: 24%;  }
                 div[data-testid="stTable"] th:nth-child(5) { width: 27%; }
-                div[data-testid="stTable"] th:nth-child(6) { width: 25%; }
+                div[data-testid="stTable"] th:nth-child(6) { width: 15%; }
                 </style>
                 """,
                 unsafe_allow_html=True,
