@@ -16,7 +16,7 @@ import time, uuid
 from datetime import datetime, timedelta
 from supabase import create_client
 
-st.set_page_config("Advisor Recommendation", page_icon=":book:")
+st.set_page_config("Advisor Recommendation", page_icon=":book:",   layout="wide")
 
 data = pd.read_csv('updated_dataframe.csv')
 lda_model = joblib.load('lda_model.pkl')
