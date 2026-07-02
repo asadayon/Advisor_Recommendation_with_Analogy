@@ -2029,45 +2029,68 @@ You are now ready to answer the user’s questions about their recommended gradu
     if st.session_state.prediction_ready:
             df1 = pd.DataFrame(st.session_state["cosine"])
             df2 = pd.DataFrame(st.session_state["lda1"])
-        
-            render_wrapped_recommendation_table(
-                df=df1,
-                title="Top 3 recommended advisors based on Text Similarity of keywords:",
-                columns=[
-                    "Ranking",
-                    "Name",
-                    "Keywords",
-                    "Similarity Score",
-                    "Publication",
-                    "Affiliation"
-                ],
-                col_widths=[7, 16, 24, 10, 29, 14],
-                max_height=520
+            df3 = pd.DataFrame(st.session_state["lda2"])
+         
+            # One-time CSS: force wrapping, top-align cells, and give the wide
+            # text columns proportional widths so no column is squeezed too thin.
+            st.markdown(
+                """
+                <style>
+                /* Applies to st.table (static HTML tables) */
+                div[data-testid="stTable"] table {
+                    width: 100%;
+                    table-layout: fixed;          /* respect our column widths */
+                }
+                div[data-testid="stTable"] th,
+                div[data-testid="stTable"] td {
+                    white-space: normal !important;   /* allow wrapping */
+                    word-wrap: break-word;
+                    overflow-wrap: break-word;
+                    vertical-align: top;
+                    text-align: left;
+                    padding: 6px 10px;
+                }
+                /* Column widths: Ranking | Name | Keywords | Score | Publication | Affiliation */
+                div[data-testid="stTable"] th:nth-child(1) { width: 6%;  }
+                div[data-testid="stTable"] th:nth-child(2) { width: 14%; }
+                div[data-testid="stTable"] th:nth-child(3) { width: 24%; }
+                div[data-testid="stTable"] th:nth-child(4) { width: 9%;  }
+                div[data-testid="stTable"] th:nth-child(5) { width: 27%; }
+                div[data-testid="stTable"] th:nth-child(6) { width: 20%; }
+                </style>
+                """,
+                unsafe_allow_html=True,
             )
-        
-            render_wrapped_recommendation_table(
-                df=df2,
-                title="Top 3 recommended advisors based on LDA Topic Similarity of 30 topics:",
-                columns=[
-                    "LDA_rank",
-                    "LDA_Name",
-                    "Keywords_LDA",
-                    "Publication",
-                    "Affiliation"
-                ],
-                rename={
-                    "LDA_rank": "Ranking",
-                    "LDA_Name": "Name",
-                    "Keywords_LDA": "Topic Keywords"
-                },
-                col_widths=[7, 18, 25, 34, 16],
-                max_height=520
+         
+            # ---------------- Table 1: Text (cosine) similarity ----------------
+            st.write("Top 3 recommended advisor based on Text Similarity of keywords:")
+         
+            df1_new = df1[["Ranking", "Name", "Keywords",
+                           "Similarity Score", "Publication", "Affiliation"]].copy()
+            df1_new["Similarity Score"] = df1_new["Similarity Score"].map(
+                lambda x: f"{x:.4f}"
             )
-        
-            st.caption(
-                "All recommendation details are shown directly in the table. "
-                "Long text wraps within each cell; scroll vertically when needed."
+            # hide the pandas index so the table matches the old hide_index=True look
+            st.table(df1_new.set_index("Ranking"))
+         
+            # ---------------- Table 2: LDA topic similarity ----------------
+            st.write("Top 3 recommended advisor based on LDA Topic Similarity of 30 topics:")
+         
+            df2_new = df2[["LDA_rank", "LDA_Name", "Keywords_LDA",
+                           "Publication", "Affiliation"]].copy()
+            df2_new = df2_new.rename(
+                columns={"LDA_rank": "Ranking",
+                         "LDA_Name": "Name",
+                         "Keywords_LDA": "Keywords (LDA)"}
             )
+            st.table(df2_new.set_index("Ranking"))
+         
+            # NOTE: st.table is static, so the old "double-click a cell to see the
+            # full text" tip is no longer needed -- all text is already visible.
+            # If you still want an expandable raw view, keep it in an expander:
+            with st.expander("Show interactive tables (sortable, copyable)"):
+                st.dataframe(df1_new, hide_index=True, use_container_width=True)
+                st.dataframe(df2_new, hide_index=True, use_container_width=True)
             if st.session_state.page == "v5":
                         st.markdown("---")
                         
