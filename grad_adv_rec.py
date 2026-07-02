@@ -117,6 +117,162 @@ def top_similar_doc_cosine(count_vec,doc,k=3):
             lst[i] = cosine_similarity(count_vec[i], user_count_vector(doc))
         top_similar_doc = nlargest(k, lst, key = lst.get)
         return lst,top_similar_doc
+
+
+
+
+import html
+import uuid
+import pandas as pd
+import streamlit as st
+
+
+def format_table_value(value, col_name):
+    """Format values before showing them in the recommendation table."""
+    if pd.isna(value):
+        return ""
+
+    if col_name == "Ranking":
+        try:
+            return str(int(value))
+        except Exception:
+            return str(value)
+
+    if col_name == "Similarity Score":
+        try:
+            return f"{float(value):.4f}"
+        except Exception:
+            return str(value)
+
+    return str(value)
+
+
+def render_wrapped_recommendation_table(
+    df,
+    title,
+    columns,
+    rename=None,
+    col_widths=None,
+    max_height=520
+):
+    """
+    Display a readable recommendation table with wrapped text.
+    This removes horizontal scrolling and lets users read long cells vertically.
+    """
+
+    table_df = df.loc[:, columns].rename(columns=rename or {}).copy()
+    table_df = table_df.fillna("")
+
+    if col_widths is None:
+        col_widths = [100 / len(table_df.columns)] * len(table_df.columns)
+
+    if len(col_widths) != len(table_df.columns):
+        raise ValueError("col_widths must match the number of displayed columns.")
+
+    table_id = f"rec_table_{uuid.uuid4().hex}"
+
+    colgroup_html = "".join(
+        f"<col style='width: {width}%'>"
+        for width in col_widths
+    )
+
+    header_html = "".join(
+        f"<th>{html.escape(str(col))}</th>"
+        for col in table_df.columns
+    )
+
+    rows_html = []
+
+    for _, row in table_df.iterrows():
+        cell_html = []
+
+        for col in table_df.columns:
+            value = format_table_value(row[col], col)
+            css_class = "num-cell" if col in ["Ranking", "Similarity Score"] else ""
+
+            cell_html.append(
+                f"<td class='{css_class}'>{html.escape(value)}</td>"
+            )
+
+        rows_html.append(f"<tr>{''.join(cell_html)}</tr>")
+
+    st.write(f"**{title}**")
+
+    st.markdown(
+        f"""
+        <style>
+            #{table_id}_wrapper {{
+                width: 100%;
+                max-height: {max_height}px;
+                overflow-y: auto;
+                overflow-x: hidden;
+                border: 1px solid #e5e7eb;
+                border-radius: 8px;
+                margin-top: 0.35rem;
+                margin-bottom: 1.25rem;
+            }}
+
+            #{table_id} {{
+                width: 100%;
+                table-layout: fixed;
+                border-collapse: collapse;
+                font-size: 0.92rem;
+            }}
+
+            #{table_id} th,
+            #{table_id} td {{
+                border-bottom: 1px solid #e5e7eb;
+                border-right: 1px solid #e5e7eb;
+                padding: 10px 12px;
+                text-align: left;
+                vertical-align: top;
+                white-space: normal;
+                overflow-wrap: anywhere;
+                word-break: break-word;
+                line-height: 1.35;
+            }}
+
+            #{table_id} th {{
+                position: sticky;
+                top: 0;
+                background-color: #f8fafc;
+                z-index: 1;
+                font-weight: 600;
+            }}
+
+            #{table_id} tr:last-child td {{
+                border-bottom: none;
+            }}
+
+            #{table_id} th:last-child,
+            #{table_id} td:last-child {{
+                border-right: none;
+            }}
+
+            #{table_id} .num-cell {{
+                text-align: right;
+                white-space: nowrap;
+            }}
+        </style>
+
+        <div id="{table_id}_wrapper">
+            <table id="{table_id}">
+                <colgroup>
+                    {colgroup_html}
+                </colgroup>
+                <thead>
+                    <tr>{header_html}</tr>
+                </thead>
+                <tbody>
+                    {''.join(rows_html)}
+                </tbody>
+            </table>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    
 def render_spacer():
     st.markdown("""
     <div style='min-height: 250px; overflow-y: auto; padding: 10px;'>
@@ -1868,48 +2024,49 @@ You are now ready to answer the user’s questions about their recommended gradu
                     
     if not st.session_state.prediction_ready:
                 render_spacer()            
-    if st.session_state.prediction_ready:
-                df1 = pd.DataFrame(st.session_state["cosine"])
-                df2 = pd.DataFrame(st.session_state["lda1"])
-                df3 = pd.DataFrame(st.session_state["lda2"])
-                
-                #left_column, right_column = st.columns(2)
-                #left_column, right_column = st.tabs(["Text Similarity", "Topic Similarity"])
-                #with left_column:
-                
-                df1_new = df1[['Ranking','Name','Keywords', 'Similarity Score','Publication','Affiliation']]                
-                df1_new = df1_new.to_dict(orient='records')
-                st.write("Top 3 recommended advisor based on Text Similarity of keywords:")
-                st.dataframe(df1_new, hide_index=True,  column_config={
-                "Publication": st.column_config.Column(
-                width="large",
-                required=True,
-                ),
-                "Keywords": st.column_config.Column(
-                width="medium",
-                required=True,
-                ),
-                "Affiliation": st.column_config.Column(
-                width="medium",
-                required=True,
-                )
-                },)
 
-                #with right_column:
-                st.write("Top 3 recommended advisor based on LDA Topic Similarity of 30 topics:")
-                df2_new = df2[['LDA_rank','LDA_Name','Keywords_LDA','Publication','Affiliation']] 
-                df2_new = df2_new.to_dict(orient='records')
-                st.dataframe(df2_new,hide_index=True, column_config={
-                "LDA_rank": "Ranking","LDA_Name": "Name", "Publication": st.column_config.Column(
-                width="large",
-                required=True,
-                ),
-                "Keywords_LDA": st.column_config.Column(
-                width="medium",
-                required=True,
-                ),
-                })
-                st.write("Double clicking individual cell will provide detail texts.")
+    if st.session_state.prediction_ready:
+            df1 = pd.DataFrame(st.session_state["cosine"])
+            df2 = pd.DataFrame(st.session_state["lda1"])
+        
+            render_wrapped_recommendation_table(
+                df=df1,
+                title="Top 3 recommended advisors based on Text Similarity of keywords:",
+                columns=[
+                    "Ranking",
+                    "Name",
+                    "Keywords",
+                    "Similarity Score",
+                    "Publication",
+                    "Affiliation"
+                ],
+                col_widths=[7, 16, 24, 10, 29, 14],
+                max_height=520
+            )
+        
+            render_wrapped_recommendation_table(
+                df=df2,
+                title="Top 3 recommended advisors based on LDA Topic Similarity of 30 topics:",
+                columns=[
+                    "LDA_rank",
+                    "LDA_Name",
+                    "Keywords_LDA",
+                    "Publication",
+                    "Affiliation"
+                ],
+                rename={
+                    "LDA_rank": "Ranking",
+                    "LDA_Name": "Name",
+                    "Keywords_LDA": "Topic Keywords"
+                },
+                col_widths=[7, 18, 25, 34, 16],
+                max_height=520
+            )
+        
+            st.caption(
+                "All recommendation details are shown directly in the table. "
+                "Long text wraps within each cell; scroll vertically when needed."
+            )
                 if st.session_state.page == "v5":
                         st.markdown("---")
                         
