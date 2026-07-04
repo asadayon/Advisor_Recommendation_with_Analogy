@@ -2072,7 +2072,7 @@ You are now ready to answer the user’s questions about their recommended gradu
             )
             df1_new = df1_new.rename(
                 columns={
-                         "Similarity Score": "Cosine Similarity"}
+                         "Similarity Score": "Text Similarity"}
             )
             # hide the pandas index so the table matches the old hide_index=True look
             st.table(df1_new.set_index("Ranking"))
