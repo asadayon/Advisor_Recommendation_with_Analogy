@@ -558,21 +558,26 @@ def stream_openai(history):
                 continue
 
 CORE_SYSTEM_KNOWLEDGE = """
-                        Our system is designed to help prospective graduate students find suitable research advisors by matching them based on shared research interests and publications. The system uses two models: a **Text Similarity Model** and a **Topic Similarity Model**, each generating the top three advisor recommendations based on the user’s input keywords.
-                        
+                        Our system is designed to help prospective graduate students find suitable research advisors by matching them based on shared research interests and publications. On the recommendation page, users select research keywords from a predefined keyword list (e.g., "software quality", "software system", "case studies") and click the Predict button. The system then runs two models and displays both sets of results on the same page: a **Text Similarity Model** and a **Topic Similarity Model**, each generating the top three advisor recommendations.
+
                         1. **Text Similarity Model (Cosine Similarity):**
-                           - Inputs: Research keywords provided by the user.
-                           - Each advisor’s research profile is represented as a numerical count vector of publication keywords.
-                           - Cosine similarity is calculated between the user’s keyword vector and each advisor’s vector.
-                           - Output: Top 3 advisors with the highest similarity scores (range: 0 to 1), where values closer to 1 indicate stronger alignment.
-                        
-                        2. **Topic Similarity Model (LDA Topic Modeling):**
-                           - Inputs: User’s research keywords mapped to 30 predefined LDA topics.
-                           - Each advisor has a topic distribution profile learned from their publication data.
-                           - The similarity between the user’s topic vector and each advisor’s topic profile is computed.
-                           - Output: Top 3 advisors with the most similar topic distributions.
-                           
-                           Results are displayed in two tabs: one for Text Similarity and one for Topic Similarity, each showing advisors’ names, affiliations, and publication details. The recommendations aim to foster meaningful academic collaborations by aligning students with advisors whose research interests are most compatible.
+                           - Inputs: Research keywords selected by the user.
+                           - Each advisor's research profile is represented as a numerical count vector of publication keywords.
+                           - Cosine similarity is calculated between the user's keyword vector and each advisor's vector.
+                           - Output: A table titled "Top 3 recommended advisors based on Text Similarity of keywords" showing each advisor's Name, Keywords, Text Similarity score, Publications, and Affiliation.
+                           - Scores range from 0 to 1 (shown to four decimal places); values closer to 1 indicate stronger alignment with the user's exact keywords.
+
+                        2. **Topic Similarity Model (LDA + Cosine Similarity Hybrid):**
+                           - Inputs: User's selected research keywords, mapped against 30 topics learned by an LDA topic model.
+                           - Step 1: The single most relevant topic (highest probability) is selected for the user's keywords. The page displays the selected topic number and its top 10 topic words (e.g., "Selected Topic: 19. Keywords for selected topic: softwar, video, develop, ...").
+                           - Step 2: These topic words are used as an expanded query, and cosine similarity is computed between this topic-word query and each advisor's publication keyword count vector (same method as the Text Similarity Model).
+                           - Output: A table titled "Top 3 recommended advisors based on selected LDA Topic" showing Name, Keywords (LDA), Topic Similarity score, Publications, and Affiliation.
+                           - This approach recommends advisors based on the broader research theme of the user's keywords rather than the exact keywords, so it can surface advisors in the same topic area even if their terminology differs. Topic Similarity scores are therefore often lower than Text Similarity scores, since the query is the topic's words rather than the user's exact keywords.
+
+                        **Important display notes:**
+                        - Topic words are stemmed model terms, so some words look shortened (e.g., "softwar" for "software", "qualiti" for "quality", "engin" for "engineering"). These are not spelling errors.
+                        - Each advisor entry lists their research keywords, up to five representative publications, and one or more affiliations (advisors may be associated with multiple institutions).
+                        - The two result tables may recommend different advisors: the Text Similarity table reflects exact keyword overlap, while the Topic Similarity table reflects thematic overlap.
                         """
 
 def make_system_prompt(
