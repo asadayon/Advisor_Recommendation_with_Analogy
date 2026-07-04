@@ -2063,7 +2063,7 @@ You are now ready to answer the user’s questions about their recommended gradu
             )
          
             # ---------------- Table 1: Text (cosine) similarity ----------------
-            st.write("Top 3 recommended advisor based on Text Similarity of keywords:")
+            st.write("Top 3 recommended advisors based on Text Similarity of keywords:")
          
             df1_new = df1[["Ranking", "Name", "Keywords",
                            "Similarity Score", "Publication", "Affiliation"]].copy()
@@ -2079,7 +2079,8 @@ You are now ready to answer the user’s questions about their recommended gradu
          
             # ---------------- Table 2: LDA topic similarity ----------------
             msg = f"LDA generated 30 topics, and the top topic was selected. Selected Topic: {df3['Topic'].iloc[0]}. Keywords: {df3['Words'].iloc[0]}\n"
-            st.write("Top 3 recommended advisor based on LDA Topic Similarity of 30 topics:")
+            st.write(msg)
+            st.write("Top 3 recommended advisors based on selected LDA Topic:")
          
             df2_new = df2[["LDA_rank", "LDA_Name", "Keywords_LDA", "Score",
                            "Publication", "Affiliation"]].copy()
