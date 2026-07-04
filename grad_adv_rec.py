@@ -2078,6 +2078,7 @@ You are now ready to answer the user’s questions about their recommended gradu
             st.table(df1_new.set_index("Ranking"))
          
             # ---------------- Table 2: LDA topic similarity ----------------
+            msg = f"LDA generated 30 topics, and the top topic was selected. Selected Topic: {df3['Topic'].iloc[0]}. Keywords: {df3['Words'].iloc[0]}\n"
             st.write("Top 3 recommended advisor based on LDA Topic Similarity of 30 topics:")
          
             df2_new = df2[["LDA_rank", "LDA_Name", "Keywords_LDA", "Score",
