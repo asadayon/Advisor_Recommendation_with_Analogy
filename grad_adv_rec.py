@@ -2148,13 +2148,13 @@ You are now ready to answer the user’s questions about their recommended gradu
             st.write(
                     f"LDA generated 30 topics, and the most relevant topic was selected. "
                     f"Selected Topic: {topic_id}. "
-                    f"Processed topic keywords: {topic_words}"
+                    f"Keywords for selected topic: {topic_words}"
                 )
                 
             
                 
             st.caption(
-                    "These are stemmed model terms. Some words may look shortened, such as "
+                    "Note: Keywords are stemmed model terms. Some words may look shortened, such as "
                     "'softwar' for 'software' and 'qualiti' for 'quality'. They are not spelling errors."
                 )
         
