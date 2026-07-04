@@ -2146,9 +2146,16 @@ You are now ready to answer the user’s questions about their recommended gradu
                 topic_words = ", ".join(topic_words)
         
             st.write(
-                f"LDA generated 30 topics, and the top topic was selected. "
-                f"Selected Topic: {topic_id}. Keywords: {topic_words}"
-            )
+                    f"LDA generated 30 topics, and the most relevant topic was selected. "
+                    f"Selected Topic: {topic_id}."
+                )
+                
+            st.write(f"Processed topic keywords: {topic_words}")
+                
+            st.caption(
+                    "These are stemmed model terms. Some words may look shortened, such as "
+                    "'softwar' for 'software' and 'qualiti' for 'quality'. They are not spelling errors."
+                )
         
             st.write("Top 3 recommended advisors based on selected LDA Topic:")
         
