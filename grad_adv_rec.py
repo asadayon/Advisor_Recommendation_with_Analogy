@@ -2048,65 +2048,72 @@ You are now ready to answer the user’s questions about their recommended gradu
             df3 = pd.DataFrame(st.session_state["lda2"])
         
             st.markdown(
-                """
-                <style>
-                .rec-table {
-                    width: 100%;
-                    table-layout: fixed;
-                    border-collapse: collapse;
-                }
-        
-                .rec-table th,
-                .rec-table td {
-                    border: 1px solid #e6e6e6;
-                    padding: 8px 10px;
-                    vertical-align: top;
-                    white-space: normal !important;
-                    overflow-wrap: break-word;
-                    word-wrap: break-word;
-                    line-height: 1.55;
-                }
-        
-                .rec-table th {
-                    text-align: left;
-                    font-weight: 600;
-                }
-        
-                .rec-table td {
-                    text-align: justify;
-                    text-justify: inter-word;
-                }
-        
-                /* Column widths: Name | Keywords | Score | Publication | Affiliation */
-                .rec-table th:nth-child(1),
-                .rec-table td:nth-child(1) {
-                    width: 11%;
-                }
-        
-                .rec-table th:nth-child(2),
-                .rec-table td:nth-child(2) {
-                    width: 26%;
-                }
-        
-                .rec-table th:nth-child(3),
-                .rec-table td:nth-child(3) {
-                    width: 9%;
-                    text-align: center;
-                }
-        
-                .rec-table th:nth-child(4),
-                .rec-table td:nth-child(4) {
-                    width: 34%;
-                }
-        
-                .rec-table th:nth-child(5),
-                .rec-table td:nth-child(5) {
-                    width: 20%;
-                }
-                </style>
-                """,
-                unsafe_allow_html=True,
-            )
+                    """
+                    <style>
+                    .rec-table {
+                        width: 100%;
+                        table-layout: fixed;
+                        border-collapse: collapse;
+                    }
+                
+                    .rec-table th,
+                    .rec-table td {
+                        border: 1px solid #e6e6e6;
+                        padding: 8px 10px;
+                        vertical-align: top;
+                        white-space: normal !important;
+                        overflow-wrap: break-word;
+                        word-wrap: break-word;
+                        line-height: 1.55;
+                    }
+                
+                    /* Center all column headings */
+                    .rec-table th {
+                        text-align: center;
+                        font-weight: 600;
+                        vertical-align: middle;
+                    }
+                
+                    /* Justify table body text */
+                    .rec-table td {
+                        text-align: justify;
+                        text-justify: inter-word;
+                    }
+                
+                    /* Keep similarity score values centered */
+                    .rec-table td:nth-child(3) {
+                        text-align: center;
+                    }
+                
+                    /* Column widths: Name | Keywords | Score | Publication | Affiliation */
+                    .rec-table th:nth-child(1),
+                    .rec-table td:nth-child(1) {
+                        width: 11%;
+                    }
+                
+                    .rec-table th:nth-child(2),
+                    .rec-table td:nth-child(2) {
+                        width: 26%;
+                    }
+                
+                    .rec-table th:nth-child(3),
+                    .rec-table td:nth-child(3) {
+                        width: 9%;
+                    }
+                
+                    .rec-table th:nth-child(4),
+                    .rec-table td:nth-child(4) {
+                        width: 34%;
+                    }
+                
+                    .rec-table th:nth-child(5),
+                    .rec-table td:nth-child(5) {
+                        width: 20%;
+                    }
+                    </style>
+                    """,
+                    unsafe_allow_html=True,
+                )
         
             # ---------------- Table 1: Text similarity ----------------
             st.write("Top 3 recommended advisors based on Text Similarity of keywords:")
