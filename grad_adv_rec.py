@@ -2052,10 +2052,10 @@ You are now ready to answer the user’s questions about their recommended gradu
                 }
                 /* Column widths: Ranking | Name | Keywords | Score | Publication | Affiliation */
                 div[data-testid="stTable"] th:nth-child(1) { width: 10%;  }
-                div[data-testid="stTable"] th:nth-child(2) { width: 16%; }
+                div[data-testid="stTable"] th:nth-child(2) { width: 20%; }
                 div[data-testid="stTable"] th:nth-child(3) { width: 8%; }
                 div[data-testid="stTable"] th:nth-child(4) { width: 32%;  }
-                div[data-testid="stTable"] th:nth-child(5) { width: 28%; }
+                div[data-testid="stTable"] th:nth-child(5) { width: 24%; }
                 div[data-testid="stTable"] th:nth-child(6) { width: 1%; }
                 </style>
                 """,
