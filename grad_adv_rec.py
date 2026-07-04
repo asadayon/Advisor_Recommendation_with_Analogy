@@ -2030,9 +2030,9 @@ You are now ready to answer the user’s questions about their recommended gradu
             df1 = pd.DataFrame(st.session_state["cosine"])
             df2 = pd.DataFrame(st.session_state["lda1"])
             df3 = pd.DataFrame(st.session_state["lda2"])
-        
-            # One-time CSS: force wrapping, top-align cells, proportional column
-            # widths, and remove the hanging indent Markdown gives numbered lists.
+         
+            # One-time CSS: force wrapping, top-align cells, and give the wide
+            # text columns proportional widths so no column is squeezed too thin.
             st.markdown(
                 """
                 <style>
@@ -2050,58 +2050,38 @@ You are now ready to answer the user’s questions about their recommended gradu
                     text-align: left;
                     padding: 6px 10px;
                 }
-                /* FIX: "1. ..." in Publication is rendered as a Markdown ordered
-                   list, which adds a hanging indent on wrapped lines. Flatten it
-                   so every line starts flush at the cell edge. */
-                div[data-testid="stTable"] td ol,
-                div[data-testid="stTable"] td ul {
-                    margin: 0;
-                    padding-left: 0;
-                    list-style-position: inside;  /* number sits inline with text */
-                }
-                div[data-testid="stTable"] td li {
-                    margin: 0;
-                    padding: 0;
-                }
                 /* Column widths: Ranking | Name | Keywords | Score | Publication | Affiliation */
-                div[data-testid="stTable"] th:nth-child(1) { width: 10%; }
+                div[data-testid="stTable"] th:nth-child(1) { width: 10%;  }
                 div[data-testid="stTable"] th:nth-child(2) { width: 24%; }
-                div[data-testid="stTable"] th:nth-child(3) { width: 8%;  }
-                div[data-testid="stTable"] th:nth-child(4) { width: 32%; }
+                div[data-testid="stTable"] th:nth-child(3) { width: 8%; }
+                div[data-testid="stTable"] th:nth-child(4) { width: 32%;  }
                 div[data-testid="stTable"] th:nth-child(5) { width: 20%; }
-                div[data-testid="stTable"] th:nth-child(6) { width: 6%;  }
+                div[data-testid="stTable"] th:nth-child(6) { width: 1%; }
                 </style>
                 """,
                 unsafe_allow_html=True,
             )
-        
-            # Helper: put each numbered publication on its own line so the cell
-            # reads as a clean list ("..., 2. Title" -> newline + "2. Title").
-            def split_publications(series):
-                return series.astype(str).str.replace(
-                    r",\s*(\d+\.)", r"\n\1", regex=True
-                )
-        
+         
             # ---------------- Table 1: Text (cosine) similarity ----------------
             st.write("Top 3 recommended advisor based on Text Similarity of keywords:")
-        
+         
             df1_new = df1[["Ranking", "Name", "Keywords",
                            "Similarity Score", "Publication", "Affiliation"]].copy()
             df1_new["Similarity Score"] = df1_new["Similarity Score"].map(
                 lambda x: f"{x:.4f}"
             )
-            df1_new["Publication"] = split_publications(df1_new["Publication"])
-            df1_new = df1_new.rename(columns={"Similarity Score": "Cosine Similarity"})
+            df1_new = df1_new.rename(
+                columns={
+                         "Similarity Score": "Cosine Similarity"}
+            )
             # hide the pandas index so the table matches the old hide_index=True look
             st.table(df1_new.set_index("Ranking"))
-        
+         
             # ---------------- Table 2: LDA topic similarity ----------------
             st.write("Top 3 recommended advisor based on LDA Topic Similarity of 30 topics:")
-        
+         
             df2_new = df2[["LDA_rank", "LDA_Name", "Keywords_LDA", "Score",
                            "Publication", "Affiliation"]].copy()
-            df2_new["Score"] = df2_new["Score"].map(lambda x: f"{x:.4f}")
-            df2_new["Publication"] = split_publications(df2_new["Publication"])
             df2_new = df2_new.rename(
                 columns={"LDA_rank": "Ranking",
                          "LDA_Name": "Name",
