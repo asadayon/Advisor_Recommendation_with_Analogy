@@ -885,6 +885,19 @@ def make_system_prompt(
 
     return prompt.strip()
 
+def clean_text(x):
+    """Remove unwanted line breaks/extra spaces but keep the text content."""
+    if pd.isna(x):
+        return ""
+    return re.sub(r"\s+", " ", str(x)).strip()
+
+def render_rec_table(df):
+    return df.to_html(
+        index=False,
+        escape=True,
+        classes="rec-table"
+    )
+
 def make_quiz_system_prompt(
     question,
     options,
@@ -2032,67 +2045,128 @@ You are now ready to answer the user’s questions about their recommended gradu
             df1 = pd.DataFrame(st.session_state["cosine"])
             df2 = pd.DataFrame(st.session_state["lda1"])
             df3 = pd.DataFrame(st.session_state["lda2"])
-         
-            # One-time CSS: force wrapping, top-align cells, and give the wide
-            # text columns proportional widths so no column is squeezed too thin.
+        
             st.markdown(
                 """
                 <style>
-                /* Applies to st.table (static HTML tables) */
-                div[data-testid="stTable"] table {
+                .rec-table {
                     width: 100%;
-                    table-layout: fixed;          /* respect our column widths */
+                    table-layout: fixed;
+                    border-collapse: collapse;
                 }
-                div[data-testid="stTable"] th,
-                div[data-testid="stTable"] td {
-                    white-space: normal !important;   /* allow wrapping */
-                    word-wrap: break-word;
-                    overflow-wrap: break-word;
+        
+                .rec-table th,
+                .rec-table td {
+                    border: 1px solid #e6e6e6;
+                    padding: 8px 10px;
                     vertical-align: top;
-                    text-align: left;
-                    padding: 6px 10px;
+                    white-space: normal !important;
+                    overflow-wrap: break-word;
+                    word-wrap: break-word;
+                    line-height: 1.55;
                 }
-                /* Column widths: Ranking | Name | Keywords | Score | Publication | Affiliation */
-                div[data-testid="stTable"] th:nth-child(1) { width: 10%;  }
-                div[data-testid="stTable"] th:nth-child(2) { width: 24%; }
-                div[data-testid="stTable"] th:nth-child(3) { width: 8%; }
-                div[data-testid="stTable"] th:nth-child(4) { width: 32%;  }
-                div[data-testid="stTable"] th:nth-child(5) { width: 20%; }
-                div[data-testid="stTable"] th:nth-child(6) { width: 1%; }
+        
+                .rec-table th {
+                    text-align: left;
+                    font-weight: 600;
+                }
+        
+                .rec-table td {
+                    text-align: justify;
+                    text-justify: inter-word;
+                }
+        
+                /* Column widths: Name | Keywords | Score | Publication | Affiliation */
+                .rec-table th:nth-child(1),
+                .rec-table td:nth-child(1) {
+                    width: 11%;
+                }
+        
+                .rec-table th:nth-child(2),
+                .rec-table td:nth-child(2) {
+                    width: 26%;
+                }
+        
+                .rec-table th:nth-child(3),
+                .rec-table td:nth-child(3) {
+                    width: 9%;
+                    text-align: center;
+                }
+        
+                .rec-table th:nth-child(4),
+                .rec-table td:nth-child(4) {
+                    width: 34%;
+                }
+        
+                .rec-table th:nth-child(5),
+                .rec-table td:nth-child(5) {
+                    width: 20%;
+                }
                 </style>
                 """,
                 unsafe_allow_html=True,
             )
-         
-            # ---------------- Table 1: Text (cosine) similarity ----------------
+        
+            # ---------------- Table 1: Text similarity ----------------
             st.write("Top 3 recommended advisors based on Text Similarity of keywords:")
-         
-            df1_new = df1[["Ranking", "Name", "Keywords",
-                           "Similarity Score", "Publication", "Affiliation"]].copy()
+        
+            df1_new = df1[
+                ["Name", "Keywords", "Similarity Score", "Publication", "Affiliation"]
+            ].copy()
+        
             df1_new["Similarity Score"] = df1_new["Similarity Score"].map(
                 lambda x: f"{x:.4f}"
             )
+        
             df1_new = df1_new.rename(
-                columns={
-                         "Similarity Score": "Text Similarity"}
+                columns={"Similarity Score": "Text Similarity"}
             )
-            # hide the pandas index so the table matches the old hide_index=True look
-            st.table(df1_new.set_index("Ranking"))
-         
+        
+            for col in ["Name", "Keywords", "Publication", "Affiliation"]:
+                df1_new[col] = df1_new[col].map(clean_text)
+        
+            st.markdown(
+                render_rec_table(df1_new),
+                unsafe_allow_html=True
+            )
+        
             # ---------------- Table 2: LDA topic similarity ----------------
-            msg = f"LDA generated 30 topics, and the top topic was selected. Selected Topic: {df3['Topic'].iloc[0]}. Keywords: {df3['Words'].iloc[0]}\n"
-            st.write(msg)
-            st.write("Top 3 recommended advisors based on selected LDA Topic:")
-         
-            df2_new = df2[["LDA_rank", "LDA_Name", "Keywords_LDA", "Score",
-                           "Publication", "Affiliation"]].copy()
-            df2_new = df2_new.rename(
-                columns={"LDA_rank": "Ranking",
-                         "LDA_Name": "Name",
-                         "Keywords_LDA": "Keywords (LDA)",
-                         "Score": "Topic Similarity"}
+            topic_id = df3["Topic"].iloc[0]
+            topic_words = df3["Words"].iloc[0]
+        
+            if isinstance(topic_words, list):
+                topic_words = ", ".join(topic_words)
+        
+            st.write(
+                f"LDA generated 30 topics, and the top topic was selected. "
+                f"Selected Topic: {topic_id}. Keywords: {topic_words}"
             )
-            st.table(df2_new.set_index("Ranking"))
+        
+            st.write("Top 3 recommended advisors based on selected LDA Topic:")
+        
+            df2_new = df2[
+                ["LDA_Name", "Keywords_LDA", "Score", "Publication", "Affiliation"]
+            ].copy()
+        
+            df2_new = df2_new.rename(
+                columns={
+                    "LDA_Name": "Name",
+                    "Keywords_LDA": "Keywords (LDA)",
+                    "Score": "Topic Similarity"
+                }
+            )
+        
+            df2_new["Topic Similarity"] = df2_new["Topic Similarity"].map(
+                lambda x: f"{x:.4f}"
+            )
+        
+            for col in ["Name", "Keywords (LDA)", "Publication", "Affiliation"]:
+                df2_new[col] = df2_new[col].map(clean_text)
+        
+            st.markdown(
+                render_rec_table(df2_new),
+                unsafe_allow_html=True
+            )
 
             if st.session_state.page == "v5":
                         st.markdown("---")
