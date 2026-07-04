@@ -2088,7 +2088,7 @@ You are now ready to answer the user’s questions about their recommended gradu
                     /* Column widths: Name | Keywords | Score | Publication | Affiliation */
                     .rec-table th:nth-child(1),
                     .rec-table td:nth-child(1) {
-                        width: 11%;
+                        width: 9%;
                     }
                 
                     .rec-table th:nth-child(2),
@@ -2098,7 +2098,7 @@ You are now ready to answer the user’s questions about their recommended gradu
                 
                     .rec-table th:nth-child(3),
                     .rec-table td:nth-child(3) {
-                        width: 9%;
+                        width: 7%;
                     }
                 
                     .rec-table th:nth-child(4),
@@ -2108,7 +2108,7 @@ You are now ready to answer the user’s questions about their recommended gradu
                 
                     .rec-table th:nth-child(5),
                     .rec-table td:nth-child(5) {
-                        width: 20%;
+                        width: 24%;
                     }
                     </style>
                     """,
