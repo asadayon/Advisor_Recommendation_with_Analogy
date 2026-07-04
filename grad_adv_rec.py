@@ -1945,7 +1945,7 @@ elif st.session_state.page == "v1" or st.session_state.page == "v2" or st.sessio
                             msg="\nTop 3 recommended advisor list based on LDA Topic modeling:\n"
                             for i in range(len(lda1['LDA_rank'])):
                                 msg+=str(i+1)+'. name: '+ lda1['LDA_Name'][i]
-                                msg+='. Similarity score: '+str(lda1['Score'][i])
+                                msg+='. Topic Similarity score: '+str(lda1['Score'][i])
                                 msg+='. Keywords: '+lda1['Keywords_LDA'][i]+'\n'
                                 msg+='. Publication: '+lda1['Publication'][i]+'\n'
                                 msg+='. Affiliation: '+lda1['Affiliation'][i]+'\n'
@@ -2070,18 +2070,23 @@ You are now ready to answer the user’s questions about their recommended gradu
             df1_new["Similarity Score"] = df1_new["Similarity Score"].map(
                 lambda x: f"{x:.4f}"
             )
+            df1_new = df1_new.rename(
+                columns={
+                         "Similarity Score": "Cosine Similarity"}
+            )
             # hide the pandas index so the table matches the old hide_index=True look
             st.table(df1_new.set_index("Ranking"))
          
             # ---------------- Table 2: LDA topic similarity ----------------
             st.write("Top 3 recommended advisor based on LDA Topic Similarity of 30 topics:")
          
-            df2_new = df2[["LDA_rank", "LDA_Name", "Keywords_LDA",
+            df2_new = df2[["LDA_rank", "LDA_Name", "Keywords_LDA", "Score",
                            "Publication", "Affiliation"]].copy()
             df2_new = df2_new.rename(
                 columns={"LDA_rank": "Ranking",
                          "LDA_Name": "Name",
-                         "Keywords_LDA": "Keywords (LDA)"}
+                         "Keywords_LDA": "Keywords (LDA)",
+                         "Score": "Topic Similarity"}
             )
             st.table(df2_new.set_index("Ranking"))
 
