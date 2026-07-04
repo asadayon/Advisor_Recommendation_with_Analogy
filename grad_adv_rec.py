@@ -1426,48 +1426,51 @@ def load_dict(filename):
         return json.load(file)
 
 def LDA(keywords):
-    rank, top, topic_words, topic_prob = [], [], [], []
-    names, sim, kw, publication, affiliation = [], [], [], [], []
-    from sklearn.metrics.pairwise import cosine_similarity as cosim
+    rank, names, sim, kw, publication, affiliation = [], [], [], [], [], []
+    top, topic_words, topic_prob = [], [], []
 
-    # Preprocess user keywords
+    # ---- Step 1: Preprocess user keywords ----
     new_doc = porter_stemmer(tokenize(keywords))
     new_doc_text = " ".join(new_doc)
     new_doc_vector = vectorizer.transform([new_doc_text])
 
-    # Topic distribution
+    # ---- Step 2: Get the best (top-1) topic ----
     topic_distribution = lda_model.transform(new_doc_vector)[0]
-    top3_indices = topic_distribution.argsort()[-3:][::-1]
-    # Similarity with existing documents
-    new_topic_matrix = lda_model.transform(new_doc_vector)
-    similarities = cosim(new_topic_matrix, doc_topic_matrix)[0]
-    sorted_sims = similarities.argsort()[-3:][::-1]
+    best_topic = topic_distribution.argmax()
+    prob = topic_distribution[best_topic]
+    print(f"Best Topic {best_topic} with probability {prob:.4f}")
 
+    # ---- Step 3: Get top words of the best topic ----
+    topic_terms = lda_model.components_[best_topic]
+    top_words_idx = topic_terms.argsort()[-10:][::-1]
+    words = [vectorizer.get_feature_names_out()[i] for i in top_words_idx]
+    print(f"Top words for topic {best_topic}: {', '.join(words)}")
 
+    top.append(best_topic)
+    topic_words.append(words)
+    topic_prob.append(prob)
 
-    for topic in top3_indices:
-        prob = topic_distribution[topic]
-        print(f"Topic {topic} with probability {prob:.4f}")
-        topic_terms = lda_model.components_[topic]
-        top_words_idx = topic_terms.argsort()[-10:][::-1]
-        words = [vectorizer.get_feature_names_out()[i] for i in top_words_idx]
-        print(f"Top words for topic {topic}: {', '.join(words)}")
-        top.append(topic)
-        topic_words.append(words)
-        topic_prob.append(prob)
+    # ---- Step 4: Use topic words as a query document for cosine similarity ----
+    topic_doc = " ".join(words)
+    user_score, rec_adv = top_similar_doc_cosine(count_vector, topic_doc, 3)
 
-
-
-    for count, doc_position in enumerate(sorted_sims, 1):
-        score = similarities[doc_position]
-        print(f"Document id: {doc_position}, name: {data['n'][doc_position]} with similarity score: {score:.4f}")
+    # ---- Step 5: Build top-3 advisor results (same as cosine_recommender) ----
+    count = 1
+    for i in rec_adv:
         rank.append(count)
-        names.append(data['n'][doc_position])
-        publication.append(data['paper_list'][doc_position])
-        affiliation.append(data['affiliation'][doc_position])
-        a = data['t'][doc_position].replace(";", " ")
-        kw.append(a)
-        sim.append(score)
+        names.append(i)
+        sim.append(user_score[i])
+        publication.append(data[data['n'] == i]['paper_list'].values[0])
+        affiliation.append(data[data['n'] == i]['affiliation'].values[0])
+
+        a = data[data['n'] == i]['t']
+        k = ""
+        for j in a:
+            k = " ".join(tokenize(j))
+        kw.append(k)
+
+        print(f"Rank {count}: {i} with similarity score {user_score[i]:.4f}")
+        count += 1
 
     df1 = {
         'LDA_rank': rank,
@@ -1477,14 +1480,13 @@ def LDA(keywords):
         'Publication': publication,
         'Affiliation': affiliation
     }
-
     df2 = {
         'Topic': top,
         'Words': topic_words,
         'Probability': topic_prob
     }
-
     return df1, df2
+    
 def reset_version_state():
                 # Clear any previous version state 
                 st.session_state.prediction_ready = False
