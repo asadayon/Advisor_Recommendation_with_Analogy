@@ -2147,10 +2147,11 @@ You are now ready to answer the user’s questions about their recommended gradu
         
             st.write(
                     f"LDA generated 30 topics, and the most relevant topic was selected. "
-                    f"Selected Topic: {topic_id}."
+                    f"Selected Topic: {topic_id}. "
+                    f"Processed topic keywords: {topic_words}"
                 )
                 
-            st.write(f"Processed topic keywords: {topic_words}")
+            
                 
             st.caption(
                     "These are stemmed model terms. Some words may look shortened, such as "
