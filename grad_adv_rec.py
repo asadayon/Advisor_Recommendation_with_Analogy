@@ -1766,76 +1766,499 @@ keyword_examples = (
     )
 
 
+JSON_FILE = (
+    Path(__file__).resolve().parent
+    / "program_topics_with_descriptions.json"
+)
+
+
+@st.cache_data
+def load_program_topic_data(file_path: str) -> dict:
+    """Load and return the program-topic JSON data."""
+    with open(file_path, "r", encoding="utf-8") as file:
+        return json.load(file)
+
+
+try:
+    program_topic_data = load_program_topic_data(str(JSON_FILE))
+except FileNotFoundError:
+    st.error(
+        f"JSON file was not found:\n\n{JSON_FILE}\n\n"
+        "Place the JSON file in the same folder as this Streamlit script."
+    )
+    st.stop()
+except json.JSONDecodeError as error:
+    st.error(f"The JSON file is not valid: {error}")
+    st.stop()
+
+
+# ============================================================
+# Initialize session-state variables
+# ============================================================
+
+SESSION_DEFAULTS = {
+    "page": "home",
+    "user_name": "",
+    "field_of_study": "",
+
+    # Complete structured background information
+    "background_profile": {},
+
+    # Cosine-selection values
+    "cosine_topic": "",
+    "cosine_subtopics": [],
+    "cosine_description": "",
+    "cosine_analogy": "",
+
+    # LDA-selection values
+    "lda_topic": "",
+    "lda_subtopics": [],
+    "lda_description": "",
+    "lda_analogy": "",
+
+    # Existing variables retained for backward compatibility
+    "specific_topics": "",
+    "background_keywords": "",
+}
+
+
+for key, default_value in SESSION_DEFAULTS.items():
+    if key not in st.session_state:
+        st.session_state[key] = default_value
+
+
+# ============================================================
+# Helper functions
+# ============================================================
+
+def parse_custom_items(raw_text: str) -> list[str]:
+    """
+    Convert comma-, semicolon-, or line-separated text into a list.
+
+    Duplicate entries are removed while preserving their original order.
+    """
+    items = [
+        item.strip()
+        for item in re.split(r"[,;\n]+", raw_text or "")
+        if item.strip()
+    ]
+
+    return list(dict.fromkeys(items))
+
+
+def empty_topic_selection() -> dict:
+    """Return an empty model-topic selection."""
+    return {
+        "topic": "",
+        "subtopics": [],
+        "description": "",
+        "analogy": "",
+        "source": "",
+    }
+
+
+def render_topic_selection(
+    method_key: str,
+    section_title: str,
+    program_data: dict,
+    program_widget_key: str,
+) -> dict:
+    """
+    Render the topic and subtopic interface for cosine or LDA.
+
+    Parameters
+    ----------
+    method_key:
+        Must match the JSON key: "cosine" or "LDA".
+
+    section_title:
+        User-facing section title.
+
+    program_data:
+        The second-level data for the selected program.
+
+    program_widget_key:
+        Used to create unique Streamlit widget keys.
+    """
+
+    st.markdown(f"#### {section_title}")
+
+    available_topics = program_data.get(method_key, {})
+    topic_names = list(available_topics.keys())
+
+    # A predefined program will have two topics.
+    if topic_names:
+        selected_topic_option = st.selectbox(
+            f"Choose a topic for {section_title}:",
+            options=[""] + topic_names + ["Other"],
+            format_func=lambda value: (
+                "Choose an option" if value == "" else value
+            ),
+            key=f"{method_key}_topic_{program_widget_key}",
+        )
+
+    # A custom program has no predefined topics in the JSON.
+    else:
+        selected_topic_option = "Other"
+
+        st.caption(
+            "No predefined topics are available for this program. "
+            "Please enter your own topic."
+        )
+
+    if selected_topic_option == "":
+        return empty_topic_selection()
+
+    # ========================================================
+    # Custom topic
+    # ========================================================
+
+    if selected_topic_option == "Other":
+        custom_topic = st.text_input(
+            f"Enter another topic for {section_title}:",
+            placeholder="Example: Educational leadership",
+            key=f"{method_key}_custom_topic_{program_widget_key}",
+        ).strip()
+
+        custom_description = st.text_area(
+            f"Briefly describe this {section_title} topic:",
+            placeholder=(
+                "Describe the topic in a few sentences. Include the "
+                "main ideas that someone unfamiliar with the topic "
+                "would need to understand."
+            ),
+            height=90,
+            key=f"{method_key}_custom_description_{program_widget_key}",
+        ).strip()
+
+        custom_subtopic_text = st.text_area(
+            f"Enter 3–5 subtopics or concepts for {section_title}:",
+            placeholder=(
+                "Separate the entries using commas, semicolons, or new lines.\n"
+                "Example: leadership styles, decision-making, school policy"
+            ),
+            height=90,
+            key=f"{method_key}_custom_subtopics_{program_widget_key}",
+        )
+
+        custom_subtopics = parse_custom_items(custom_subtopic_text)
+
+        return {
+            "topic": custom_topic,
+            "subtopics": custom_subtopics,
+            "description": custom_description,
+
+            # A custom topic does not have a predefined JSON analogy.
+            # The system can generate one later if needed.
+            "analogy": "",
+            "source": "custom",
+        }
+
+    # ========================================================
+    # Predefined topic from JSON
+    # ========================================================
+
+    topic_details = available_topics[selected_topic_option]
+
+    predefined_subtopics = topic_details.get("subtopics", [])
+    topic_description = topic_details.get("description", "")
+    topic_analogy = topic_details.get("analogy", "")
+
+    # Show the description to help the participant understand
+    # what the selected topic means.
+    st.info(topic_description)
+
+    selected_subtopic_options = st.multiselect(
+        "Select 3–5 subtopics or concepts that you understand well:",
+        options=predefined_subtopics + ["Other"],
+        key=(
+            f"{method_key}_subtopics_"
+            f"{program_widget_key}_{selected_topic_option}"
+        ),
+    )
+
+    custom_subtopics = []
+
+    if "Other" in selected_subtopic_options:
+        custom_subtopic_text = st.text_input(
+            "Enter other subtopic(s):",
+            placeholder=(
+                "Separate multiple subtopics using commas, "
+                "semicolons, or new lines"
+            ),
+            key=(
+                f"{method_key}_other_subtopics_"
+                f"{program_widget_key}_{selected_topic_option}"
+            ),
+        )
+
+        custom_subtopics = parse_custom_items(custom_subtopic_text)
+
+    selected_subtopics = [
+        subtopic
+        for subtopic in selected_subtopic_options
+        if subtopic != "Other"
+    ]
+
+    selected_subtopics.extend(custom_subtopics)
+
+    # Remove duplicates while preserving order.
+    selected_subtopics = list(dict.fromkeys(selected_subtopics))
+
+    return {
+        "topic": selected_topic_option,
+        "subtopics": selected_subtopics,
+        "description": topic_description,
+
+        # Save the analogy for the later explanation page.
+        # It is intentionally not displayed during onboarding.
+        "analogy": topic_analogy,
+        "source": "predefined",
+    }
+
+
+# ============================================================
+# Home/onboarding page
+# ============================================================
+
 if st.session_state.page == "home":
+
     st.title("Grad Student Advisor Recommender System")
+
     if st.session_state.user_name == "":
-        st.markdown("### Please enter your information to get started:")
 
-        # 1) Name input
-        st.text_input(
-                "Your name:",
-                value=st.session_state.user_name,
-                placeholder="Type your name here",
-                key="user_name_input"
-            )
-        # 2) Current or most recent field of study
-        selected_field = st.selectbox(
-                "What is your current or most recent field of study?",
-                options=field_options,
-                index=0,
-                help="Select the closest option. Choose 'Other' if your field is not listed."
-            )
-        
-        if selected_field == "Other":
-                custom_field = st.text_input(
-                    "Please type your field of study:",
-                    placeholder="Example: Sociology, Education, Psychology, Business"
-                )
+        st.markdown(
+            "### Please enter your information to get started:"
+        )
+
+        # ----------------------------------------------------
+        # 1. Participant name
+        # ----------------------------------------------------
+
+        name_input = st.text_input(
+            "Your name:",
+            placeholder="Type your name here",
+            key="user_name_input",
+        )
+
+        # ----------------------------------------------------
+        # 2. Program selection
+        # ----------------------------------------------------
+
+        program_names = list(program_topic_data.keys())
+
+        selected_program_option = st.selectbox(
+            "What is your current or most recent program of study?",
+            options=[""] + program_names + ["Other"],
+            format_func=lambda value: (
+                "Choose an option" if value == "" else value
+            ),
+            help=(
+                "Select the closest program. Choose 'Other' if your "
+                "program is not included."
+            ),
+            key="program_option",
+        )
+
+        if selected_program_option == "Other":
+
+            selected_program = st.text_input(
+                "Enter your program of study:",
+                placeholder="Example: Sociology, Education, or Business",
+                key="custom_program",
+            ).strip()
+
+            # There are no predefined topics for a custom program.
+            selected_program_data = {}
+
+        elif selected_program_option:
+
+            selected_program = selected_program_option
+
+            selected_program_data = program_topic_data[
+                selected_program_option
+            ]
+
         else:
-                custom_field = selected_field
-        
-        # 3) Specific topics or subfields
-        specific_topics = st.text_area(
-                "What specific topics or subfields are you most familiar with?",
-                placeholder=topic_examples,
-                height=100
-            )
-        
-        # 4) Concepts or keywords
-        background_keywords = st.text_area(
-                "List 3–5 concepts or keywords from that topic that you understand well.",
-                placeholder=keyword_examples,
-                height=100
-            )
-        
-        # Submit button
-        if st.button("Start"):
-                name = st.session_state.user_name_input.strip()
-                field = custom_field.strip()
-                topics = specific_topics.strip()
-                keywords = background_keywords.strip()
-        
-                if name == "":
-                    st.warning("Please enter at least one character for your name.")
-        
-                elif field == "":
-                    st.warning("Please select or enter your field of study.")
-        
-                elif topics == "":
-                    st.warning("Please enter at least one specific topic or subfield.")
-        
-                elif keywords == "":
-                    st.warning("Please enter 3–5 concepts or keywords.")
-        
-                else:
-                    st.session_state.user_name = name
-                    st.session_state.field_of_study = field
-                    st.session_state.specific_topics = topics
-                    st.session_state.background_keywords = keywords
-        
-                    st.success(f"Hello, {st.session_state.user_name}!")
-                    st.rerun()    
+            selected_program = ""
+            selected_program_data = {}
 
+        cosine_selection = empty_topic_selection()
+        lda_selection = empty_topic_selection()
+
+        # ----------------------------------------------------
+        # 3. Show topics after a program has been selected
+        # ----------------------------------------------------
+
+        if selected_program_option:
+
+            st.divider()
+
+            cosine_selection = render_topic_selection(
+                method_key="cosine",
+                section_title="Cosine Similarity",
+                program_data=selected_program_data,
+                program_widget_key=selected_program_option,
+            )
+
+            st.divider()
+
+            lda_selection = render_topic_selection(
+                method_key="LDA",
+                section_title="LDA Topic Modeling",
+                program_data=selected_program_data,
+                program_widget_key=selected_program_option,
+            )
+
+        # ----------------------------------------------------
+        # 4. Validate and store the information
+        # ----------------------------------------------------
+
+        if st.button("Start", type="primary"):
+
+            validation_errors = []
+
+            participant_name = name_input.strip()
+
+            if not participant_name:
+                validation_errors.append(
+                    "Please enter your name."
+                )
+
+            if not selected_program:
+                validation_errors.append(
+                    "Please select or enter your program of study."
+                )
+
+            selections_to_validate = [
+                ("Cosine Similarity", cosine_selection),
+                ("LDA Topic Modeling", lda_selection),
+            ]
+
+            for method_label, selection in selections_to_validate:
+
+                if not selection["topic"]:
+                    validation_errors.append(
+                        f"Please select or enter a topic for "
+                        f"{method_label}."
+                    )
+
+                number_of_subtopics = len(selection["subtopics"])
+
+                if number_of_subtopics < 3:
+                    validation_errors.append(
+                        f"Please select or enter at least three "
+                        f"subtopics for {method_label}."
+                    )
+
+                elif number_of_subtopics > 5:
+                    validation_errors.append(
+                        f"Please use no more than five subtopics "
+                        f"for {method_label}."
+                    )
+
+            # Display all validation problems.
+            if validation_errors:
+
+                for error_message in validation_errors:
+                    st.warning(error_message)
+
+            else:
+
+                # --------------------------------------------
+                # Main structured session-state object
+                # --------------------------------------------
+
+                background_profile = {
+                    "program": selected_program,
+                    "cosine": {
+                        "topic": cosine_selection["topic"],
+                        "subtopics": cosine_selection["subtopics"],
+                        "description": cosine_selection["description"],
+                        "analogy": cosine_selection["analogy"],
+                        "source": cosine_selection["source"],
+                    },
+                    "LDA": {
+                        "topic": lda_selection["topic"],
+                        "subtopics": lda_selection["subtopics"],
+                        "description": lda_selection["description"],
+                        "analogy": lda_selection["analogy"],
+                        "source": lda_selection["source"],
+                    },
+                }
+
+                st.session_state.user_name = participant_name
+                st.session_state.field_of_study = selected_program
+
+                st.session_state.background_profile = (
+                    background_profile
+                )
+
+                # --------------------------------------------
+                # Individual Cosine session values
+                # --------------------------------------------
+
+                st.session_state.cosine_topic = (
+                    cosine_selection["topic"]
+                )
+
+                st.session_state.cosine_subtopics = (
+                    cosine_selection["subtopics"]
+                )
+
+                st.session_state.cosine_description = (
+                    cosine_selection["description"]
+                )
+
+                st.session_state.cosine_analogy = (
+                    cosine_selection["analogy"]
+                )
+
+                # --------------------------------------------
+                # Individual LDA session values
+                # --------------------------------------------
+
+                st.session_state.lda_topic = (
+                    lda_selection["topic"]
+                )
+
+                st.session_state.lda_subtopics = (
+                    lda_selection["subtopics"]
+                )
+
+                st.session_state.lda_description = (
+                    lda_selection["description"]
+                )
+
+                st.session_state.lda_analogy = (
+                    lda_selection["analogy"]
+                )
+
+                # --------------------------------------------
+                # Backward compatibility with old variables
+                # --------------------------------------------
+
+                st.session_state.specific_topics = (
+                    f"Cosine: {cosine_selection['topic']}; "
+                    f"LDA: {lda_selection['topic']}"
+                )
+
+                combined_subtopics = list(
+                    dict.fromkeys(
+                        cosine_selection["subtopics"]
+                        + lda_selection["subtopics"]
+                    )
+                )
+
+                st.session_state.background_keywords = ", ".join(
+                    combined_subtopics
+                )
+
+                st.success(
+                    f"Hello, {st.session_state.user_name}!"
+                )
+
+                st.rerun()
   
     
     if not st.session_state.scenarios_loaded:            
