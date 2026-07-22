@@ -1,0 +1,502 @@
+{
+  "Accounting": {
+    "cosine": {
+      "Auditing and Evidence Matching": {
+        "subtopics": [
+          "Financial records",
+          "Audit criteria",
+          "Supporting evidence",
+          "Account comparison",
+          "Audit conclusions"
+        ],
+        "description": "This topic explains how auditing uses financial records and audit criteria to determine whether reported information is accurate and reliable. Auditors collect supporting evidence, compare related accounts, investigate inconsistencies, and use the results to form an audit conclusion.",
+        "analogy": "Advisor recommendation using cosine similarity is like auditing and evidence matching. The student's research interests serve as the audit criteria, while each advisor's publications and research descriptions serve as financial records containing supporting evidence. The system performs an account comparison by comparing the student's keywords with the advisor's keywords. When the two profiles contain strongly aligned evidence, cosine similarity produces a higher score, supporting the audit conclusion that the advisor is a suitable match."
+      },
+      "Budget Alignment and Variance Analysis": {
+        "subtopics": [
+          "Budget categories",
+          "Planned expenditures",
+          "Actual expenditures",
+          "Budget priorities",
+          "Variance analysis"
+        ],
+        "description": "This topic explains how organizations organize spending into budget categories and compare planned expenditures with actual expenditures. Budget priorities show where resources were intended to go, while variance analysis identifies and explains differences between the original plan and the final spending.",
+        "analogy": "Advisor recommendation using cosine similarity is like budget alignment and variance analysis. The student's research interests represent budget categories and planned expenditures, while the advisor's areas of expertise represent actual expenditures. The importance assigned to different research interests reflects budget priorities. Cosine similarity measures how closely the planned and actual allocations align, while differences between them resemble budget variances. A smaller variance and stronger alignment indicate a more suitable advisor."
+      }
+    },
+    "LDA": {
+      "Financial Reporting": {
+        "subtopics": [
+          "Income statements",
+          "Balance sheets",
+          "Cash-flow statements",
+          "Revenue and expenses",
+          "Assets and liabilities"
+        ],
+        "description": "This topic introduces the main reports used to describe an organization's financial condition and performance. Income statements summarize revenue and expenses, balance sheets report assets and liabilities, and cash-flow statements explain how money enters and leaves the organization.",
+        "analogy": "LDA topic modeling is like analyzing financial reporting documents. The model examines words across income statements, balance sheets, and cash-flow statements and identifies groups of terms that frequently appear together. For example, revenue, expenses, and profit may form an income-statement topic, while assets, liabilities, and equity may form a balance-sheet topic. The discovered topics summarize the main accounting themes in the documents."
+      },
+      "Taxation": {
+        "subtopics": [
+          "Individual income tax",
+          "Corporate taxation",
+          "Tax deductions",
+          "Tax compliance",
+          "Tax planning"
+        ],
+        "description": "This topic explains how individuals and businesses manage their tax responsibilities. It covers individual income tax, corporate taxation, available tax deductions, the rules involved in tax compliance, and tax-planning decisions that can reduce future tax burdens legally.",
+        "analogy": "LDA topic modeling is like organizing taxation documents into underlying tax themes. Words such as wages, income, credits, and tax deductions may form an individual income tax topic, while profits, corporations, business expenses, and liabilities may form a corporate taxation topic. Terms such as filing, regulations, reporting, and penalties may form a tax compliance topic, while deductions, strategies, and future liabilities may form a tax-planning topic."
+      }
+    }
+  },
+  "Finance": {
+    "cosine": {
+      "Investment Selection": {
+        "subtopics": [
+          "Investor preferences",
+          "Investment characteristics",
+          "Risk tolerance",
+          "Expected returns",
+          "Investment ranking"
+        ],
+        "description": "This topic explains how investors choose among different investment opportunities. They consider investor preferences, compare investment characteristics, evaluate risk tolerance and expected returns, and then create an investment ranking based on which options best meet their goals.",
+        "analogy": "Advisor recommendation using cosine similarity is like investment selection. The student's research interests represent investor preferences, while each advisor's expertise represents investment characteristics. Research-method preferences can be compared with risk tolerance, and expected research benefits resemble expected returns. Cosine similarity measures the alignment between the student's preferences and each advisor's characteristics, allowing the system to create an investment-style ranking of the most suitable advisors."
+      },
+      "Borrower-Loan Matching": {
+        "subtopics": [
+          "Borrower credit profile",
+          "Loan requirements",
+          "Interest rates",
+          "Repayment capacity",
+          "Risk classification"
+        ],
+        "description": "This topic explains how lenders determine whether a loan is appropriate for a borrower. The process considers the borrower's credit profile, the loan requirements, applicable interest rates, repayment capacity, and the borrower's overall risk classification.",
+        "analogy": "Advisor recommendation using cosine similarity is like borrower-loan matching. The student's academic background and research interests form a borrower credit profile, while the advisor's research expectations and expertise resemble loan requirements. The advisor's level of availability or expected commitment can be compared with interest rates and repayment capacity. Cosine similarity measures whether the student's profile satisfies the advisor-related requirements, while the score helps classify the strength or risk of the match."
+      }
+    },
+    "LDA": {
+      "Financial Markets": {
+        "subtopics": [
+          "Stock markets",
+          "Bond markets",
+          "Interest rates",
+          "Market risk",
+          "Portfolio management"
+        ],
+        "description": "This topic introduces the systems in which financial assets are bought and sold. It covers stock markets, bond markets, the effect of interest rates, sources of market risk, and portfolio management strategies used to balance risk and return.",
+        "analogy": "LDA topic modeling is like identifying different themes within financial-market reports. Words such as stocks, shares, prices, and returns may form a stock-market topic, while bonds, yields, debt, and interest rates may form a bond-market topic. Volatility, uncertainty, and loss may form a market-risk topic, while diversification, allocation, and assets may form a portfolio-management topic."
+      },
+      "Corporate Finance": {
+        "subtopics": [
+          "Capital budgeting",
+          "Capital structure",
+          "Working capital",
+          "Dividend policy",
+          "Firm valuation"
+        ],
+        "description": "This topic explains how companies make financial decisions that affect their operations and long-term value. It includes capital budgeting for selecting projects, capital structure for choosing debt or equity, working-capital management, dividend policy, and firm valuation.",
+        "analogy": "LDA topic modeling is like separating corporate-finance documents into major themes. Words such as projects, investment, cash flow, and return may form a capital-budgeting topic. Debt, equity, leverage, and financing may form a capital-structure topic. Liquidity, inventory, and short-term assets may form a working-capital topic, while earnings, payouts, and shareholders may form a dividend-policy topic."
+      }
+    }
+  },
+  "Marketing": {
+    "cosine": {
+      "Product-Customer Matching": {
+        "subtopics": [
+          "Customer needs",
+          "Product features",
+          "Preference alignment",
+          "Product comparison",
+          "Product recommendation"
+        ],
+        "description": "This topic explains how marketers connect products with the customers most likely to benefit from them. They identify customer needs, examine product features, measure preference alignment, perform product comparisons, and use the results to make a product recommendation.",
+        "analogy": "Advisor recommendation using cosine similarity is like product-customer matching. The student's research interests represent customer needs, while the advisor's expertise represents product features. The system evaluates preference alignment by comparing the student's desired research areas with the advisor's available expertise. It then performs a product-style comparison among advisors and recommends those whose profiles achieve the highest cosine-similarity scores."
+      },
+      "Brand-Audience Alignment": {
+        "subtopics": [
+          "Brand identity",
+          "Audience values",
+          "Campaign message",
+          "Customer preferences",
+          "Audience engagement"
+        ],
+        "description": "This topic explains how a brand communicates with the audience it wants to reach. Brand identity and campaign messages are compared with audience values and customer preferences, while audience engagement shows whether the brand's communication is connecting successfully.",
+        "analogy": "Advisor recommendation using cosine similarity is like brand-audience alignment. The advisor's research profile represents a brand identity, while the student's interests represent audience values and customer preferences. The advisor's publications communicate a campaign message about their expertise. Cosine similarity measures how closely that message aligns with the student's preferences, and stronger alignment suggests greater potential for audience engagement between the student and advisor."
+      }
+    },
+    "LDA": {
+      "Customer Segmentation": {
+        "subtopics": [
+          "Customer interests",
+          "Demographic characteristics",
+          "Purchasing behavior",
+          "Market needs",
+          "Target audiences"
+        ],
+        "description": "This topic explains how a broad market is divided into smaller customer groups. Marketers use customer interests, demographic characteristics, purchasing behavior, and market needs to identify distinct target audiences that can be approached with different products or messages.",
+        "analogy": "LDA topic modeling is like customer segmentation. The model examines words describing customer interests, demographic characteristics, purchasing behavior, and market needs. It then discovers groups of related terms representing target audiences, such as price-sensitive customers, technology-oriented customers, or environmentally conscious customers. Similarly, LDA identifies groups of related research words that represent underlying research topics."
+      },
+      "Consumer Behavior": {
+        "subtopics": [
+          "Consumer motivation",
+          "Customer perception",
+          "Purchasing attitudes",
+          "Decision processes",
+          "Brand loyalty"
+        ],
+        "description": "This topic examines the reasons behind customer choices and purchasing decisions. It considers consumer motivation, customer perception, purchasing attitudes, decision processes, and brand loyalty to explain why people prefer, purchase, or repeatedly use certain products.",
+        "analogy": "LDA topic modeling is like discovering themes in consumer behavior. Words such as need, desire, benefit, and consumer motivation may form one topic, while quality, image, and customer perception may form another. Choice, comparison, and purchasing attitudes may form a decision-process topic, while satisfaction, trust, repeat purchase, and brand loyalty may form a loyalty topic."
+      }
+    }
+  },
+  "Human Resource Management": {
+    "cosine": {
+      "Recruitment and Selection": {
+        "subtopics": [
+          "Job requirements",
+          "Candidate qualifications",
+          "Resume screening",
+          "Candidate compatibility",
+          "Applicant ranking"
+        ],
+        "description": "This topic explains how organizations identify and choose suitable employees. Recruiters define job requirements, review candidate qualifications through resume screening, assess candidate compatibility, and create an applicant ranking before making a selection.",
+        "analogy": "Advisor recommendation using cosine similarity is like recruitment and selection. The student's research needs represent job requirements, while each advisor's knowledge, publications, and methods represent candidate qualifications. The recommendation system performs resume screening by extracting important terms from advisor profiles. Cosine similarity measures candidate compatibility and produces an applicant-style ranking in which advisors with the strongest alignment appear first."
+      },
+      "Employee-Role Fit": {
+        "subtopics": [
+          "Employee skills",
+          "Role responsibilities",
+          "Professional experience",
+          "Work values",
+          "Performance potential"
+        ],
+        "description": "This topic explains how well an employee's characteristics match a particular position. It compares employee skills, professional experience, and work values with role responsibilities, while performance potential indicates how successfully the employee may perform in that role.",
+        "analogy": "Advisor recommendation using cosine similarity is like evaluating employee-role fit. The student's research abilities and interests represent employee skills and work values, while the advisor's projects and expectations represent role responsibilities. Publications and completed projects reflect professional experience. Cosine similarity measures how well these characteristics align, and a higher score indicates stronger performance potential for the student-advisor relationship."
+      }
+    },
+    "LDA": {
+      "Employee Development": {
+        "subtopics": [
+          "Employee training",
+          "Performance evaluation",
+          "Career development",
+          "Workplace motivation",
+          "Leadership development"
+        ],
+        "description": "This topic explains how organizations help employees improve and progress professionally. It includes employee training, performance evaluation, career development, workplace motivation, and leadership development to strengthen current performance and prepare employees for future responsibilities.",
+        "analogy": "LDA topic modeling is like identifying themes in employee-development records. Words such as training, learning, workshops, and skills may form an employee-training topic. Evaluation, feedback, goals, and outcomes may form a performance-evaluation topic. Promotion, advancement, and planning may form a career-development topic, while management, influence, and mentoring may form a leadership-development topic."
+      },
+      "Organizational Behavior": {
+        "subtopics": [
+          "Teamwork",
+          "Leadership",
+          "Organizational culture",
+          "Workplace conflict",
+          "Job satisfaction"
+        ],
+        "description": "This topic examines how individuals and groups behave within workplaces. It covers teamwork, leadership, organizational culture, workplace conflict, and job satisfaction to explain how these factors influence employee behavior and organizational performance.",
+        "analogy": "LDA topic modeling is like identifying themes within organizational behavior. Words such as team, cooperation, collaboration, and communication may form a teamwork topic. Manager, influence, direction, and leadership may form a leadership topic. Values, norms, and organizational culture may form another topic, while disagreement, negotiation, and workplace conflict may form a conflict-management topic."
+      }
+    }
+  },
+  "English": {
+    "cosine": {
+      "Comparing Literary Texts": {
+        "subtopics": [
+          "Themes",
+          "Characters",
+          "Genres",
+          "Writing styles",
+          "Narrative perspectives"
+        ],
+        "description": "This topic explains how readers compare two or more literary works. The comparison may examine shared or contrasting themes, characters, genres, writing styles, and narrative perspectives to understand how the texts communicate meaning differently.",
+        "analogy": "Advisor recommendation using cosine similarity is like comparing literary texts. The student's research interests and the advisor's expertise can be compared through shared themes, just as two texts may address identity, conflict, or social change. Their methodological approaches resemble genres and writing styles, while their research viewpoints resemble narrative perspectives. The more literary characteristics the two profiles share, the higher their cosine-similarity score."
+      },
+      "Poetry and Prose Comparison": {
+        "subtopics": [
+          "Central themes",
+          "Imagery",
+          "Tone",
+          "Language style",
+          "Symbolism"
+        ],
+        "description": "This topic explains how poetry and prose use language in different and similar ways. Readers compare central themes, imagery, tone, language style, and symbolism to understand how each form creates meaning and emotional effect.",
+        "analogy": "Advisor recommendation using cosine similarity is like comparing poetry and prose. The student's interests and the advisor's research may share central themes, just as two texts may focus on nature, identity, or conflict. Research terminology resembles imagery and symbolism, while the way research problems are presented resembles tone and language style. Cosine similarity measures the overall alignment of these textual features."
+      }
+    },
+    "LDA": {
+      "Literary Analysis": {
+        "subtopics": [
+          "Themes",
+          "Characters",
+          "Settings",
+          "Symbolism",
+          "Narrative perspectives"
+        ],
+        "description": "This topic explains how readers study a literary work beyond its surface-level story. They examine themes, characters, settings, symbolism, and narrative perspectives to interpret the author's ideas, the structure of the work, and its possible meanings.",
+        "analogy": "LDA topic modeling is like literary analysis across a collection of texts. Words related to family, relationships, and home may form a theme about family life. Names, actions, and descriptions may help identify character-related patterns, while places and periods may form setting topics. Repeated symbolic words may reveal symbolism, and groups of perspective-related terms may distinguish different narrative perspectives."
+      },
+      "Rhetoric and Composition": {
+        "subtopics": [
+          "Argument development",
+          "Supporting evidence",
+          "Audience awareness",
+          "Writing style",
+          "Text organization"
+        ],
+        "description": "This topic explains how effective written communication is planned and organized. It covers argument development, supporting evidence, audience awareness, writing style, and text organization so that ideas are clear, persuasive, and appropriate for the intended readers.",
+        "analogy": "LDA topic modeling is like examining rhetoric and composition across many documents. Words such as claim, reason, position, and argument may form an argument-development topic. Data, examples, citations, and supporting evidence may form another topic. Reader, purpose, and audience awareness may form a rhetorical topic, while structure, paragraphs, transitions, and text organization may form a composition topic."
+      }
+    }
+  },
+  "History": {
+    "cosine": {
+      "Comparing Historical Events": {
+        "subtopics": [
+          "Event characteristics",
+          "Shared causes",
+          "Similar outcomes",
+          "Contextual comparison",
+          "Similarity assessment"
+        ],
+        "description": "This topic explains how historians compare events from different times or places. They examine event characteristics, shared causes, similar outcomes, and historical context, then conduct a similarity assessment to identify meaningful connections and differences.",
+        "analogy": "Advisor recommendation using cosine similarity is like comparing historical events. The student's interests and the advisor's expertise are treated as event characteristics. Shared research motivations resemble shared causes, while expected research contributions resemble similar outcomes. A contextual comparison identifies the features common to both profiles, and cosine similarity provides a numerical similarity assessment of their alignment."
+      },
+      "Historical Source Corroboration": {
+        "subtopics": [
+          "Primary sources",
+          "Historical claims",
+          "Dates and events",
+          "Author viewpoints",
+          "Evidence consistency"
+        ],
+        "description": "This topic explains how historians evaluate whether multiple sources support the same historical interpretation. They compare primary sources, historical claims, dates and events, author viewpoints, and evidence consistency to judge the reliability of the available information.",
+        "analogy": "Advisor recommendation using cosine similarity is like historical source corroboration. The student's profile and the advisor's publications act as primary sources containing research claims, topics, and methods. The system compares important research terms just as a historian compares dates and events, author viewpoints, and evidence consistency across sources. A high cosine-similarity score indicates that the two profiles provide consistent evidence of a strong match."
+      }
+    },
+    "LDA": {
+      "Historical Movements": {
+        "subtopics": [
+          "Political revolutions",
+          "Social movements",
+          "Economic changes",
+          "Wars and conflicts",
+          "Cultural transformations"
+        ],
+        "description": "This topic examines broad forces that produce change over time. It includes political revolutions, social movements, economic changes, wars and conflicts, and cultural transformations that reshape governments, societies, institutions, and everyday life.",
+        "analogy": "LDA topic modeling is like discovering historical movements from document collections. Words such as government, rebellion, power, and revolution may form a political-revolution topic. Protest, rights, reform, and activism may form a social-movement topic. Trade, labor, industry, and markets may form an economic-change topic, while military, battle, territory, and conflict may form a wars-and-conflicts topic."
+      },
+      "Social and Cultural History": {
+        "subtopics": [
+          "Family life",
+          "Migration",
+          "Education",
+          "Social roles",
+          "Cultural traditions"
+        ],
+        "description": "This topic studies the everyday experiences and cultural practices of people in the past. It examines family life, migration, education, social roles, and cultural traditions to understand how communities lived, changed, and passed values across generations.",
+        "analogy": "LDA topic modeling is like identifying themes in social and cultural history. Words such as household, marriage, children, and family life may form one topic. Movement, settlement, immigration, and migration may form another. Schools, teachers, literacy, and education may form an education topic, while customs, rituals, beliefs, and cultural traditions may form a cultural topic."
+      }
+    }
+  },
+  "Psychology": {
+    "cosine": {
+      "Personality Compatibility": {
+        "subtopics": [
+          "Personality traits",
+          "Personal interests",
+          "Motivations",
+          "Behavioral preferences",
+          "Compatibility scores"
+        ],
+        "description": "This topic explains how similarities and differences between people can affect compatibility. It considers personality traits, personal interests, motivations, and behavioral preferences, which can be combined into compatibility scores that summarize how well two profiles align.",
+        "analogy": "Advisor recommendation using cosine similarity is like evaluating personality compatibility. The student's research style can be represented through personality traits, personal interests, motivations, and behavioral preferences. The advisor's mentoring and research profile can be represented using the same characteristics. Cosine similarity compares the direction of these profiles and generates a compatibility score, with a higher score indicating stronger alignment."
+      },
+      "Person-Environment Fit": {
+        "subtopics": [
+          "Individual characteristics",
+          "Environmental demands",
+          "Personal values",
+          "Motivation",
+          "Psychological adjustment"
+        ],
+        "description": "This topic explains how well a person's characteristics match the environment around them. It compares individual characteristics, personal values, and motivation with environmental demands, while psychological adjustment reflects how comfortably and successfully the person functions in that setting.",
+        "analogy": "Advisor recommendation using cosine similarity is like assessing person-environment fit. The student's skills, interests, and personal values represent individual characteristics, while the advisor's research expectations, methods, and laboratory culture represent environmental demands. Motivation affects how strongly the student engages with those demands. Cosine similarity measures the alignment between the individual and the environment, with stronger fit suggesting better psychological adjustment and research success."
+      }
+    },
+    "LDA": {
+      "Cognitive Processes": {
+        "subtopics": [
+          "Memory",
+          "Attention",
+          "Learning",
+          "Decision-making",
+          "Problem-solving"
+        ],
+        "description": "This topic introduces the mental activities people use to understand information and respond to problems. It covers memory, attention, learning, decision-making, and problem-solving, which work together when people process information and choose actions.",
+        "analogy": "LDA topic modeling is like identifying different cognitive processes from psychological texts. Words such as recall, recognition, storage, and memory may form a memory topic. Focus, awareness, and attention may form another topic. Practice, knowledge, and learning may form a learning topic, while choice, judgment, and decision-making may form a separate decision topic."
+      },
+      "Social Psychology": {
+        "subtopics": [
+          "Group behavior",
+          "Attitudes",
+          "Conformity",
+          "Persuasion",
+          "Interpersonal relationships"
+        ],
+        "description": "This topic examines how people's thoughts and behavior are influenced by others. It includes group behavior, attitudes, conformity, persuasion, and interpersonal relationships to explain how social situations shape judgments, choices, and interactions.",
+        "analogy": "LDA topic modeling is like discovering themes in social psychology. Words such as teams, norms, identity, and group behavior may form one topic. Beliefs, evaluations, and attitudes may form another. Pressure, agreement, and conformity may form a conformity topic, while messages, influence, and persuasion may form a persuasion topic."
+      }
+    }
+  },
+  "Political Science": {
+    "cosine": {
+      "Voter-Candidate Matching": {
+        "subtopics": [
+          "Voter priorities",
+          "Candidate positions",
+          "Policy alignment",
+          "Candidate comparison",
+          "Candidate ranking"
+        ],
+        "description": "This topic explains how voters evaluate political candidates before making a choice. Voter priorities are compared with candidate positions to determine policy alignment, followed by candidate comparison and candidate ranking based on the issues that matter most to the voter.",
+        "analogy": "Advisor recommendation using cosine similarity is like voter-candidate matching. The student's research interests represent voter priorities, while each advisor's research areas represent candidate positions. Cosine similarity measures policy-style alignment between these priorities and positions. The system then performs a candidate comparison and creates a candidate ranking in which advisors with the greatest alignment receive the highest scores."
+      },
+      "Coalition Compatibility": {
+        "subtopics": [
+          "Shared political priorities",
+          "Ideological positions",
+          "Policy goals",
+          "Negotiation interests",
+          "Alliance strength"
+        ],
+        "description": "This topic explains how political groups decide whether they can work together. They compare shared political priorities, ideological positions, policy goals, and negotiation interests, while alliance strength reflects how stable and productive the coalition may be.",
+        "analogy": "Advisor recommendation using cosine similarity is like measuring coalition compatibility. The student and advisor may have shared political priorities in the form of overlapping research interests. Their theoretical approaches resemble ideological positions, while their desired research outcomes resemble policy goals. Cosine similarity measures the alignment of these priorities, positions, and goals, and a higher score indicates stronger potential alliance strength."
+      }
+    },
+    "LDA": {
+      "Political Issues": {
+        "subtopics": [
+          "Economic policy",
+          "Healthcare policy",
+          "Environmental policy",
+          "Foreign policy",
+          "Civil rights"
+        ],
+        "description": "This topic introduces major areas that governments and citizens debate when making public decisions. It covers economic policy, healthcare policy, environmental policy, foreign policy, and civil rights, each of which involves different goals, stakeholders, and policy choices.",
+        "analogy": "LDA topic modeling is like identifying political issues from speeches and policy documents. Words such as taxes, employment, inflation, and budgets may form an economic-policy topic. Hospitals, insurance, patients, and healthcare may form a healthcare-policy topic. Climate, pollution, energy, and conservation may form an environmental-policy topic, while equality, voting, freedom, and civil rights may form another topic."
+      },
+      "Political Institutions": {
+        "subtopics": [
+          "Legislatures",
+          "Executive government",
+          "Judicial systems",
+          "Elections",
+          "Public bureaucracy"
+        ],
+        "description": "This topic explains the main institutions that organize political authority and public decision-making. It covers legislatures that make laws, executive government that implements them, judicial systems that interpret them, elections that select leaders, and public bureaucracy that administers government programs.",
+        "analogy": "LDA topic modeling is like separating political documents by institution. Words such as bills, laws, representatives, and legislatures may form a legislative topic. President, ministers, agencies, and executive government may form an executive topic. Courts, judges, rulings, and judicial systems may form a judicial topic, while ballots, campaigns, voters, and elections may form an electoral topic."
+      }
+    }
+  },
+  "Communication Studies": {
+    "cosine": {
+      "Message-Audience Matching": {
+        "subtopics": [
+          "Audience interests",
+          "Message content",
+          "Communication goals",
+          "Language compatibility",
+          "Message effectiveness"
+        ],
+        "description": "This topic explains how communication is adapted for a particular audience. Communicators analyze audience interests, shape message content around communication goals, consider language compatibility, and evaluate message effectiveness based on how well the audience understands and responds.",
+        "analogy": "Advisor recommendation using cosine similarity is like message-audience matching. The student's research interests represent audience interests, while the advisor's research profile represents message content. The student's desired outcomes and the advisor's research direction represent communication goals. Cosine similarity measures language compatibility between their keywords, and stronger compatibility suggests greater message effectiveness and advisor suitability."
+      },
+      "Media Campaign-Audience Matching": {
+        "subtopics": [
+          "Campaign goals",
+          "Audience characteristics",
+          "Media platforms",
+          "Message format",
+          "Engagement patterns"
+        ],
+        "description": "This topic explains how communication campaigns are designed for specific groups. Campaign goals are connected with audience characteristics, appropriate media platforms and message formats are selected, and engagement patterns are examined to determine whether the campaign is reaching and influencing the audience.",
+        "analogy": "Advisor recommendation using cosine similarity is like media campaign-audience matching. The student's research objectives represent audience characteristics and interests, while the advisor's expertise represents campaign goals and message format. Research channels and methods resemble media platforms. Cosine similarity measures how closely the campaign-style advisor profile fits the audience-style student profile, while higher alignment suggests stronger future engagement patterns."
+      }
+    },
+    "LDA": {
+      "Communication Contexts": {
+        "subtopics": [
+          "Interpersonal communication",
+          "Organizational communication",
+          "Political communication",
+          "Digital communication",
+          "Mass communication"
+        ],
+        "description": "This topic introduces the different settings in which communication occurs. It includes interpersonal communication between individuals, organizational communication in workplaces, political communication, digital communication through online platforms, and mass communication through large-scale media.",
+        "analogy": "LDA topic modeling is like identifying different communication contexts from a collection of texts. Words such as relationships, conversation, listening, and interpersonal communication may form one topic. Workplace, teams, management, and organizational communication may form another. Social media, online platforms, and digital communication may form a digital topic, while television, news, journalism, and mass communication may form a mass-media topic."
+      },
+      "Media Effects": {
+        "subtopics": [
+          "Agenda setting",
+          "Media framing",
+          "Persuasion",
+          "Cultivation",
+          "Public opinion"
+        ],
+        "description": "This topic explains how media can influence what people notice, believe, and discuss. Agenda setting affects issue importance, media framing shapes interpretation, persuasion influences attitudes, cultivation affects long-term beliefs, and public opinion reflects broader audience responses.",
+        "analogy": "LDA topic modeling is like identifying different media effects from research articles. Words such as attention, issue importance, news coverage, and agenda setting may form one topic. Presentation, interpretation, emphasis, and media framing may form another. Influence, attitude change, and persuasion may form a persuasion topic, while repeated exposure, beliefs, and cultivation may form a long-term media-effects topic."
+      }
+    }
+  },
+  "Public Administration": {
+    "cosine": {
+      "Public Program Planning and Community Needs": {
+        "subtopics": [
+          "Community needs assessment",
+          "Program objectives",
+          "Public-service selection",
+          "Resource allocation",
+          "Program evaluation"
+        ],
+        "description": "This topic explains how public programs are designed to address community problems and priorities. The process begins with a community needs assessment, then defines program objectives, selects appropriate public services, allocates resources, and uses program evaluation to determine whether the program achieved its goals.",
+        "analogy": "Advisor recommendation using cosine similarity is like public program planning based on community needs. The student's research interests represent findings from a community needs assessment, while each advisor's expertise represents available program objectives and services. The recommendation system performs public-service selection by comparing these needs with available expertise. Cosine similarity supports resource allocation by ranking advisors, and later research success can be viewed as program evaluation."
+      },
+      "Policy-Problem Alignment": {
+        "subtopics": [
+          "Public problems",
+          "Policy objectives",
+          "Target populations",
+          "Implementation capacity",
+          "Expected outcomes"
+        ],
+        "description": "This topic explains how policymakers determine whether a proposed policy is suitable for a public problem. They define the public problem and policy objectives, identify target populations, assess implementation capacity, and estimate expected outcomes before deciding whether the policy is a good fit.",
+        "analogy": "Advisor recommendation using cosine similarity is like evaluating policy-problem alignment. The student's research question represents a public problem, while the advisor's expertise represents policy objectives and possible solutions. The student's academic area resembles a target population, and the advisor's availability and resources represent implementation capacity. Cosine similarity measures how closely the proposed expertise addresses the problem, while stronger alignment suggests better expected outcomes."
+      }
+    },
+    "LDA": {
+      "Public Policy Areas": {
+        "subtopics": [
+          "Public health",
+          "Education policy",
+          "Housing policy",
+          "Transportation policy",
+          "Environmental policy"
+        ],
+        "description": "This topic introduces major fields in which governments create policies and deliver services. It includes public health, education policy, housing policy, transportation policy, and environmental policy, each addressing a different category of public need.",
+        "analogy": "LDA topic modeling is like identifying public-policy areas from government documents. Words such as hospitals, disease, patients, and public health may form one topic. Schools, students, teachers, and education policy may form another. Rent, homelessness, development, and housing policy may form a housing topic, while roads, transit, traffic, and transportation policy may form a transportation topic."
+      },
+      "Public Organization Management": {
+        "subtopics": [
+          "Public budgeting",
+          "Personnel management",
+          "Administrative leadership",
+          "Government accountability",
+          "Public-service delivery"
+        ],
+        "description": "This topic explains how government agencies and nonprofit public organizations are operated. It covers public budgeting, personnel management, administrative leadership, government accountability, and public-service delivery to ensure that resources and employees are managed responsibly.",
+        "analogy": "LDA topic modeling is like identifying management functions within public organizations. Words such as revenue, expenditure, funding, and public budgeting may form one topic. Employees, recruitment, training, and personnel management may form another. Managers, decisions, and administrative leadership may form a leadership topic, while transparency, oversight, and government accountability may form an accountability topic."
+      }
+    }
+  }
+}
