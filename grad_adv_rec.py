@@ -16,6 +16,7 @@ import time, uuid
 from datetime import datetime, timedelta
 from supabase import create_client
 import re
+from pathlib import Path
 
 st.set_page_config("Advisor Recommendation", page_icon=":book:",   layout="wide")
 
