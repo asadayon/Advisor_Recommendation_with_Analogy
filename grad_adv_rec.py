@@ -1860,85 +1860,74 @@ def empty_topic_selection() -> dict:
 
 def render_topic_selection(
     method_key: str,
-    section_title: str,
+    topic_number: int,
     program_data: dict,
     program_widget_key: str,
 ) -> dict:
     """
-    Render the topic and subtopic interface for cosine or LDA.
+    Render one topic-selection section.
 
-    Parameters
-    ----------
-    method_key:
-        Must match the JSON key: "cosine" or "LDA".
-
-    section_title:
-        User-facing section title.
-
-    program_data:
-        The second-level data for the selected program.
-
-    program_widget_key:
-        Used to create unique Streamlit widget keys.
+    method_key is used internally to access either "cosine" or "LDA"
+    from the JSON file. These technical terms are not shown to users.
     """
 
-    st.markdown(f"#### {section_title}")
+    st.markdown(f"#### Familiar Topic {topic_number}")
 
     available_topics = program_data.get(method_key, {})
     topic_names = list(available_topics.keys())
 
-    # A predefined program will have two topics.
+    # --------------------------------------------------------
+    # Select a predefined or custom topic
+    # --------------------------------------------------------
+
     if topic_names:
         selected_topic_option = st.selectbox(
-            f"Choose a topic for {section_title}:",
+            f"Select a topic you are familiar with for Topic {topic_number}:",
             options=[""] + topic_names + ["Other"],
             format_func=lambda value: (
                 "Choose an option" if value == "" else value
             ),
             key=f"{method_key}_topic_{program_widget_key}",
         )
-
-    # A custom program has no predefined topics in the JSON.
     else:
         selected_topic_option = "Other"
 
         st.caption(
             "No predefined topics are available for this program. "
-            "Please enter your own topic."
+            "Please enter a topic you are familiar with."
         )
 
     if selected_topic_option == "":
         return empty_topic_selection()
 
-    # ========================================================
+    # --------------------------------------------------------
     # Custom topic
-    # ========================================================
+    # --------------------------------------------------------
 
     if selected_topic_option == "Other":
         custom_topic = st.text_input(
-            f"Enter another topic for {section_title}:",
+            f"Enter a topic for Topic {topic_number}:",
             placeholder="Example: Educational leadership",
             key=f"{method_key}_custom_topic_{program_widget_key}",
         ).strip()
 
         custom_description = st.text_area(
-            f"Briefly describe this {section_title} topic:",
+            "Briefly describe this topic:",
             placeholder=(
-                "Describe the topic in a few sentences. Include the "
-                "main ideas that someone unfamiliar with the topic "
-                "would need to understand."
+                "Describe the main ideas covered by this topic in a few "
+                "sentences."
             ),
             height=90,
             key=f"{method_key}_custom_description_{program_widget_key}",
         ).strip()
 
         custom_subtopic_text = st.text_area(
-            f"Enter 3–5 subtopics or concepts for {section_title}:",
+            "Enter 3–5 subtopics or concepts you understand well:",
             placeholder=(
-                "Separate the entries using commas, semicolons, or new lines.\n"
-                "Example: leadership styles, decision-making, school policy"
+                "Example: leadership styles, decision-making, "
+                "organizational culture, communication, policy"
             ),
-            height=90,
+            height=80,
             key=f"{method_key}_custom_subtopics_{program_widget_key}",
         )
 
@@ -1948,16 +1937,13 @@ def render_topic_selection(
             "topic": custom_topic,
             "subtopics": custom_subtopics,
             "description": custom_description,
-
-            # A custom topic does not have a predefined JSON analogy.
-            # The system can generate one later if needed.
             "analogy": "",
             "source": "custom",
         }
 
-    # ========================================================
-    # Predefined topic from JSON
-    # ========================================================
+    # --------------------------------------------------------
+    # Predefined topic from the JSON file
+    # --------------------------------------------------------
 
     topic_details = available_topics[selected_topic_option]
 
@@ -1965,58 +1951,36 @@ def render_topic_selection(
     topic_description = topic_details.get("description", "")
     topic_analogy = topic_details.get("analogy", "")
 
-    # Show the description to help the participant understand
-    # what the selected topic means.
     st.info(topic_description)
 
-    selected_subtopic_options = st.multiselect(
-        "Select 3–5 subtopics or concepts that you understand well:",
-        options=predefined_subtopics + ["Other"],
+    # Automatically fill all five subtopics as comma-separated text.
+    # The participant can add, remove, or modify the entries.
+    default_subtopic_text = ", ".join(predefined_subtopics)
+
+    edited_subtopic_text = st.text_area(
+        "Review and edit the subtopics or concepts you understand well:",
+        value=default_subtopic_text,
+        help=(
+            "The suggested subtopics are filled automatically. "
+            "You may add, remove, or modify them. Keep 3–5 entries "
+            "separated by commas."
+        ),
+        height=80,
         key=(
-            f"{method_key}_subtopics_"
+            f"{method_key}_editable_subtopics_"
             f"{program_widget_key}_{selected_topic_option}"
         ),
     )
 
-    custom_subtopics = []
-
-    if "Other" in selected_subtopic_options:
-        custom_subtopic_text = st.text_input(
-            "Enter other subtopic(s):",
-            placeholder=(
-                "Separate multiple subtopics using commas, "
-                "semicolons, or new lines"
-            ),
-            key=(
-                f"{method_key}_other_subtopics_"
-                f"{program_widget_key}_{selected_topic_option}"
-            ),
-        )
-
-        custom_subtopics = parse_custom_items(custom_subtopic_text)
-
-    selected_subtopics = [
-        subtopic
-        for subtopic in selected_subtopic_options
-        if subtopic != "Other"
-    ]
-
-    selected_subtopics.extend(custom_subtopics)
-
-    # Remove duplicates while preserving order.
-    selected_subtopics = list(dict.fromkeys(selected_subtopics))
+    selected_subtopics = parse_custom_items(edited_subtopic_text)
 
     return {
         "topic": selected_topic_option,
         "subtopics": selected_subtopics,
         "description": topic_description,
-
-        # Save the analogy for the later explanation page.
-        # It is intentionally not displayed during onboarding.
         "analogy": topic_analogy,
         "source": "predefined",
     }
-
 
 # ============================================================
 # Home/onboarding page
@@ -2093,23 +2057,21 @@ if st.session_state.page == "home":
 
         if selected_program_option:
 
-            st.divider()
-
-            cosine_selection = render_topic_selection(
-                method_key="cosine",
-                section_title="Cosine Similarity",
-                program_data=selected_program_data,
-                program_widget_key=selected_program_option,
-            )
-
-            st.divider()
-
-            lda_selection = render_topic_selection(
-                method_key="LDA",
-                section_title="LDA Topic Modeling",
-                program_data=selected_program_data,
-                program_widget_key=selected_program_option,
-            )
+           cosine_selection = render_topic_selection(
+                    method_key="cosine",
+                    topic_number=1,
+                    program_data=selected_program_data,
+                    program_widget_key=selected_program_option,
+                )
+                
+           st.divider()
+                
+           lda_selection = render_topic_selection(
+                    method_key="LDA",
+                    topic_number=2,
+                    program_data=selected_program_data,
+                    program_widget_key=selected_program_option,
+                )
 
         # ----------------------------------------------------
         # 4. Validate and store the information
