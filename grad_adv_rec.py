@@ -600,8 +600,12 @@ def make_system_prompt(
 
     # User educational background for analogy-based explanation
     field_of_study = st.session_state.get("field_of_study", "Not provided")
-    specific_topics = st.session_state.get("specific_topics", "Not provided")
-    background_keywords = st.session_state.get("background_keywords", "Not provided")
+    cosine_topic = st.session_state.get("cosine_topic", "Not provided") 
+    cosine_subtopics = st.session_state.get("cosine_subtopics", "Not provided")
+    cosine_analogy = st.session_state.get("cosine_analogy", "Not provided")
+    lda_topic = st.session_state.get("lda_topic", "Not provided")
+    lda_subtopics = st.session_state.get("lda_subtopics", "Not provided")
+    lda_analogy = st.session_state.get("lda_analogy", "Not provided")
 
     recommendation_context = f"""
     ## Current Student Context
@@ -745,11 +749,18 @@ def make_system_prompt(
         {core_system_knowledge}
 
         ---
+
         ## Participant Educational Background
 
-        - Current or most recent field of study: {field_of_study}
-        - Detailed topic interest within that background: {specific_topics}
-        - Familiar concepts or keywords from that topic: {background_keywords}
+        ### Cosine Similarity Analogy Background
+        - Topic: {cosine_topic}
+        - Related subtopics or concepts: {cosine_subtopics}
+        - Analogy based on this topic: {cosine_analogy}
+        
+        ### LDA Topic Modeling Analogy Background
+        - Topic: {lda_topic}
+        - Related subtopics or concepts: {lda_subtopics}
+        - Analogy based on this topic: {lda_analogy}
 
         ---
         ## System Inputs and Outputs for This Session
@@ -930,8 +941,13 @@ def make_quiz_system_prompt(
 
     # User educational background for analogy-based explanation
     field_of_study = st.session_state.get("field_of_study", "Not provided")
-    specific_topics = st.session_state.get("specific_topics", "Not provided")
-    background_keywords = st.session_state.get("background_keywords", "Not provided")
+    cosine_topic = st.session_state.get("cosine_topic", "Not provided") 
+    cosine_subtopics = st.session_state.get("cosine_subtopics", "Not provided")
+    cosine_analogy = st.session_state.get("cosine_analogy", "Not provided")
+    lda_topic = st.session_state.get("lda_topic", "Not provided")
+    lda_subtopics = st.session_state.get("lda_subtopics", "Not provided")
+    lda_analogy = st.session_state.get("lda_analogy", "Not provided")
+    
 
     recommendation_context = f"""
         ## Current Student Context
@@ -1018,9 +1034,16 @@ def make_quiz_system_prompt(
 
         ---
         ## Participant Educational Background
-        - Current or most recent field of study: {field_of_study}
-        - Detailed topic interest within that background: {specific_topics}
-        - Familiar concepts or keywords from that topic: {background_keywords}
+
+        ### Cosine Similarity Analogy Background
+        - Topic: {cosine_topic}
+        - Related subtopics or concepts: {cosine_subtopics}
+        - Analogy based on this topic: {cosine_analogy}
+        
+        ### LDA Topic Modeling Analogy Background
+        - Topic: {lda_topic}
+        - Related subtopics or concepts: {lda_subtopics}
+        - Analogy based on this topic: {lda_analogy}
 
         ---
         {recommendation_context}
