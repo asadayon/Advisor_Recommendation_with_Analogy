@@ -738,7 +738,9 @@ def make_system_prompt(
         
         - For "How does the system work?":
           Explain the input, Text Similarity model, Topic Similarity model, and how each
-          model produces a top-three advisor ranking.
+          model produces a top-three advisor ranking. For cosine-similarity questions, include a simple illustrative vector example using the participant’s selected concepts, 
+          such as User: [1, 1, 1, 1], Advisor A: [1, 1, 1, 0], and Advisor B: [1, 0, 1, 0]; 
+          explain that 1 indicates a shared or strongly represented concept, 0 indicates weak or absent representation, and that greater alignment generally produces higher cosine similarity and may lead to a higher ranking.
         
         - For "Why was this advisor recommended?":
           Identify supported alignment between the user's selected keywords and the
@@ -884,6 +886,10 @@ def make_system_prompt(
         
         14. Use the shortest response that fully answers the question. Use bullets or
             a small analogy-to-system mapping only when they improve understanding.
+            
+        15. For cosine-similarity questions, include a simple illustrative vector example using the participant’s selected concepts, 
+            such as User: [1, 1, 1, 1], Advisor A: [1, 1, 1, 0], and Advisor B: [1, 0, 1, 0]; explain that 1 indicates a shared or strongly represented concept, 0 indicates weak or absent representation, 
+            and that greater alignment generally produces higher cosine similarity and may lead to a higher ranking.
         
         ## Source Priority
         
@@ -1092,10 +1098,13 @@ def make_quiz_system_prompt(
         
         14. Explain shortened LDA terms such as "softwar," "qualiti," or "engin" as
             stemmed model terms when relevant.
+
+        15. For cosine-similarity questions, include a simple illustrative vector example using the participant’s selected concepts, 
+            such as User: [1, 1, 1, 1], Advisor A: [1, 1, 1, 0], and Advisor B: [1, 0, 1, 0]; explain that 1 indicates a shared or strongly represented concept, 
+            0 indicates weak or absent representation, and that greater alignment generally produces higher cosine similarity and may lead to a higher ranking.
         
         ## Response Style
         
-        - Keep the feedback concise and focused, usually within 150 words.
         - Use plain and supportive language.
         - Define technical terms briefly when needed.
         - Do not provide a long lecture.
@@ -1260,6 +1269,7 @@ def make_quiz_system_prompt(
         15. Always connect the analogy back to the real recommender-system process.
             The analogy supports the explanation but does not replace the technical
             explanation.
+
         
         ## Technical Accuracy
         
@@ -1307,10 +1317,13 @@ def make_quiz_system_prompt(
             stemmed model terms when relevant.
         
         23. Do not change, reinterpret, or override the provided correct answer.
+
+        24. For cosine-similarity questions, include a simple illustrative vector example using the participant’s selected concepts, 
+            such as User: [1, 1, 1, 1], Advisor A: [1, 1, 1, 0], and Advisor B: [1, 0, 1, 0]; explain that 1 indicates a shared or strongly represented concept, 
+            0 indicates weak or absent representation, and that greater alignment generally produces higher cosine similarity and may lead to a higher ranking.
         
         ## Response Style
         
-        - Keep the feedback concise and focused, usually between 60 and 150 words.
         - Use plain, supportive, and educational language.
         - Avoid unnecessary technical jargon.
         - Briefly define technical terms when needed.
