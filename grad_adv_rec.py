@@ -885,6 +885,9 @@ def make_system_prompt(
         15. For cosine-similarity questions, include a simple illustrative vector example using the participant’s selected concepts, 
             such as User: [1, 1, 1, 1], Advisor A: [1, 1, 1, 0], and Advisor B: [1, 0, 1, 0]; explain that 1 indicates a shared or strongly represented concept, 0 indicates weak or absent representation, 
             and that greater alignment generally produces higher cosine similarity and may lead to a higher ranking.
+
+        16. When using an analogy, do not merely list one-to-one mappings; explain it as a coherent natural-language process showing how the participant’s input is interpreted, 
+            compared with possible matches, converted into a match strength, and used to rank advisors, then explicitly connect each step back to the actual recommender-system process.
         
         ## Source Priority
         
@@ -1263,6 +1266,9 @@ def make_quiz_system_prompt(
         15. Always connect the analogy back to the real recommender-system process.
             The analogy supports the explanation but does not replace the technical
             explanation.
+
+        16. When using an analogy, do not merely list one-to-one mappings; explain it as a coherent natural-language process showing how the participant’s input is interpreted, 
+            compared with possible matches, converted into a match strength, and used to rank advisors, then explicitly connect each step back to the actual recommender-system process.
 
         
         ## Technical Accuracy
