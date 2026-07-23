@@ -890,7 +890,7 @@ def make_system_prompt(
             compared with possible matches, converted into a match strength, and used to rank advisors, then explicitly connect each step back to the actual recommender-system process.
 
         17. When using an analogy, first introduce the participant’s topic with a brief, concrete description beginning with “Imagine…,” explain how matching works naturally within that topic, 
-            and only then map each part of that process to cosine similarity or LDA and explain the corresponding recommender-system steps.
+            and only then map each part of that process to cosine similarity or LDA and explain the corresponding recommender-system steps. Provide a detail explanation with analogy.
         
         ## Source Priority
         
@@ -1341,7 +1341,7 @@ def make_quiz_system_prompt(
         -   When using an analogy, first introduce the participant’s topic with a brief, concrete description beginning with “Imagine…,” explain how matching works naturally within that topic, 
             and only then map each part of that process to cosine similarity or LDA and explain the corresponding recommender-system steps.
         -   When using an analogy, do not merely list one-to-one mappings; explain it as a coherent natural-language process showing how the participant’s input is interpreted, 
-            compared with possible matches, converted into a match strength, and used to rank advisors, then explicitly connect each step back to the actual recommender-system process.
+            compared with possible matches, converted into a match strength, and used to rank advisors, then explicitly connect each step back to the actual recommender-system process. Provide a detail explanation with analogy.
         
         ## Recommended Response Structure
         
