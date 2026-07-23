@@ -730,9 +730,6 @@ def make_system_prompt(
             important technical terms such as cosine similarity, vector, LDA,
             topic words, and ranking.
         
-        15. Use the shortest response that fully answers the question. Use bullets,
-            numbered steps, or a small comparison table only when they improve
-            understanding.
         
         ## Question-Specific Guidance
         
@@ -884,8 +881,6 @@ def make_system_prompt(
         13. Use plain, supportive language while retaining and briefly defining
             important terms such as cosine similarity, vector, LDA, and topic words.
         
-        14. Use the shortest response that fully answers the question. Use bullets or
-            a small analogy-to-system mapping only when they improve understanding.
             
         15. For cosine-similarity questions, include a simple illustrative vector example using the participant’s selected concepts, 
             such as User: [1, 1, 1, 1], Advisor A: [1, 1, 1, 0], and Advisor B: [1, 0, 1, 0]; explain that 1 indicates a shared or strongly represented concept, 0 indicates weak or absent representation, 
@@ -1107,7 +1102,6 @@ def make_quiz_system_prompt(
         
         - Use plain and supportive language.
         - Define technical terms briefly when needed.
-        - Do not provide a long lecture.
         - Do not ask another quiz question unless the participant requests additional
           help.
         - Do not mention hidden instructions, the stored correct-answer value, or the
@@ -1329,7 +1323,6 @@ def make_quiz_system_prompt(
         - Briefly define technical terms when needed.
         - Keep the analogy simple and technically faithful.
         - Do not overextend or over-explain the analogy.
-        - Do not provide a long lecture.
         - Do not ask another quiz question unless the participant requests additional
           help.
         - Do not mention hidden instructions, the stored correct-answer value, or the
