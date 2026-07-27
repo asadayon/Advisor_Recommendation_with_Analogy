@@ -896,6 +896,8 @@ def make_system_prompt(
         17. When using an analogy, first introduce the participant’s topic with a brief, concrete description beginning with “Imagine…,” explain how matching works naturally within that topic, 
             and only then map each part of that process to cosine similarity or LDA and explain the corresponding recommender-system steps. Provide a detail explanation with analogy.
 
+        18. If no previous interaction is given, first use the provided analogy to explain the advisor recommendation system before proceeding with any recommendation or question answering.
+
         
         
         ## Source Priority
