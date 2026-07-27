@@ -1,0 +1,501 @@
+{
+  "Accounting": {
+    "cosine": {
+      "Preparing a Monthly Budget": {
+        "subtopics": [
+          "Income",
+          "Housing expenses",
+          "Food expenses",
+          "Transportation expenses",
+          "Savings"
+        ],
+        "description": "Preparing a monthly budget involves organizing how much money a person earns, spends, and saves during a month. Income includes money received from employment or other sources. Housing expenses include rent, mortgage payments, and household costs. Food expenses cover groceries and meals. Transportation expenses include fuel, public transportation, and vehicle costs. Savings represent the portion of income reserved for future needs. Examining these categories together helps a person understand their financial priorities and create a balanced spending plan.",
+        "analogy": "Imagine that you are an accountant helping a client find a previous monthly budget that best matches their current financial priorities. The client is interested in income, housing expenses, food expenses, transportation expenses, and savings. Each stored budget contains these categories in different amounts.\n\nSuppose the categories are ordered as:\n\n[Income, Housing, Food, Transportation, Savings]\n\nThe client’s priorities are:\n\n[1, 1, 1, 0, 1]\n\nBudget A: [1, 1, 0, 0, 1]\nBudget B: [1, 0, 0, 1, 1]\n\nBudget A is more similar because its pattern points in nearly the same direction as the client’s pattern. Budget B shares income and savings but emphasizes transportation instead of food and housing.\n\nIn this mapping, the client’s budget categories represent the student’s selected research keywords. A stored budget represents an advisor’s research profile. The amount in each budget category represents how frequently a keyword appears in the advisor’s publications. Comparing the overall patterns represents cosine similarity, and the most similar budgets represent the recommended advisors.\n\nFrom this analogy, we can infer that a budget with a similar distribution of financial priorities is more relevant to the client. Similarly, an advisor with a publication-keyword pattern closely aligned with the student’s selected keywords is more likely to share the student’s research interests."
+      },
+      "Checking Financial Documents for an Audit": {
+        "subtopics": [
+          "Sales invoices",
+          "Purchase receipts",
+          "Payroll records",
+          "Bank statements",
+          "Tax documents"
+        ],
+        "description": "Checking financial documents for an audit involves confirming that important business records are available and properly organized. Sales invoices provide evidence of revenue earned from customers. Purchase receipts show business expenses and purchases. Payroll records document employee salaries and deductions. Bank statements show deposits, withdrawals, and account balances. Tax documents contain information used to calculate and report taxes. Reviewing these documents helps auditors verify financial transactions and determine whether the company’s records are complete and accurate.",
+        "analogy": "Imagine that you are an accountant checking which financial documents are included in an audit file. The five possible documents are sales invoices, purchase receipts, payroll records, bank statements, and tax documents.\n\nSuppose the document order is:\n\n[Sales invoices, Purchase receipts, Payroll records, Bank statements, Tax documents]\n\nThe current audit file is represented as:\n\n[1, 1, 1, 0, 0]\n\nHere, 1 means the document is present, and 0 means the document is absent.\n\nTwo previous audit files are:\n\nFile A: [1, 1, 1, 0, 0]\nFile B: [1, 0, 1, 1, 0]\n\nFile A is the stronger match because it contains the same three document types. File B shares sales invoices and payroll records, but it contains bank statements instead of purchase receipts.\n\nIn this mapping, the current audit documents represent the student’s selected research keywords. Each previous audit file represents an advisor’s research profile. A value of 1 means a keyword is present, while 0 means it is absent. Comparing the document-presence patterns represents cosine similarity. Files with the most similar patterns represent the recommended advisors.\n\nWe can infer that audit files containing similar document combinations are likely related to similar accounting activities. Likewise, advisors whose publication-keyword patterns most closely match the student’s selected keywords are more likely to share the student’s research interests."
+      }
+    },
+    "LDA": {
+      "Analyzing a Company’s Financial Health": {
+        "subtopics": [
+          "Revenue",
+          "Expenses",
+          "Assets",
+          "Liabilities",
+          "Cash flow"
+        ],
+        "description": "Analyzing a company’s financial health involves examining several related financial areas. Revenue shows how much money the company earns, while expenses show how much it spends. Assets represent resources owned by the company, liabilities represent its financial obligations, and cash flow shows how money enters and leaves the business. Accountants consider these areas together to understand the company’s broader financial condition.",
+        "analogy": "Imagine that an accounting system examines many financial documents and organizes their commonly related keywords into n financial topics. Each topic is given a meaningful name based on its most important keywords.\n\nFor example:\n\nTopic 1—Business Performance:\n[revenue, expenses, profit]\n\nTopic 2—Financial Position:\n[assets, liabilities, equity]\n\nTopic 3—Cash Management:\n[cash flow, payments, receipts]\n\nSuppose a company provides these financial terms:\n\n[revenue, profit, payments]\n\nThe system compares these terms with all n topics. Because revenue and profit are strongly associated with Topic 1, the system identifies Topic 1—Business Performance as the most relevant topic.\n\nIn this analogy, the company’s financial terms represent the research keywords selected by the student. The n financial topics represent the topics created by LDA. Each topic name summarizes the meaning of its most important keywords.\n\nAfter selecting Topic 1, the system uses its topic keywords—revenue, expenses, and profit—as an expanded query. It then compares this query with each advisor’s publication-keyword profile using cosine similarity.\n\nWe can infer that related financial terms can reveal a broader financial theme. Similarly, LDA identifies the broader research topic behind the student’s keywords, helping the system recommend advisors who study the same area even when they use different terminology."
+      },
+      "Preparing a Personal Budget": {
+        "subtopics": [
+          "Income",
+          "Fixed expenses",
+          "Variable expenses",
+          "Savings",
+          "Debt payments"
+        ],
+        "description": "Preparing a personal budget means organizing how money is earned, spent, saved, and used to repay debt. Income includes money received from salaries or other sources. Fixed expenses, such as rent, usually remain consistent, while variable expenses, such as groceries and transportation, may change. Savings represent money reserved for future needs, and debt payments reduce outstanding financial obligations. Considering these areas together helps a person understand and manage their overall financial situation.",
+        "analogy": "Imagine that an accounting system examines many budgeting records and organizes related financial keywords into n topics. Each topic is given a meaningful name based on its most important keywords.\n\nFor example:\n\nTopic 1—Monthly Spending:\n\n[income, rent, groceries, transportation, expenses]\n\nTopic 2—Saving and Planning:\n\n[savings, emergency fund, investment, future, goal]\n\nTopic 3—Debt Management:\n\n[loan, credit, interest, payment, balance]\n\nSuppose a person enters:\n\n[income, groceries, rent]\n\nThese terms are most closely related to Topic 1—Monthly Spending, so Topic 1 is selected.\n\nThe person’s entered terms represent the student’s selected research keywords. The n budgeting topics represent the topics created by LDA. The keywords within each topic represent related terms learned from advisor publications.\n\nAfter Topic 1 is selected, its keywords are used as an expanded query. The system compares this query with each advisor’s publication-keyword profile using cosine similarity.\n\nWe can infer that a few budgeting terms can indicate a broader financial theme. Similarly, LDA identifies the broader research topic behind the student’s keywords and helps recommend advisors whose publications address that theme, even when they use different terminology."
+      }
+    }
+  },
+  "Finance": {
+    "cosine": {
+      "Comparing Investment Portfolios": {
+        "subtopics": [
+          "Stocks",
+          "Bonds",
+          "Real estate",
+          "Mutual funds",
+          "Cash savings"
+        ],
+        "description": "Comparing investment portfolios involves examining the types of assets included in different investment plans. Stocks represent ownership in companies and may provide higher growth with greater risk. Bonds are loans made to governments or organizations and generally provide more stable returns. Real estate includes investments in property. Mutual funds combine money from multiple investors to purchase a collection of assets. Cash savings provide liquidity and usually involve lower risk. Examining these asset categories helps investors identify portfolios that match their financial goals and preferences.",
+        "analogy": "Imagine that you are a financial advisor helping a client find an investment portfolio that matches the types of investments they prefer. The available investment categories are stocks, bonds, real estate, mutual funds, and cash savings.\n\nSuppose the categories are ordered as:\n\n[Stocks, Bonds, Real estate, Mutual funds, Cash savings]\n\nThe client’s preferences are represented as:\n\n[1, 1, 0, 1, 0]\n\nHere, 1 means the investment category is present, and 0 means it is absent.\n\nTwo portfolios are:\n\nPortfolio A: [1, 1, 0, 1, 0]\nPortfolio B: [1, 0, 1, 1, 0]\n\nPortfolio A is the stronger match because it contains the same three investment categories. Portfolio B shares stocks and mutual funds but includes real estate instead of bonds.\n\nIn this mapping, the client’s preferred investment categories represent the student’s selected research keywords. Each portfolio represents an advisor’s research profile. A value of 1 means a keyword is present, while 0 means it is absent. Comparing the two patterns represents cosine similarity. Portfolios with the most similar patterns represent the recommended advisors.\n\nWe can infer that a portfolio containing a similar combination of investments is more suitable for the client. Similarly, advisors whose publication-keyword patterns closely match the student’s selected keywords are more likely to share the student’s research interests."
+      },
+      "Matching Loans with Borrower Needs": {
+        "subtopics": [
+          "Home purchase",
+          "Business expansion",
+          "Education costs",
+          "Vehicle purchase",
+          "Emergency expenses"
+        ],
+        "description": "Matching loans with borrower needs involves identifying why a person or business requires financing and selecting an appropriate loan. A mortgage may support a home purchase, while a business loan can finance expansion. Student loans help cover education costs, auto loans support vehicle purchases, and personal loans may cover emergency expenses. Understanding these purposes helps financial professionals recommend suitable financing options.",
+        "analogy": "Imagine that you are a financial advisor matching a borrower with a loan package. The borrower identifies the financial purposes that apply to their situation: home purchase, business expansion, education costs, vehicle purchase, and emergency expenses.\n\nThe categories are ordered as:\n\n[Home, Business, Education, Vehicle, Emergency]\n\nThe borrower’s needs are:\n\n[1, 1, 0, 0, 1]\n\nHere, 1 means a financial need is present, while 0 means it is absent.\n\nTwo loan packages are represented as:\n\nLoan Package A: [1, 1, 0, 0, 1]\nLoan Package B: [1, 0, 1, 0, 1]\n\nPackage A is the stronger match because it supports all three of the borrower’s identified needs. Package B supports home and emergency expenses but focuses on education instead of business expansion.\n\nIn this mapping, the borrower’s needs represent the student’s selected research keywords. Each loan package represents an advisor’s research profile. A 1 indicates that a keyword is present, and a 0 indicates that it is absent. Comparing the patterns represents cosine similarity, while the closest loan packages represent the recommended advisors.\n\nWe can infer that a loan package covering a similar combination of needs is more suitable for the borrower. Likewise, an advisor with a closely matching keyword pattern is more likely to share the student’s research interests."
+      }
+    },
+    "LDA": {
+      "Financial Markets": {
+        "subtopics": [
+          "Stock market",
+          "Bond market",
+          "Market risk",
+          "Portfolio management",
+          "Investment returns"
+        ],
+        "description": "Understanding financial markets involves examining how different investments operate and how investors manage their money. The stock market involves buying and selling company shares whose prices may rise or fall. The bond market involves lending money to companies or governments in exchange for interest. Market risk refers to uncertainty and the possibility of financial loss. Portfolio management involves selecting and combining different assets, while investment returns measure the gains or losses produced by those assets.",
+        "analogy": "Imagine that a financial analyst reads many investment reports and organizes commonly related words into n financial topics. Each topic is named according to the meaning of its most important words.\n\nFor example:\n\nTopic 1—Stock Market:\n[stocks, shares, prices, returns]\n\nTopic 2—Bond Market:\n[bonds, yields, debt, interest rates]\n\nTopic 3—Market Risk:\n[volatility, uncertainty, loss, risk]\n\nTopic 4—Portfolio Management:\n[diversification, allocation, assets, portfolio]\n\nSuppose an investor enters:\n\n[shares, returns, diversification]\n\nThe system compares these words with all n topics. Because shares and returns are strongly associated with Topic 1, it selects Topic 1—Stock Market as the most relevant topic.\n\nThe investor’s words represent the student’s selected research keywords. The n financial topics represent the topics created by LDA, and the words within each topic represent related terms learned from advisor publications.\n\nAfter selecting Topic 1, the system uses its topic words as an expanded query and compares them with each advisor’s publication-keyword profile using cosine similarity.\n\nWe can infer that a few investment terms can reveal a broader financial theme. Similarly, the model identifies the student’s broader research topic and recommends advisors working in that area, even when their publications use different terminology."
+      },
+      "Corporate Finance": {
+        "subtopics": [
+          "Capital budgeting",
+          "Capital structure",
+          "Working-capital management",
+          "Dividend policy",
+          "Investment returns"
+        ],
+        "description": "Corporate financial decision-making involves determining how a company invests, finances, and manages its resources. Capital budgeting evaluates long-term projects using expected cash flows and returns. Capital structure concerns the combination of debt and equity used to finance the company. Working-capital management focuses on liquidity, inventory, and short-term assets needed for daily operations. Dividend policy determines how much of the company’s earnings should be distributed to shareholders. Investment returns indicate whether financial decisions create value for the company.",
+        "analogy": "Imagine that a financial analyst separates many corporate-finance documents into n major topics according to words that commonly appear together.\n\nFor example:\n\nTopic 1—Capital Budgeting:\n[projects, investment, cash flow, return]\n\nTopic 2—Capital Structure:\n[debt, equity, leverage, financing]\n\nTopic 3—Dividend Policy:\n[earnings, payouts, shareholders, dividends]\n\nSuppose a company provides these terms:\n\n[investment, cash flow, financing]\n\nThe system compares them with all n topics. Because investment and cash flow are strongly associated with Topic 1, it selects Topic 1—Capital Budgeting.\n\nThe company’s terms represent the student’s selected research keywords. The n corporate-finance topics represent the topics created by LDA. The words grouped under each topic represent related terms learned from advisor publications.\n\nAfter Topic 1 is selected, its words—projects, investment, cash flow, and return—become an expanded query. The system compares this query with each advisor’s publication-keyword profile using cosine similarity.\n\nWe can infer that a few financial terms may reveal a broader corporate-finance theme. Similarly, the model can recommend advisors whose publications address that broader theme, even when they do not use the student’s exact words."
+      }
+    }
+  },
+  "Marketing": {
+    "cosine": {
+      "Matching Customers with Advertising Campaigns": {
+        "subtopics": [
+          "Social media advertising",
+          "Email marketing",
+          "Product discounts",
+          "Influencer promotion",
+          "Loyalty rewards"
+        ],
+        "description": "Matching customers with advertising campaigns involves identifying the types of promotions that may interest a customer. Social media advertising reaches customers through platforms such as Instagram or Facebook. Email marketing sends product information and offers directly to customers. Product discounts reduce prices to encourage purchases. Influencer promotion uses public personalities to introduce products, while loyalty rewards encourage existing customers to make repeat purchases. Understanding these promotional methods helps marketers select campaigns that fit customer interests and behavior.",
+        "analogy": "Imagine that you are a marketer selecting an advertising campaign for a customer. The available campaign features are social media advertising, email marketing, product discounts, influencer promotion, and loyalty rewards.\n\nThe features are ordered as:\n\n[Social media, Email, Discounts, Influencers, Loyalty rewards]\n\nThe customer’s interests are represented as:\n\n[1, 1, 1, 0, 0]\n\nHere, 1 means the customer is interested in that feature, while 0 means the interest is absent.\n\nTwo campaigns are:\n\nCampaign A: [1, 1, 1, 0, 0]\nCampaign B: [1, 0, 1, 1, 0]\n\nCampaign A is the stronger match because it contains all three features that interest the customer. Campaign B matches social media and discounts but emphasizes influencer promotion instead of email marketing.\n\nIn this mapping, the customer’s interests represent the student’s selected research keywords. Each campaign represents an advisor’s research profile. A 1 means a keyword is present, and a 0 means it is absent. Comparing the two patterns represents cosine similarity. Campaigns with the most similar patterns represent the recommended advisors.\n\nWe can infer that a campaign sharing more of the customer’s preferred features is more relevant. Similarly, an advisor whose publication-keyword pattern closely matches the student’s selected keywords is more likely to share the student’s research interests."
+      },
+      "Matching Products with Customer Preferences": {
+        "subtopics": [
+          "Affordable price",
+          "High quality",
+          "Attractive design",
+          "Eco-friendly materials",
+          "Fast delivery"
+        ],
+        "description": "Matching products with customer preferences involves identifying the product features that matter most to a customer. Affordable price refers to whether the product fits the customer’s budget. High quality concerns durability and performance. Attractive design relates to the product’s appearance. Eco-friendly materials indicate that the product is produced with less environmental harm, while fast delivery refers to how quickly the customer can receive it. Marketers use these preferences to recommend products and create messages that appeal to specific customers.",
+        "analogy": "Imagine that you are a marketer helping a customer choose a product. The customer considers affordable price, high quality, attractive design, eco-friendly materials, and fast delivery.\n\nThe features are ordered as:\n\n[Affordable price, High quality, Attractive design, Eco-friendly, Fast delivery]\n\nThe customer’s preferences are:\n\n[1, 1, 0, 1, 0]\n\nHere, 1 means the feature is preferred, while 0 means it is not selected.\n\nTwo products are represented as:\n\nProduct A: [1, 1, 0, 1, 0]\nProduct B: [1, 0, 1, 1, 0]\n\nProduct A is the stronger match because it includes the same preferred features. Product B matches affordability and eco-friendly materials but emphasizes attractive design instead of high quality.\n\nIn this mapping, the customer’s preferences represent the student’s selected research keywords. Each product represents an advisor’s research profile. A 1 indicates that a keyword is present, and a 0 indicates that it is absent. Comparing the patterns represents cosine similarity, and the closest products represent the recommended advisors.\n\nWe can infer that a product sharing more preferred features is more suitable. Similarly, an advisor with a closely matching publication-keyword pattern is more likely to share the student’s research interests."
+      }
+    },
+    "LDA": {
+      "Planning a Digital Marketing Campaign": {
+        "subtopics": [
+          "Social media marketing",
+          "Online advertising",
+          "Target audience",
+          "Customer engagement",
+          "Campaign performance"
+        ],
+        "description": "Planning a digital marketing campaign involves using online channels to reach and influence potential customers. Social media marketing promotes products through platforms where customers communicate and share content. Online advertising uses paid messages to increase visibility. The target audience is the group most likely to be interested in the product. Customer engagement includes actions such as clicks, comments, and shares, while campaign performance measures whether the marketing effort achieves its goals.",
+        "analogy": "Imagine that a marketing analyst separates many digital-marketing documents into n major topics based on words that frequently appear together.\n\nFor example:\n\nTopic 1—Social Media Marketing:\n[posts, followers, sharing, platforms]\n\nTopic 2—Online Advertising:\n[advertisements, clicks, campaigns, promotion]\n\nTopic 3—Audience Targeting:\n[customers, demographics, interests, segments]\n\nSuppose a marketer provides these terms:\n\n[advertisements, clicks, audience]\n\nThe system compares them with all n topics. Because advertisements and clicks are strongly associated with Topic 2, it selects Topic 2—Online Advertising.\n\nThe marketer’s terms represent the student’s selected research keywords. The n digital-marketing topics represent the topics created by LDA, while the words grouped under each topic represent related terms learned from advisor publications.\n\nAfter selecting Topic 2, the system uses its topic words as an expanded query and compares them with each advisor’s publication-keyword profile using cosine similarity.\n\nWe can infer that a few campaign-related terms can reveal a broader marketing theme. Similarly, the model identifies the student’s broader research topic and recommends advisors whose publications address that theme, even when they use different terminology."
+      },
+      "Identifying Target Audiences": {
+        "subtopics": [
+          "Price-sensitive customers",
+          "Technology-oriented customers",
+          "Environmentally conscious customers",
+          "Convenience-focused customers",
+          "Brand-loyal customers"
+        ],
+        "description": "Identifying target audiences means dividing a broad market into customer groups with similar needs, preferences, or behaviors. Price-sensitive customers focus on affordability, discounts, and value. Technology-oriented customers prefer innovative products, digital services, and advanced features. Environmentally conscious customers consider sustainability, ethical production, and environmental impact. Convenience-focused customers value speed and ease of use, while brand-loyal customers repeatedly choose familiar and trusted brands. Identifying these groups helps marketers create messages and products that appeal to the most relevant customers.",
+        "analogy": "Imagine that a marketing analyst studies many customer descriptions and organizes words that frequently appear together into n target-audience topics.\n\nFor example:\n\nTopic 1—Price-Sensitive Customers:\n[price, discount, affordable, value]\n\nTopic 2—Technology-Oriented Customers:\n[technology, innovation, digital, features]\n\nTopic 3—Environmentally Conscious Customers:\n[sustainability, environment, recycling, ethical]\n\nSuppose a customer description contains:\n\n[digital, innovation, affordable]\n\nThe system compares these words with all n topics. Because digital and innovation are most strongly related to Topic 2, it selects Topic 2—Technology-Oriented Customers.\n\nThe customer-description words represent the student’s selected research keywords. The n target-audience topics represent the topics created by LDA, while the words grouped within each topic represent related terms learned from advisor publications.\n\nAfter Topic 2 is selected, its words become an expanded query. The system compares this query with each advisor’s publication-keyword profile using cosine similarity.\n\nWe can infer that several customer characteristics can reveal a broader target audience. Similarly, the model identifies the broader research theme behind the student’s keywords and recommends advisors whose publications align with that theme, even when they use different terminology."
+      }
+    }
+  },
+  "Human Resource Management": {
+    "cosine": {
+      "Matching Job Candidates with Job Requirements": {
+        "subtopics": [
+          "Communication skills",
+          "Leadership experience",
+          "Teamwork ability",
+          "Problem-solving skills",
+          "Project management experience"
+        ],
+        "description": "Matching job candidates with job requirements involves comparing a candidate’s qualifications with the skills needed for a position. Communication skills help employees share information clearly. Leadership experience shows the ability to guide others. Teamwork ability reflects how well someone collaborates with colleagues. Problem-solving skills help employees address workplace challenges, while project management experience shows the ability to organize tasks, time, and resources. Comparing these qualifications helps human resource professionals identify candidates who are suitable for a job.",
+        "analogy": "Imagine that you are a human resource manager selecting a candidate for a position. The job requires communication skills, leadership experience, teamwork ability, problem-solving skills, and project management experience.\n\nThe skills are ordered as:\n\n[Communication, Leadership, Teamwork, Problem-solving, Project management]\n\nThe job requirements are represented as:\n\n[1, 1, 1, 0, 0]\n\nHere, 1 means a skill is required or present, while 0 means it is absent.\n\nTwo candidates are represented as:\n\nCandidate A: [1, 1, 1, 0, 0]\nCandidate B: [1, 0, 1, 1, 0]\n\nCandidate A is the stronger match because the candidate has all three required skills. Candidate B has communication and teamwork skills but has problem-solving experience instead of leadership experience.\n\nIn this mapping, the job requirements represent the student’s selected research keywords. Each candidate represents an advisor’s research profile. A 1 indicates that a keyword is present, while a 0 indicates that it is absent. Comparing the patterns represents cosine similarity, and the candidates with the most similar patterns represent the recommended advisors.\n\nWe can infer that a candidate whose skills closely match the job requirements is more suitable for the position. Similarly, an advisor whose publication-keyword pattern closely matches the student’s selected keywords is more likely to share the student’s research interests."
+      },
+      "Matching Employees with Training Programs": {
+        "subtopics": [
+          "Communication training",
+          "Leadership development",
+          "Technology skills",
+          "Workplace safety",
+          "Time management"
+        ],
+        "description": "Matching employees with training programs involves identifying the skills an employee needs to develop and selecting a program that addresses those needs. Communication training improves how employees exchange information. Leadership development prepares employees to guide teams and make decisions. Technology training builds proficiency with workplace tools. Safety training teaches employees how to prevent accidents, while time-management training helps them organize tasks and meet deadlines. Comparing employee needs with program content helps human resource professionals select appropriate training opportunities.",
+        "analogy": "Imagine that you are a human resource manager selecting a training program for an employee. The possible training areas are communication, leadership, technology, workplace safety, and time management.\n\nThe areas are ordered as:\n\n[Communication, Leadership, Technology, Safety, Time management]\n\nThe employee’s training needs are:\n\n[1, 0, 1, 1, 0]\n\nHere, 1 means a training need is present, while 0 means it is absent.\n\nTwo programs are:\n\nProgram A: [1, 0, 1, 1, 0]\nProgram B: [1, 1, 0, 1, 0]\n\nProgram A is the stronger match because it covers all three areas the employee needs. Program B covers communication and safety but offers leadership training instead of technology training.\n\nIn this mapping, the employee’s training needs represent the student’s selected research keywords. Each training program represents an advisor’s research profile. A 1 means a keyword is present, and a 0 means it is absent. Comparing the patterns represents cosine similarity. The most similar programs represent the recommended advisors.\n\nWe can infer that a program matching more of the employee’s needs is more suitable. Similarly, an advisor with a closely matching publication-keyword pattern is more likely to share the student’s research interests."
+      }
+    },
+    "LDA": {
+      "Grouping Employees by Workplace Needs": {
+        "subtopics": [
+          "Training needs",
+          "Career development",
+          "Employee motivation",
+          "Work-life balance",
+          "Compensation expectations"
+        ],
+        "description": "Grouping employees by workplace needs means identifying employees who share similar goals, concerns, or preferences. Some employees may need technical training, while others may seek opportunities for promotion and career development. Employee motivation concerns the factors that encourage strong performance. Work-life balance reflects the need to manage job responsibilities alongside personal life, while compensation expectations include preferences about salary, benefits, and rewards. Understanding these groups helps human-resource managers design suitable policies and support programs.",
+        "analogy": "Imagine that a human-resource manager examines many employee surveys and organizes words that frequently appear together into n workplace topics.\n\nFor example:\n\nTopic 1—Training Needs:\n[skills, training, learning, development]\n\nTopic 2—Career Growth:\n[promotion, leadership, advancement, opportunity]\n\nTopic 3—Employee Well-Being:\n[balance, stress, flexibility, support]\n\nTopic 4—Compensation:\n[salary, benefits, rewards, bonuses]\n\nSuppose an employee survey contains:\n\n[training, skills, promotion]\n\nThe system compares these words with all n topics. Because training and skills are most strongly related to Topic 1, it selects Topic 1—Training Needs.\n\nThe survey words represent the student’s selected research keywords. The n workplace topics represent the topics created by LDA, while the words within each topic represent related terms learned from advisor publications.\n\nAfter Topic 1 is selected, its words become an expanded query. The system compares this query with each advisor’s publication-keyword profile using cosine similarity.\n\nWe can infer that a few employee concerns can reveal a broader workplace need. Similarly, the model identifies the broader research theme behind the student’s keywords and recommends advisors whose publications align with that theme, even when they use different terminology."
+      },
+      "Managing Employee Recruitment and Selection": {
+        "subtopics": [
+          "Job requirements",
+          "Candidate qualifications",
+          "Work experience",
+          "Interview performance",
+          "Organizational fit"
+        ],
+        "description": "Employee recruitment and selection involve finding and choosing suitable candidates for available positions. Job requirements describe the skills and responsibilities associated with a role. Candidate qualifications include education, certifications, and technical abilities. Work experience shows how candidates have applied their knowledge in previous jobs. Interview performance helps employers evaluate communication and problem-solving abilities, while organizational fit considers whether a candidate’s values and working style align with the company.",
+        "analogy": "Imagine that a human-resource manager examines many job applications and organizes words that frequently appear together into n recruitment topics.\n\nFor example:\n\nTopic 1—Technical Qualifications:\n[skills, certification, education, knowledge]\n\nTopic 2—Professional Experience:\n[employment, projects, responsibilities, experience]\n\nTopic 3—Interview Performance:\n[communication, answers, confidence, presentation]\n\nTopic 4—Organizational Fit:\n[values, teamwork, culture, collaboration]\n\nSuppose a candidate profile contains:\n\n[skills, certification, teamwork]\n\nThe system compares these words with all n topics. Because skills and certification are most strongly related to Topic 1, it selects Topic 1—Technical Qualifications.\n\nThe candidate-profile words represent the student’s selected research keywords. The n recruitment topics represent the topics created by LDA, while the words within each topic represent related terms learned from advisor publications.\n\nAfter Topic 1 is selected, its words become an expanded query. The system compares this query with each advisor’s publication-keyword profile using cosine similarity.\n\nWe can infer that several candidate characteristics can reveal a broader qualification area. Similarly, the model identifies the broader research theme behind the student’s keywords and recommends advisors whose publications align with that theme, even when they use different terminology."
+      }
+    }
+  },
+  "English": {
+    "cosine": {
+      "Matching Books with Reader Interests": {
+        "subtopics": [
+          "Mystery",
+          "Romance",
+          "Adventure",
+          "History",
+          "Family relationships"
+        ],
+        "description": "Matching books with reader interests involves comparing the subjects a reader enjoys with the themes found in different books. Mystery focuses on solving crimes or unexplained events. Romance explores emotional relationships. Adventure follows characters through exciting journeys or challenges. History presents past events or historical settings, while family relationships examine interactions among parents, children, siblings, or relatives. Comparing these themes helps readers identify books that are likely to match their interests.",
+        "analogy": "Imagine that you are helping a reader choose a book. The reader identifies five possible interests: mystery, romance, adventure, history, and family relationships.\n\nThe themes are ordered as:\n\n[Mystery, Romance, Adventure, History, Family relationships]\n\nThe reader’s interests are represented as:\n\n[1, 0, 1, 1, 0]\n\nHere, 1 means the theme is selected, while 0 means it is not selected.\n\nTwo books are represented as:\n\nBook A: [1, 0, 1, 1, 0]\nBook B: [1, 1, 0, 1, 0]\n\nBook A is the stronger match because it contains the same three themes the reader selected. Book B includes mystery and history but emphasizes romance instead of adventure.\n\nIn this mapping, the reader’s selected themes represent the student’s research keywords. Each book represents an advisor’s research profile. A value of 1 means a keyword is present, while 0 means it is absent. Comparing the patterns represents cosine similarity. Books with the most similar patterns represent the recommended advisors.\n\nWe can infer that a book containing a similar combination of themes is more likely to interest the reader. Likewise, an advisor whose publication-keyword pattern closely matches the student’s selected keywords is more likely to share the student’s research interests."
+      },
+      "Matching Stories by Literary Features": {
+        "subtopics": [
+          "First-person narration",
+          "Dialogue",
+          "Character conflict",
+          "Symbolism",
+          "Descriptive imagery"
+        ],
+        "description": "Matching stories by literary features involves comparing the techniques used by different authors. First-person narration tells the story using words such as “I” or “we.” Dialogue presents conversations between characters. Character conflict describes disagreements or struggles involving the characters. Symbolism uses an object, person, or event to represent a deeper meaning. Descriptive imagery uses detailed language to help readers imagine a scene. Comparing these features helps readers identify stories with similar writing styles and structures.",
+        "analogy": "Imagine that you are helping a student find a story that has the literary features they want to study. The possible features are first-person narration, dialogue, character conflict, symbolism, and descriptive imagery.\n\nThe features are ordered as:\n\n[First-person narration, Dialogue, Conflict, Symbolism, Imagery]\n\nThe student’s selected features are:\n\n[1, 1, 0, 1, 0]\n\nHere, 1 means the feature is present, while 0 means it is absent.\n\nTwo stories are represented as:\n\nStory A: [1, 1, 0, 1, 0]\nStory B: [1, 0, 1, 1, 0]\n\nStory A is the stronger match because it contains the same three selected features. Story B includes first-person narration and symbolism but uses character conflict instead of dialogue.\n\nIn this mapping, the selected literary features represent the student’s research keywords. Each story represents an advisor’s research profile. A 1 means a keyword is present, and a 0 means it is absent. Comparing the patterns represents cosine similarity, while the closest stories represent the recommended advisors.\n\nWe can infer that stories sharing more selected literary features are more relevant to the student. Similarly, advisors with closely matching publication-keyword patterns are more likely to share the student’s research interests."
+      }
+    },
+    "LDA": {
+      "Identifying Themes in Literature": {
+        "subtopics": [
+          "Love",
+          "Conflict",
+          "Identity",
+          "Social class",
+          "Freedom"
+        ],
+        "description": "Identifying themes in literature means recognizing the broader ideas explored in stories, poems, or plays. Love may describe emotional relationships, while conflict involves struggles between characters, society, or personal beliefs. Identity concerns how individuals understand themselves. Social class examines differences in wealth, status, and opportunity, while freedom explores independence, restriction, and personal choice. Readers use repeated words, events, and relationships to determine which themes are most important in a literary work.",
+        "analogy": "Imagine that a literature teacher examines many books and organizes words that frequently appear together into n literary topics. Each topic is given a meaningful name based on its most important words.\n\nFor example:\n\nTopic 1—Love and Relationships:\n[love, marriage, affection, family]\n\nTopic 2—Identity and Self-Discovery:\n[identity, self, belonging, growth]\n\nTopic 3—Social Inequality:\n[class, wealth, poverty, power]\n\nTopic 4—Freedom and Oppression:\n[freedom, control, rights, resistance]\n\nSuppose a reader selects:\n\n[identity, belonging, freedom]\n\nThe system compares these words with all n topics. Because identity and belonging are most strongly associated with Topic 2, it selects Topic 2—Identity and Self-Discovery.\n\nThe reader’s words represent the student’s selected research keywords. The n literary topics represent the topics created by LDA, while the words within each topic represent related terms learned from advisor publications.\n\nAfter Topic 2 is selected, its words become an expanded query. The system compares this query with each advisor’s publication-keyword profile using cosine similarity.\n\nWe can infer that a few words from a book can reveal its broader theme. Similarly, the model identifies the broader research topic behind the student’s keywords and recommends advisors whose publications address that theme, even when they use different terminology."
+      },
+      "Analyzing Poetry": {
+        "subtopics": [
+          "Imagery",
+          "Metaphor",
+          "Rhythm",
+          "Emotion",
+          "Symbolism"
+        ],
+        "description": "Analyzing poetry means examining how poets use language and structure to communicate ideas and feelings. Imagery creates pictures in the reader’s mind through descriptive language. Metaphor connects one idea with another to suggest a deeper meaning. Rhythm gives a poem its sound and movement. Emotion communicates the speaker’s feelings, while symbolism uses objects, people, or events to represent broader ideas. Considering these elements together helps readers understand the poem’s central meaning.",
+        "analogy": "Imagine that a literature teacher examines many poems and organizes words that frequently appear together into n poetry topics. Each topic is given a meaningful name based on its most important words.\n\nFor example:\n\nTopic 1—Nature Imagery:\n[river, forest, sky, flowers]\n\nTopic 2—Love and Emotion:\n[love, heart, longing, affection]\n\nTopic 3—Time and Mortality:\n[time, age, death, memory]\n\nTopic 4—Freedom and Resistance:\n[freedom, chains, struggle, voice]\n\nSuppose a reader selects:\n\n[heart, longing, memory]\n\nThe system compares these words with all n topics. Because heart and longing are most strongly related to Topic 2, it selects Topic 2—Love and Emotion.\n\nThe reader’s selected words represent the student’s research keywords. The n poetry topics represent the topics created by LDA, while each topic’s words represent related terms learned from advisor publications.\n\nAfter Topic 2 is selected, its words become an expanded query. The system compares this query with each advisor’s publication-keyword profile using cosine similarity.\n\nWe can infer that a few poetic words can reveal a broader literary theme. Similarly, the model identifies the broader research topic and recommends advisors whose publications align with that theme, even when they use different terminology."
+      }
+    }
+  },
+  "History": {
+    "cosine": {
+      "Matching Historical Events": {
+        "subtopics": [
+          "Political conflict",
+          "Economic hardship",
+          "Social protest",
+          "Military involvement",
+          "Government reform"
+        ],
+        "description": "Matching historical events by their features involves comparing the conditions and developments associated with different periods. Political conflict refers to disagreements over power or leadership. Economic hardship includes unemployment, inflation, poverty, or shortages. Social protest involves organized public opposition or demands for change. Military involvement refers to the use of armed forces, while government reform includes changes to laws, institutions, or public policies. Comparing these features helps historians identify events that developed under similar circumstances.",
+        "analogy": "Imagine that you are a historian looking for a past event that resembles an event you are currently studying. The possible features are political conflict, economic hardship, social protest, military involvement, and government reform.\n\nThe features are ordered as:\n\n[Political conflict, Economic hardship, Social protest, Military involvement, Government reform]\n\nThe event being studied is represented as:\n\n[1, 1, 1, 0, 0]\n\nHere, 1 means the feature is present, while 0 means it is absent.\n\nTwo historical events are:\n\nEvent A: [1, 1, 1, 0, 0]\nEvent B: [1, 0, 1, 1, 0]\n\nEvent A is the stronger match because it contains the same three features. Event B shares political conflict and social protest but includes military involvement instead of economic hardship.\n\nIn this mapping, the selected historical features represent the student’s research keywords. Each historical event represents an advisor’s research profile. A 1 means a keyword is present, and a 0 means it is absent. Comparing the patterns represents cosine similarity, while the closest events represent the recommended advisors.\n\nWe can infer that events sharing more important features are more closely related. Similarly, advisors with closely matching publication-keyword patterns are more likely to share the student’s research interests."
+      },
+      "Matching Historical Sources with Research Needs": {
+        "subtopics": [
+          "Personal diaries",
+          "Newspaper articles",
+          "Government records",
+          "Historical photographs",
+          "Maps"
+        ],
+        "description": "Matching historical sources with research needs involves identifying which types of evidence can best answer a historical question. Personal diaries describe individual experiences and opinions. Newspaper articles report events and public discussions from a particular time. Government records provide official information about laws, policies, and decisions. Historical photographs show people, places, and events visually, while maps help researchers understand locations, borders, and geographic changes. Comparing these sources helps historians select evidence that is relevant to their research.",
+        "analogy": "Imagine that you are a historian searching for sources for a research project. The available source types are personal diaries, newspaper articles, government records, historical photographs, and maps.\n\nThe source types are ordered as:\n\n[Diaries, Newspapers, Government records, Photographs, Maps]\n\nYour research needs are represented as:\n\n[1, 1, 0, 1, 0]\n\nHere, 1 means a source type is needed or present, while 0 means it is absent.\n\nTwo archive collections are:\n\nCollection A: [1, 1, 0, 1, 0]\nCollection B: [1, 0, 1, 1, 0]\n\nCollection A is the stronger match because it contains all three desired source types. Collection B contains diaries and photographs but provides government records instead of newspapers.\n\nIn this mapping, the historian’s source needs represent the student’s selected research keywords. Each archive collection represents an advisor’s research profile. A 1 indicates that a keyword is present, while a 0 indicates that it is absent. Comparing the patterns represents cosine similarity, and the most similar collections represent the recommended advisors.\n\nWe can infer that an archive containing a similar combination of sources is more useful for the project. Similarly, an advisor whose publication-keyword pattern closely matches the student’s selected keywords is more likely to share the student’s research interests."
+      }
+    },
+    "LDA": {
+      "Historical Movements": {
+        "subtopics": [
+          "Political revolutions",
+          "Social reform",
+          "Economic change",
+          "National independence",
+          "Civil rights"
+        ],
+        "description": "Understanding major historical movements means examining how groups of people respond to political, social, and economic conditions. Political revolutions seek major changes in government or leadership. Social reform movements attempt to improve laws and living conditions. Economic change includes shifts in labor, trade, and industrial production. National independence movements seek freedom from foreign control, while civil-rights movements work to achieve equal treatment and legal protection.",
+        "analogy": "Imagine that a historian examines many historical documents and organizes words that frequently appear together into n historical topics. Each topic receives a meaningful name based on its most important words.\n\nFor example:\n\nTopic 1—Political Revolution:\n[revolution, government, rebellion, leadership]\n\nTopic 2—Industrial Change:\n[factories, workers, machines, production]\n\nTopic 3—National Independence:\n[independence, colonialism, freedom, nation]\n\nTopic 4—Civil Rights:\n[equality, rights, protest, discrimination]\n\nSuppose a student selects:\n\n[freedom, colonialism, protest]\n\nThe model compares these words with all n topics. Because freedom and colonialism are most strongly associated with Topic 3, it selects Topic 3—National Independence.\n\nThe student's selected historical terms represent the research keywords entered into the advisor-recommendation system. The n historical topics represent the topics created by LDA, while the words within each topic represent related terms learned from advisor publications.\n\nAfter Topic 3 is selected, its words become an expanded query. The system compares this query with each advisor's publication-keyword profile using cosine similarity.\n\nWe can infer that a few historical terms can reveal a broader movement. Similarly, the model identifies the broader research theme and recommends advisors whose publications align with that theme, even when they use different terminology."
+      },
+      "Studying Ancient Civilizations": {
+        "subtopics": [
+          "Government",
+          "Religion",
+          "Trade",
+          "Warfare",
+          "Technology"
+        ],
+        "description": "Studying ancient civilizations means examining how early societies were organized and how they developed over time. Government concerns rulers, laws, and political systems. Religion includes beliefs, rituals, and sacred institutions. Trade explains how societies exchanged goods and ideas. Warfare examines conflicts, armies, and territorial expansion, while technology includes tools, transportation, construction, and other inventions that supported social development.",
+        "analogy": "Imagine that a historian examines many documents about ancient societies and organizes words that frequently appear together into n historical topics. Each topic is given a meaningful name based on its most important words.\n\nFor example:\n\nTopic 1—Government and Leadership:\n[kings, laws, rulers, empire]\n\nTopic 2—Religion and Belief:\n[gods, temples, rituals, priests]\n\nTopic 3—Trade and Economy:\n[merchants, goods, routes, markets]\n\nTopic 4—Warfare and Expansion:\n[armies, battles, conquest, territory]\n\nSuppose a student selects:\n\n[kings, empire, battles]\n\nThe model compares these words with all n topics. Because kings and empire are strongly associated with Topic 1, it selects Topic 1—Government and Leadership.\n\nThe student's historical terms represent the research keywords entered into the advisor-recommendation system. The n historical topics represent the topics created by LDA, while the words within each topic represent related terms learned from advisor publications.\n\nAfter Topic 1 is selected, its words become an expanded query. The system compares this query with each advisor's publication-keyword profile using cosine similarity.\n\nWe can infer that a few historical terms can indicate a broader area of study. Similarly, the model identifies the student's broader research theme and recommends advisors whose publications align with it, even when they use different terminology."
+      }
+    }
+  },
+  "Psychology": {
+    "cosine": {
+      "Personality Profiles": {
+        "subtopics": [
+          "Openness",
+          "Conscientiousness",
+          "Extraversion",
+          "Agreeableness",
+          "Emotional stability"
+        ],
+        "description": "Comparing personality profiles involves examining patterns of traits that describe how people commonly think, feel, and behave. Openness relates to curiosity and interest in new experiences. Conscientiousness reflects organization and responsibility. Extraversion describes sociability and comfort interacting with others. Agreeableness relates to cooperation and concern for others, while emotional stability describes the ability to remain calm when facing stress. Comparing these traits helps psychologists identify similarities and differences among personality profiles.",
+        "analogy": "Imagine that you are a psychologist comparing a participant’s selected personality traits with several existing personality profiles. The possible traits are openness, conscientiousness, extraversion, agreeableness, and emotional stability.\n\nThe traits are ordered as:\n\n[Openness, Conscientiousness, Extraversion, Agreeableness, Emotional stability]\n\nThe participant’s selected traits are:\n\n[1, 1, 0, 1, 0]\n\nHere, 1 means the trait is present, while 0 means it is absent.\n\nTwo personality profiles are:\n\nProfile A: [1, 1, 0, 1, 0]\nProfile B: [1, 0, 1, 1, 0]\n\nProfile A is the stronger match because it contains the same three traits. Profile B shares openness and agreeableness but includes extraversion instead of conscientiousness.\n\nIn this mapping, the participant’s selected traits represent the student’s research keywords. Each personality profile represents an advisor’s research profile. A 1 indicates that a keyword is present, while a 0 indicates that it is absent. Comparing the overall patterns represents cosine similarity. The most similar profiles represent the recommended advisors.\n\nWe can infer that profiles sharing more selected traits are more closely related. Similarly, an advisor whose publication-keyword pattern closely matches the student’s selected keywords is more likely to share the student’s research interests."
+      },
+      "Matching Learning Strategies with Student Needs": {
+        "subtopics": [
+          "Repetition",
+          "Visual aids",
+          "Practice testing",
+          "Group discussion",
+          "Scheduled breaks"
+        ],
+        "description": "Matching learning strategies with student needs involves identifying the methods that help a student understand and remember information. Repetition reinforces information through repeated review. Visual aids use diagrams, charts, or images to clarify ideas. Practice testing helps students retrieve knowledge from memory. Group discussion allows learners to explain concepts and hear different perspectives, while scheduled breaks help maintain attention and reduce mental fatigue. Comparing these strategies helps educational psychologists recommend suitable learning approaches.",
+        "analogy": "Imagine that you are an educational psychologist helping a student find a learning plan. The student prefers repetition, practice testing, and group discussion.\n\nThe strategies are ordered as:\n\n[Repetition, Visual aids, Practice testing, Group discussion, Scheduled breaks]\n\nThe student’s needs are represented as:\n\n[1, 0, 1, 1, 0]\n\nHere, 1 means the strategy is needed, while 0 means it is not selected.\n\nTwo learning plans are:\n\nPlan A: [1, 0, 1, 1, 0]\nPlan B: [1, 1, 0, 1, 0]\n\nPlan A is the stronger match because it contains all three selected strategies. Plan B includes repetition and group discussion but provides visual aids instead of practice testing.\n\nIn this mapping, the student’s learning needs represent the selected research keywords. Each learning plan represents an advisor’s research profile. A 1 indicates that a keyword is present, while a 0 indicates that it is absent. Comparing the two patterns represents cosine similarity, and the most similar plans represent the recommended advisors.\n\nWe can infer that a learning plan containing a similar combination of strategies is more suitable for the student. Similarly, an advisor whose publication-keyword pattern closely matches the student’s selected keywords is more likely to share the student’s research interests."
+      }
+    },
+    "LDA": {
+      "Understanding Personality":{
+        "subtopics": [
+          "Personality traits",
+          "Motivation",
+          "Emotions",
+          "Social behavior",
+          "Self-concept"
+        ],
+        "description": "Understanding personality means examining the relatively stable patterns that influence how people think, feel, and behave. Personality traits describe qualities such as openness, responsibility, and sociability. Motivation explains what drives a person’s actions, while emotions affect reactions to situations. Social behavior concerns how people interact with others, and self-concept refers to how individuals understand and evaluate themselves. Together, these factors help psychologists explain differences in human behavior.",
+        "analogy": "Imagine that a psychologist reads many personality assessments and organizes words that frequently appear together into n psychological topics. Each topic receives a meaningful name based on its most important words.\n\nFor example:\n\nTopic 1—Personality Traits:\n[openness, responsibility, sociability, behavior]\n\nTopic 2—Motivation and Goals:\n[motivation, achievement, goals, effort]\n\nTopic 3—Emotion and Mood:\n[emotion, happiness, anxiety, mood]\n\nTopic 4—Self-Concept:\n[identity, confidence, self-image, beliefs]\n\nSuppose a student selects:\n\n[openness, sociability, confidence]\n\nThe model compares these words with all n topics. Because openness and sociability are most strongly associated with Topic 1, it selects Topic 1—Personality Traits.\n\nThe student's selected words represent the research keywords entered into the advisor-recommendation system. The n psychological topics represent the topics created by LDA, while the words within each topic represent related terms learned from advisor publications.\n\nAfter Topic 1 is selected, its words become an expanded query. The system compares this query with each advisor's publication-keyword profile using cosine similarity.\n\nWe can infer that a few personality-related terms can reveal a broader psychological theme. Similarly, the model identifies the student's broader research topic and recommends advisors whose publications align with that theme."
+      },
+      "Understanding Human Memory": {
+        "subtopics": [
+          "Attention",
+          "Short-term memory",
+          "Long-term memory",
+          "Learning",
+          "Recall"
+        ],
+        "description": "Understanding human memory involves examining how people receive, store, and retrieve information. Attention determines which information a person notices. Short-term memory temporarily holds a limited amount of information, while long-term memory stores knowledge and experiences for longer periods. Learning helps new information enter memory, and recall allows stored information to be retrieved when needed. These processes work together to influence how people understand and remember experiences.",
+        "analogy": "Imagine that a psychologist examines many research documents and organizes words that frequently appear together into n psychological topics. Each topic receives a meaningful name based on its most important words.\n\nFor example:\n\nTopic 1—Memory and Recall:\n[memory, recall, storage, recognition]\n\nTopic 2—Attention and Perception:\n[attention, focus, perception, awareness]\n\nTopic 3—Learning and Behavior:\n[learning, reinforcement, behavior, response]\n\nTopic 4—Emotion and Stress:\n[emotion, anxiety, stress, mood]\n\nSuppose a student selects:\n\n[memory, recognition, attention]\n\nThe model compares these words with all n topics. Because memory and recognition are most strongly associated with Topic 1, it selects Topic 1—Memory and Recall.\n\nThe student's words represent the selected research keywords. The n psychological topics represent the topics created by LDA, while the words within each topic represent related terms learned from advisor publications.\n\nAfter Topic 1 is selected, its words become an expanded query and are compared with each advisor's publication-keyword profile using cosine similarity.\n\nWe can infer that a few psychological terms can reveal a broader research theme. Similarly, the model recommends advisors whose publications address that broader topic, even when they use terminology different from the student's exact keywords."
+      }
+    }
+  },
+  "Political Science": {
+    "cosine": {
+      "Matching Political Candidates with Voter Priorities": {
+        "subtopics": [
+          "Economic policy",
+          "Healthcare",
+          "Education",
+          "Environmental protection",
+          "Public safety"
+        ],
+        "description": "Matching political candidates with voter priorities involves comparing the issues voters consider important with the policies supported by different candidates. Economic policy concerns jobs, taxes, and government spending. Healthcare focuses on medical services and insurance. Education includes school funding and access to learning. Environmental protection addresses pollution and natural resources, while public safety concerns crime prevention and community security. Comparing these areas helps voters identify candidates whose policy positions align with their priorities.",
+        "analogy": "Imagine that you are helping a voter identify a political candidate whose policy priorities best match their own. The voter is interested in economic policy, education, and environmental protection.\n\nThe issues are ordered as:\n\n[Economic policy, Healthcare, Education, Environmental protection, Public safety]\n\nThe voter’s priorities are:\n\n[1, 0, 1, 1, 0]\n\nHere, 1 means the issue is selected, while 0 means it is not selected.\n\nTwo candidates are represented as:\n\nCandidate A: [1, 0, 1, 1, 0]\nCandidate B: [1, 1, 0, 1, 0]\n\nCandidate A is the stronger match because the candidate supports the same three priority areas. Candidate B matches economic policy and environmental protection but emphasizes healthcare instead of education.\n\nIn this mapping, the voter’s priorities represent the student’s selected research keywords. Each candidate represents an advisor’s research profile. A 1 indicates that a keyword is present, while a 0 indicates that it is absent. Comparing the patterns represents cosine similarity, and the closest candidates represent the recommended advisors.\n\nWe can infer that a candidate sharing more of the voter’s selected priorities is more closely aligned. Similarly, an advisor with a closely matching publication-keyword pattern is more likely to share the student’s research interests."
+      },
+      "Matching Public Policies with Community Needs": {
+        "subtopics": [
+          "Affordable housing",
+          "Public transportation",
+          "Employment opportunities",
+          "Healthcare access",
+          "Environmental protection"
+        ],
+        "description": "Matching public policies with community needs involves comparing the problems experienced by a community with the issues addressed by different policy proposals. Affordable housing concerns access to reasonably priced homes. Public transportation includes buses, trains, and other shared travel services. Employment opportunities involve job creation and workforce development. Healthcare access concerns the availability of medical services, while environmental protection addresses pollution, conservation, and public health. Comparing these areas helps policymakers identify proposals that respond to community priorities.",
+        "analogy": "Imagine that you are a policy analyst helping a community choose a policy proposal. The community needs support for affordable housing, employment opportunities, and healthcare access.\n\nThe policy areas are ordered as:\n\n[Affordable housing, Public transportation, Employment, Healthcare, Environmental protection]\n\nThe community’s needs are represented as:\n\n[1, 0, 1, 1, 0]\n\nHere, 1 means a need is present, while 0 means it is absent.\n\nTwo policy proposals are:\n\nProposal A: [1, 0, 1, 1, 0]\nProposal B: [1, 1, 0, 1, 0]\n\nProposal A is the stronger match because it addresses all three community needs. Proposal B addresses housing and healthcare but emphasizes public transportation instead of employment.\n\nIn this mapping, the community’s needs represent the student’s selected research keywords. Each policy proposal represents an advisor’s research profile. A 1 indicates that a keyword is present, while a 0 indicates that it is absent. Comparing the patterns represents cosine similarity, and the most similar proposals represent the recommended advisors.\n\nWe can infer that a proposal addressing a similar combination of needs is more suitable for the community. Similarly, an advisor with a closely matching publication-keyword pattern is more likely to share the student’s research interests."
+      }
+    },
+    "LDA": {
+      "Understanding Public Policy Areas": {
+        "subtopics": [
+          "Economic policy",
+          "Healthcare policy",
+          "Environmental policy",
+          "Civil-rights policy",
+          "Government budgeting"
+        ],
+        "description": "Understanding public policy areas means examining how governments address social, economic, and political problems. Economic policy covers taxation, employment, inflation, and public spending. Healthcare policy concerns hospitals, insurance, patients, and access to medical services. Environmental policy addresses climate change, pollution, energy, and conservation. Civil-rights policy focuses on equality, voting, freedom, and legal protections. Government budgeting determines how public money is collected and distributed among these areas.",
+        "analogy": "Imagine that a political researcher examines many public-policy documents and organizes words that frequently appear together into n political topics. Each topic is given a meaningful name based on its most important words.\n\nFor example:\n\nTopic 1—Economic Policy:\n[taxes, employment, inflation, budgets]\n\nTopic 2—Healthcare Policy:\n[hospitals, insurance, patients, healthcare]\n\nTopic 3—Environmental Policy:\n[climate, pollution, energy, conservation]\n\nTopic 4—Civil Rights:\n[equality, voting, freedom, civil rights]\n\nSuppose a student selects:\n\n[climate, energy, voting]\n\nThe model compares these words with all n topics. Because climate and energy are most strongly associated with Topic 3, it selects Topic 3—Environmental Policy.\n\nThe student's selected terms represent the research keywords. The n policy topics represent the topics created by LDA, while each topic's words represent related terms learned from advisor publications.\n\nAfter Topic 3 is selected, its words become an expanded query. The system compares this query with each advisor's publication-keyword profile using cosine similarity.\n\nWe can infer that several policy terms can reveal a broader political theme. Similarly, the model identifies the student's broader research topic and recommends advisors whose publications address that theme, even when they use different terminology."
+      },
+      "Political Institutions": {
+        "subtopics": [
+          "Legislative institutions",
+          "Executive government",
+          "Judicial systems",
+          "Electoral processes",
+          "Separation of powers"
+        ],
+        "description": "Understanding government institutions means examining how political authority is divided and exercised. Legislative institutions create and debate bills and laws through representatives and legislatures. Executive government includes presidents, ministers, and agencies that implement laws and manage public programs. Judicial systems use courts and judges to interpret laws and issue rulings. Electoral processes involve ballots, campaigns, voters, and elections. Separation of powers helps prevent one branch from controlling all government decisions.",
+        "analogy": "Imagine that a political researcher examines many government documents and organizes words that frequently appear together into n political topics. Each topic is given a meaningful name based on its most important words.\n\nFor example:\n\nTopic 1—Legislative Government:\n[bills, laws, representatives, legislatures]\n\nTopic 2—Executive Government:\n[president, ministers, agencies, executive]\n\nTopic 3—Judicial Systems:\n[courts, judges, rulings, judicial]\n\nTopic 4—Electoral Processes:\n[ballots, campaigns, voters, elections]\n\nSuppose a student selects:\n\n[laws, representatives, elections]\n\nThe model compares these words with all n topics. Because laws and representatives are most strongly associated with Topic 1, it selects Topic 1—Legislative Government.\n\nThe student's terms represent the selected research keywords. The n government topics represent the topics created by LDA, and the words within each topic represent related terms learned from advisor publications.\n\nAfter Topic 1 is selected, its words become an expanded query and are compared with each advisor's publication-keyword profile using cosine similarity.\n\nWe can infer that a few government-related terms can reveal a broader political theme. Similarly, the model identifies the student's broader research topic and recommends advisors whose publications align with that theme, even when they use different terminology."
+      }
+    }
+  },
+  "Communication Studies": {
+    "cosine": {
+      "Matching Communication Campaigns with Audience Preferences": {
+        "subtopics": [
+          "Social media posts",
+          "Video messages",
+          "Public speeches",
+          "Printed materials",
+          "Community discussions"
+        ],
+        "description": "Matching communication campaigns with audience preferences involves identifying the communication methods that an audience is most likely to notice and understand. Social media posts distribute short messages through online platforms. Video messages combine images, speech, and sound. Public speeches communicate information directly to a group. Printed materials include posters, brochures, and flyers, while community discussions allow people to exchange ideas and ask questions. Comparing these methods helps communication professionals select campaigns that fit their intended audience.",
+        "analogy": "Imagine that you are a communication specialist choosing a campaign for an audience. The audience prefers social media posts, video messages, and community discussions.\n\nThe communication methods are ordered as:\n\n[Social media, Video, Public speeches, Printed materials, Community discussions]\n\nThe audience’s preferences are:\n\n[1, 1, 0, 0, 1]\n\nHere, 1 means the communication method is preferred, while 0 means it is not selected.\n\nTwo campaigns are:\n\nCampaign A: [1, 1, 0, 0, 1]\nCampaign B: [1, 0, 1, 0, 1]\n\nCampaign A is the stronger match because it includes all three preferred methods. Campaign B includes social media and community discussions but uses public speeches instead of video messages.\n\nIn this mapping, the audience’s preferences represent the student’s selected research keywords. Each campaign represents an advisor’s research profile. A 1 indicates that a keyword is present, while a 0 indicates that it is absent. Comparing the patterns represents cosine similarity, and the most similar campaigns represent the recommended advisors.\n\nWe can infer that a campaign using more preferred communication methods is more suitable for the audience. Similarly, an advisor with a closely matching publication-keyword pattern is more likely to share the student’s research interests."
+      },
+      "Matching News Stories with Audience Interests": {
+        "subtopics": [
+          "Local events",
+          "Politics",
+          "Health",
+          "Entertainment",
+          "Sports"
+        ],
+        "description": "Matching news stories with audience interests involves comparing the subjects readers prefer with the topics covered by different news articles. Local events include activities and developments within a community. Politics covers government decisions, elections, and public policies. Health includes medical information and wellness topics. Entertainment focuses on movies, music, and celebrities, while sports covers games, teams, and athletes. Comparing these subjects helps communication professionals recommend news stories that are likely to interest particular audiences.",
+        "analogy": "Imagine that you are a communication specialist recommending news stories to a reader. The reader is interested in local events, health, and sports.\n\nThe subjects are ordered as:\n\n[Local events, Politics, Health, Entertainment, Sports]\n\nThe reader’s interests are:\n\n[1, 0, 1, 0, 1]\n\nHere, 1 means the reader is interested in the subject, while 0 means the interest is absent.\n\nTwo news stories are represented as:\n\nStory A: [1, 0, 1, 0, 1]\nStory B: [1, 1, 0, 0, 1]\n\nStory A is the stronger match because it contains all three subjects selected by the reader. Story B includes local events and sports but focuses on politics instead of health.\n\nIn this mapping, the reader’s interests represent the student’s selected research keywords. Each news story represents an advisor’s research profile. A 1 indicates that a keyword is present, while a 0 indicates that it is absent. Comparing the patterns represents cosine similarity, and the most similar stories represent the recommended advisors.\n\nWe can infer that a news story covering more of the reader’s preferred subjects is more relevant. Similarly, an advisor whose publication-keyword pattern closely matches the student’s selected keywords is more likely to share the student’s research interests."
+      }
+    },
+    "LDA": {
+      "Communication Contexts": {
+        "subtopics": [
+          "Interpersonal communication",
+          "Organizational communication",
+          "Digital communication",
+          "Mass communication",
+          "Audience interaction"
+        ],
+        "description": "Understanding communication settings means examining how people exchange messages in different environments. Interpersonal communication focuses on relationships, conversations, and listening between individuals. Organizational communication concerns communication among employees, teams, managers, and workplace departments. Digital communication involves social media, online platforms, and internet-based interactions. Mass communication distributes information to large audiences through television, news, journalism, and other media. Audience interaction examines how people receive, interpret, and respond to these messages.",
+        "analogy": "Imagine that a communication researcher examines many communication documents and organizes words that frequently appear together into n communication topics. Each topic is given a meaningful name based on its most important words.\n\nFor example:\n\nTopic 1—Interpersonal Communication:\n[relationships, conversation, listening, interpersonal]\n\nTopic 2—Organizational Communication:\n[workplace, teams, management, organizational]\n\nTopic 3—Digital Communication:\n[social media, online platforms, digital, internet]\n\nTopic 4—Mass Communication:\n[television, news, journalism, mass media]\n\nSuppose a student selects:\n\n[social media, online platforms, news]\n\nThe model compares these words with all n topics. Because social media and online platforms are most strongly associated with Topic 3, it selects Topic 3—Digital Communication.\n\nThe student's terms represent the selected research keywords. The n communication topics represent the topics created by LDA, while the words within each topic represent related terms learned from advisor publications.\n\nAfter Topic 3 is selected, its words become an expanded query and are compared with each advisor's publication-keyword profile using cosine similarity.\n\nWe can infer that a few communication terms can reveal a broader communication setting. Similarly, the model identifies the student's broader research topic and recommends advisors whose publications align with that broader theme, even when they use different terminology."
+      },
+      "Understanding Intercultural Communication": {
+        "subtopics": [
+          "Cultural values",
+          "Language differences",
+          "Nonverbal communication",
+          "Stereotypes",
+          "Cross-cultural adaptation"
+        ],
+        "description": "Intercultural communication examines how people from different cultural backgrounds exchange and interpret messages. Cultural values influence beliefs and communication styles. Language differences may affect how clearly ideas are expressed and understood. Nonverbal communication includes gestures, facial expressions, eye contact, and personal space. Stereotypes can create inaccurate assumptions about others, while cross-cultural adaptation involves adjusting communication behavior when entering a different cultural environment.",
+        "analogy": "Imagine that a communication researcher examines many documents about interactions among different cultures and organizes words that frequently appear together into n communication topics. Each topic is given a meaningful name based on its most important words.\n\nFor example:\n\nTopic 1—Cultural Values:\n[beliefs, traditions, identity, norms]\n\nTopic 2—Language Differences:\n[language, translation, meaning, misunderstanding]\n\nTopic 3—Nonverbal Communication:\n[gestures, eye contact, expressions, personal space]\n\nTopic 4—Cross-Cultural Adaptation:\n[adaptation, adjustment, integration, environment]\n\nSuppose a student selects:\n\n[gestures, expressions, language]\n\nThe model compares these words with all n topics. Because gestures and expressions are most strongly associated with Topic 3, it selects Topic 3—Nonverbal Communication.\n\nThe student's terms represent the selected research keywords. The n communication topics represent the topics created by LDA, while the words within each topic represent related terms learned from advisor publications.\n\nAfter Topic 3 is selected, its words become an expanded query and are compared with each advisor's publication-keyword profile using cosine similarity.\n\nWe can infer that a few communication terms can reveal a broader intercultural communication theme. Similarly, the model identifies the student's broader research topic and recommends advisors whose publications align with that broader theme, even when they use different terminology."
+      }
+    }
+  },
+  "Public Administration": {
+    "cosine": {
+      "Matching Municipal Services with Community Needs": {
+        "subtopics": [
+          "Road maintenance",
+          "Waste collection",
+          "Public transportation",
+          "Park maintenance",
+          "Emergency services"
+        ],
+        "description": "Matching municipal services with community needs involves identifying the public services required by a neighborhood. Road maintenance repairs streets and sidewalks. Waste collection removes household trash and recyclable materials. Public transportation provides buses, trains, or other shared travel options. Park maintenance keeps public recreational spaces clean and safe, while emergency services provide police, fire, and medical assistance. Comparing community needs with available services helps public administrators decide which service plans are most appropriate.",
+        "analogy": "Imagine that you are a public administrator selecting a municipal service plan for a neighborhood. The neighborhood needs road maintenance, waste collection, and emergency services.\n\nThe services are ordered as:\n\n[Road maintenance, Waste collection, Public transportation, Park maintenance, Emergency services]\n\nThe neighborhood’s needs are:\n\n[1, 1, 0, 0, 1]\n\nHere, 1 means a service is needed, while 0 means it is not currently needed.\n\nTwo service plans are:\n\nPlan A: [1, 1, 0, 0, 1]\nPlan B: [1, 0, 1, 0, 1]\n\nPlan A is the stronger match because it addresses all three identified needs. Plan B addresses road maintenance and emergency services but provides public transportation instead of waste collection.\n\nIn this mapping, the neighborhood’s needs represent the student’s selected research keywords. Each service plan represents an advisor’s research profile. A 1 indicates that a keyword is present, while a 0 indicates that it is absent. Comparing the patterns represents cosine similarity, and the most similar plans represent the recommended advisors.\n\nWe can infer that a service plan addressing a similar combination of needs is more suitable for the neighborhood. Similarly, an advisor with a closely matching publication-keyword pattern is more likely to share the student’s research interests."
+      },
+      "Matching Community Programs with Resident Needs": {
+        "subtopics": [
+          "Job training",
+          "Childcare support",
+          "Housing assistance",
+          "Senior services",
+          "Food assistance"
+        ],
+        "description": "Matching community programs with resident needs involves identifying the types of support required by a community and comparing them with available public programs. Job training helps residents develop employment skills. Childcare support assists families with the cost or availability of childcare. Housing assistance helps people find or maintain affordable housing. Senior services support older adults with transportation, meals, or daily activities, while food assistance helps households obtain nutritious food. Comparing these needs helps public administrators select programs that provide relevant services.",
+        "analogy": "Imagine that you are a public administrator choosing a community program for a neighborhood. The neighborhood needs job training, housing assistance, and food assistance.\n\nThe service areas are ordered as:\n\n[Job training, Childcare, Housing, Senior services, Food assistance]\n\nThe neighborhood’s needs are:\n\n[1, 0, 1, 0, 1]\n\nHere, 1 means the service is needed, while 0 means it is not currently needed.\n\nTwo community programs are:\n\nProgram A: [1, 0, 1, 0, 1]\nProgram B: [1, 1, 0, 0, 1]\n\nProgram A is the stronger match because it provides all three needed services. Program B provides job training and food assistance but offers childcare instead of housing assistance.\n\nIn this mapping, the neighborhood’s service needs represent the student’s selected research keywords. Each community program represents an advisor’s research profile. A 1 indicates that a keyword is present, while a 0 indicates that it is absent. Comparing the patterns represents cosine similarity, and the most similar programs represent the recommended advisors.\n\nWe can infer that a program addressing more of the neighborhood’s needs is more suitable. Similarly, an advisor whose publication-keyword pattern closely matches the student’s selected keywords is more likely to share the student’s research interests."
+      }
+    },
+    "LDA": {
+      "Managing Public Services": {
+        "subtopics": [
+          "Healthcare services",
+          "Public transportation",
+          "Education programs",
+          "Waste management",
+          "Emergency services"
+        ],
+        "description": "Managing public services means planning and delivering programs that meet community needs. Healthcare services support public health and access to treatment. Public transportation helps people travel through buses, trains, and other shared systems. Education programs provide learning opportunities and student support. Waste management includes garbage collection, recycling, and sanitation, while emergency services protect communities through police, fire, and disaster-response programs.",
+        "analogy": "Imagine that a public administrator examines many government reports and organizes words that frequently appear together into n public-service topics. Each topic is given a meaningful name based on its most important words.\n\nFor example:\n\nTopic 1—Public Healthcare:\n[hospitals, patients, clinics, health]\n\nTopic 2—Public Transportation:\n[buses, trains, routes, passengers]\n\nTopic 3—Education Services:\n[schools, students, teachers, programs]\n\nTopic 4—Emergency Management:\n[disasters, police, fire, response]\n\nSuppose a community request contains:\n\n[buses, routes, students]\n\nThe model compares these words with all n topics. Because buses and routes are most strongly associated with Topic 2, it selects Topic 2—Public Transportation.\n\nThe community-request terms represent the student's selected research keywords. The n public-service topics represent the topics created by LDA, while the words within each topic represent related terms learned from advisor publications.\n\nAfter Topic 2 is selected, its words become an expanded query and are compared with each advisor's publication-keyword profile using cosine similarity.\n\nWe can infer that a few service-related terms can reveal a broader public-administration concern. Similarly, the model identifies the student's broader research topic and recommends advisors whose publications align with that broader theme, even when they use different terminology."
+      },
+      "Public Organization Management": {
+        "subtopics": [
+          "Public budgeting",
+          "Personnel management",
+          "Administrative leadership",
+          "Government accountability"
+        ],
+        "description": "Public organization management focuses on how government agencies organize their financial, human, and administrative resources to operate effectively. Public budgeting involves managing revenue, expenditure, funding, and the allocation of government resources. Personnel management includes recruiting, training, supporting, and evaluating public employees. Administrative leadership concerns how managers make decisions, guide employees, coordinate departments, and achieve organizational goals. Government accountability emphasizes transparency, oversight, ethical conduct, and responsibility for public decisions and outcomes.",
+        "analogy": "Imagine that a public administrator reviews many government reports, agency plans, financial documents, and employee-management records. The administrator notices that certain words frequently appear together and organizes them into n public-organization topics. Each topic is given a meaningful name based on its most important words.\n\nFor example:\n\nTopic 1—Public Budgeting:\n[revenue, expenditure, funding, budget]\n\nTopic 2—Personnel Management:\n[employees, recruitment, training, personnel]\n\nTopic 3—Administrative Leadership:\n[managers, decisions, leadership, administration]\n\nTopic 4—Government Accountability:\n[transparency, oversight, ethics, accountability]\n\nSuppose a government-agency request contains:\n\n[employees, recruitment, training]\n\nThe model compares these words with all n public-organization topics. Because employees, recruitment, and training are most strongly associated with Topic 2, it selects Topic 2—Personnel Management.\n\nThe government-agency request represents the student's selected research keywords. The n public-organization topics represent the topics created by LDA, while the words within each topic represent related terms learned from advisor publications.\n\nAfter Topic 2 is selected, its words become an expanded query and are compared with each advisor's publication-keyword profile using cosine similarity.\n\nFor example, the student may select the terms recruitment and training, while an advisor's publications use related terms such as workforce development, employee performance, staff retention, and human-resource administration. Although the exact words are different, LDA can recognize that they belong to the broader topic of personnel management.\n\nWe can infer that a few organization-related terms can reveal a broader public-administration concern. Similarly, the model identifies the student's broader research topic and recommends advisors whose publications align with that broader theme, even when they use different terminology."
+      }
+    }
+  }
+}
