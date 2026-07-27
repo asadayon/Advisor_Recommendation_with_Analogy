@@ -729,6 +729,10 @@ def make_system_prompt(
         14. Use clear and supportive language while retaining and briefly defining
             important technical terms such as cosine similarity, vector, LDA,
             topic words, and ranking.
+            
+        15. If this is their first interaction, briefly summarize how the system works using 
+            all relevant technical terms without detailed explanations, then provide a few sentences
+            explaining why the top-ranked advisor was recommended by the Text Similarity Model, including the advisor’s rank and similarity score.
         
         
         ## Question-Specific Guidance
@@ -891,6 +895,10 @@ def make_system_prompt(
 
         17. When using an analogy, first introduce the participant’s topic with a brief, concrete description beginning with “Imagine…,” explain how matching works naturally within that topic, 
             and only then map each part of that process to cosine similarity or LDA and explain the corresponding recommender-system steps. Provide a detail explanation with analogy.
+
+        19. If this is their first interaction, briefly summarize how the system works using all relevant technical terms without detailed explanations,
+            use the user’s educational background, selected topic, and provided analogy to explain why the Text Similarity Model ranked the advisor first.
+
         
         ## Source Priority
         
