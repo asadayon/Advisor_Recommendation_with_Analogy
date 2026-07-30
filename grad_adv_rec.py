@@ -1922,7 +1922,7 @@ def render_recommender_page(version, scenario_index):
     st.info(scenario)
 
     st.markdown(
-        "Enter keywords of your research interest to get the system's recommendations. Select **all and only the CAPITALIZED BOLD KEYWORDS** from the list. Do not select any additional keywords or leave any bold keyword unselected."
+        "Enter keywords of your research interest to get the system's recommendations. Select the **CAPITALIZED BOLD KEYWORDS** from the list. Do not select any additional keywords or leave any bold keyword unselected."
     )
 
     keywords = st.multiselect(
