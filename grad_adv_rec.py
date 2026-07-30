@@ -80,6 +80,66 @@ def log_chat_message(role, content):
     return supabase.table("chat_message").insert(payload).execute()
 
 
+import streamlit as st
+
+
+def add_user_info() -> bool:
+    """
+    Add the current user's information and generated analogies
+    to the 'user_info' Supabase table.
+
+    Returns:
+        bool: True when the row is inserted successfully,
+              otherwise False.
+    """
+    required_fields = [
+        "user_name",
+        "field_of_study",
+        "cosine_topic",
+        "cosine_analogy",
+        "lda_topic",
+        "lda_analogy",
+    ]
+
+    missing_fields = [
+        field for field in required_fields
+        if not st.session_state.get(field)
+    ]
+
+    if missing_fields:
+        st.error(
+            f"Missing required session data: {', '.join(missing_fields)}"
+        )
+        return False
+
+    try:
+        response = (
+            supabase.table("user_info")
+            .insert(
+                {
+                    "username": st.session_state.user_name,
+                    "program": st.session_state.field_of_study,
+                    "topic_1": st.session_state.cosine_topic,
+                    "topic_1_analogy": st.session_state.cosine_analogy,
+                    "topic_2": st.session_state.lda_topic,
+                    "topic_2_analogy": st.session_state.lda_analogy,
+                }
+            )
+            .execute()
+        )
+
+        if response.data:
+            st.success("User information was saved successfully.")
+            return True
+
+        st.error("The database did not return the inserted row.")
+        return False
+
+    except Exception as error:
+        st.error(f"Unable to save user information: {error}")
+        return False
+
+
 count_vector={}
 with open('my_dict.json', 'r') as f:
         count_vector = json.load(f)
@@ -2535,7 +2595,7 @@ if st.session_state.page == "home":
                 st.success(
                     f"Hello, {st.session_state.user_name}!"
                 )
-
+                add_user_info() 
                 st.rerun()
   
     
