@@ -2927,7 +2927,7 @@ You are now ready to answer the user’s questions about their recommended gradu
                     f"LDA generated 30 topics and selected the topic most relevant to the chosen research interests. "
                     f"Selected Topic: {topic_id}. "
                     f"Keywords for selected topic: {topic_words}. "
-                    f"The selected topic was used to rank advisors based on cosine similarity."
+                    f"The selected topic is used to rank advisors based on cosine similarity."
                 )
                 
             
