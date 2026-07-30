@@ -1478,9 +1478,9 @@ def render_v2_quiz_flow(questions, idx, scenario):
 
             # Append to history
             chat_history.append({"role": "user", "content": selection_msg})
-            question_text = question_data["question"]
-            options = question_data["options"]
-            answer = question_data["answer"]
+            question_text = question["question"]
+            options = question["options"]
+            answer = question["answer"]
         
             formatted_question = (
                     f"Question: {question_text}\n"
