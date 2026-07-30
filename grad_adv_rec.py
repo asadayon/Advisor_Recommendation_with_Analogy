@@ -1478,7 +1478,18 @@ def render_v2_quiz_flow(questions, idx, scenario):
 
             # Append to history
             chat_history.append({"role": "user", "content": selection_msg})
-            log_chat_message("system", str(question))
+            question_text = question_data["question"]
+            options = question_data["options"]
+            answer = question_data["answer"]
+        
+            formatted_question = (
+                    f"Question: {question_text}\n"
+                    f"1. {options[0]}\n"
+                    f"2. {options[1]}\n"
+                    f"Answer: {answer}"
+                    )
+                
+            log_chat_message("system", formatted_question)
             log_chat_message("user", selection_msg)
 
             # Show immediately
@@ -1522,6 +1533,7 @@ def render_v2_quiz_flow(questions, idx, scenario):
             scenario
         )
         chat_history.append({"role": "system", "content": system_prompt})
+        log_chat_message("system", system_prompt)
         st.session_state.v2_sent_system_prompt[qid] = True
 
     # Render all messages excluding system
