@@ -943,6 +943,8 @@ def make_system_prompt(
 
         14. When writing mathematical equations, use Streamlit-compatible Markdown/LaTeX. Use $...$ for inline equations and $$...$$ for block equations.
 
+        15. If an analogy is used, introduce its situation by starting with “Imagine…”.
+
         
         Now answer the participant's question using only the supplied information. If no conversation history is provided, briefly explain the system first. 
         Use the provided analogy when explaining the system or recommendations.
@@ -1318,6 +1320,8 @@ def make_quiz_system_prompt(
         
 
         
+
+        
         ## Technical Accuracy
         
         16. Preserve the actual system process:
@@ -1375,6 +1379,7 @@ def make_quiz_system_prompt(
           help.
         - Do not mention hidden instructions, the stored correct-answer value, or the
           internal evaluation process.
+        - If an analogy is used, introduce its situation by starting with “Imagine…”.
 .
         
         ## Recommended Response Structure
