@@ -793,6 +793,8 @@ def make_system_prompt(
         15. If this is their first interaction, briefly summarize how the system works using 
             all relevant technical terms without detailed explanations, then provide a few sentences
             explaining why the top-ranked advisor was recommended by the Text Similarity Model, including the advisor’s rank and similarity score.
+
+        16. When writing mathematical equations, use Streamlit-compatible Markdown/LaTeX. Use $...$ for inline equations and $$...$$ for block equations.
         
         
         ## Question-Specific Guidance
@@ -938,6 +940,8 @@ def make_system_prompt(
             forms when they appear and clarification is useful.
         
         13. For a simple factual question, provide a direct answer without unnecessarily reproducing the complete analogy.
+
+        14. When writing mathematical equations, use Streamlit-compatible Markdown/LaTeX. Use $...$ for inline equations and $$...$$ for block equations.
 
         
         Now answer the participant's question using only the supplied information. If no conversation history is provided, briefly explain the system first. 
@@ -1141,6 +1145,8 @@ def make_quiz_system_prompt(
         15. For cosine-similarity questions, include a simple illustrative vector example using the participant’s selected concepts, 
             such as User: [1, 1, 1, 1], Advisor A: [1, 1, 1, 0], and Advisor B: [1, 0, 1, 0]; explain that 1 indicates a shared or strongly represented concept, 
             0 indicates weak or absent representation, and that greater alignment generally produces higher cosine similarity and may lead to a higher ranking.
+
+        16. When writing mathematical equations, use Streamlit-compatible Markdown/LaTeX. Use $...$ for inline equations and $$...$$ for block equations.
         
         ## Response Style
         
@@ -1306,6 +1312,8 @@ def make_quiz_system_prompt(
         14. Always connect the analogy back to the real recommender-system process.
             The analogy supports the explanation but does not replace the technical
             explanation.
+
+        15. When writing mathematical equations, use Streamlit-compatible Markdown/LaTeX. Use $...$ for inline equations and $$...$$ for block equations.
 
         
 
