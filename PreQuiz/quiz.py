@@ -72,7 +72,7 @@ def load_questions(who):
           "A strong alignment with David’s keyword vector",
           "No alignment with David’s research interests"
             
-        ],,
+        ],
       "answer": "1"
     },
     {
