@@ -1,5 +1,5 @@
 def load_questions(who):
-    if who=='AminaRahman':
+    if who=='Amina Rahman':
         return [
      {
       "question": "Why does the advisor recommendation system for Amina use both cosine similarity and LDA topic modeling?",
@@ -10,9 +10,9 @@ def load_questions(who):
       "answer": "1"
     },
     {
-      "question": "What does Oriana Riva’s cosine similarity score of 0.9104 indicate for Amina’s research interests in mobile applications?",
+      "question": "What does Core Cornelius’s cosine similarity score indicate for Amina’s research interests in mobile applications?",
         "options": [
-            "A weak alignment with Amina’s research interests",
+            "No alignment with Amina’s research interests",
             "A strong alignment with Amina’s research interests"
         ],
       "answer": "2"
@@ -26,7 +26,7 @@ def load_questions(who):
       "answer": "2"
     }
 ]
-    elif who=='EmilyZhang':
+    elif who=='Emily Zhang':
         return [
      {
        "question": "Why does the recommendation system use both cosine similarity and LDA topic modeling for Emily’s advisor recommendations?",
@@ -38,17 +38,17 @@ def load_questions(who):
       "answer": "1"
     },
     {
-      "question": "What does a cosine similarity score of 0.9115042764715553 for Nico Zazworka indicate about Emily’s research interests?",
+      "question": "What does a cosine similarity score for Eleni Stroulia indicate about Emily’s research interests?",
         "options": [
-            "There is no alignment between Emily’s keywords and Nico Zazworka’s research profile.",
-            "Emily’s research interests are highly aligned with Nico Zazworka’s research profile."
+            "There is no alignment between Emily’s keywords and Eleni Stroulia’s research profile.",
+            "Emily’s research interests are highly aligned with Eleni Stroulia’s research profile."
            
         ],  
       "answer": "2"
     },
     
     {
-      "question": "If Emily removes 'software quality' from her keywords and adds 'machine learning,' how might this affect the cosine similarity ranking?",
+      "question": "If Emily removes 'software quality' from her keywords how might this affect the cosine similarity ranking?",
         "options": [
             "Nico Zazworka would remain the top recommendation due to his focus on design debt.",
             "Shari Lawrence Pfleeger might drop in ranking, as 'software quality' is a key overlap with her profile."
@@ -56,7 +56,7 @@ def load_questions(who):
       "answer": "2"
     }
 ]
-    elif who=='DavidChen':
+    elif who=='David Chen':
         return [
     {
       "question": "Why does the system use both cosine similarity and LDA topic modeling for David Chen’s advisor recommendations?",
@@ -67,12 +67,12 @@ def load_questions(who):
       "answer": "2"
     },
     {
-      "question": "What does a cosine similarity score of 0.9011 for Fumitoshi Matsuno indicate for David Chen?",
+      "question": "What does a cosine similarity score for Michita Imai indicate for David Chen?",
         "options": [
           "A strong alignment with David’s keyword vector",
           "No alignment with David’s research interests"
             
-        ],
+        ],,
       "answer": "1"
     },
     {
@@ -86,7 +86,7 @@ def load_questions(who):
       "answer": "1"
     }
 ]
-    if who=='SaraLee':
+    if who=='Sara Lee':
         return [
         
     {
@@ -98,7 +98,7 @@ def load_questions(who):
       "answer": "1"
     },
     {
-      "question": "What does a cosine similarity score of 0.828 for Masashi Toyoda indicate for Sara’s interests in web mining and web spam?",
+      "question": "What does a cosine similarity score for J. A. Levin indicate for Sara’s interests?",
         "options": [
             "No alignment with Sara’s research interests",
             "Strong alignment due to closely matching keywords"
