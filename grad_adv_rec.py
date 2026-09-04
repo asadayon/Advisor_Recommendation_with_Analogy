@@ -2571,7 +2571,7 @@ if st.session_state.page == "home":
     
     if not st.session_state.scenarios_loaded:            
         scenarios = load_scenarios("grad_student_scenario.md")
-        random.shuffle(scenarios)
+        #random.shuffle(scenarios)
         st.session_state.selected_scenarios = scenarios
         st.session_state.scenarios_loaded = True
     # Only show the welcome text & cards if we have a name
@@ -2972,8 +2972,8 @@ You are now ready to answer the user’s questions about their recommended gradu
                         render_v2(st.session_state.selected_scenarios[3])
                        
             if st.session_state.page == "v1":
-                        render_v1(st.session_state.selected_scenarios[0])
-            if st.session_state.page == "v3":
                         render_v1(st.session_state.selected_scenarios[2])
+            if st.session_state.page == "v3":
+                        render_v1(st.session_state.selected_scenarios[0])
                         
                       
