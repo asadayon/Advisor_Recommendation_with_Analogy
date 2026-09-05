@@ -2654,13 +2654,13 @@ elif st.session_state.page == "v1" or st.session_state.page == "v2" or st.sessio
             reset_version_state()
             st.rerun()
     if st.session_state.page == "v1":
-        scenario, keywords = render_recommender_page("v1", 1)
+        scenario, keywords = render_recommender_page("v1", 0)
 
     if st.session_state.page == "v2":
         scenario, keywords = render_recommender_page("v2", 3)
 
     if st.session_state.page == "v3":
-        scenario, keywords = render_recommender_page("v3", 0)
+        scenario, keywords = render_recommender_page("v3", 1)
 
     if st.session_state.page == "v4":
         scenario, keywords = render_recommender_page("v4", 2)
