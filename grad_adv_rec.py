@@ -2571,7 +2571,7 @@ if st.session_state.page == "home":
     
     if not st.session_state.scenarios_loaded:            
         scenarios = load_scenarios("grad_student_scenario.md")
-        #random.shuffle(scenarios)
+        random.shuffle(scenarios)
         st.session_state.selected_scenarios = scenarios
         st.session_state.scenarios_loaded = True
     # Only show the welcome text & cards if we have a name
@@ -2657,13 +2657,13 @@ elif st.session_state.page == "v1" or st.session_state.page == "v2" or st.sessio
         scenario, keywords = render_recommender_page("v1", 0)
 
     if st.session_state.page == "v2":
-        scenario, keywords = render_recommender_page("v2", 3)
+        scenario, keywords = render_recommender_page("v2", 1)
 
     if st.session_state.page == "v3":
-        scenario, keywords = render_recommender_page("v3", 1)
+        scenario, keywords = render_recommender_page("v3", 2)
 
     if st.session_state.page == "v4":
-        scenario, keywords = render_recommender_page("v4", 2)
+        scenario, keywords = render_recommender_page("v4", 3)
     if st.button("Predict"):
         if len(keywords) < 1:
             st.warning("Please select at least one keyword.")
@@ -2972,8 +2972,8 @@ You are now ready to answer the user’s questions about their recommended gradu
                         render_v2(st.session_state.selected_scenarios[3])
                        
             if st.session_state.page == "v1":
-                        render_v1(st.session_state.selected_scenarios[2])
-            if st.session_state.page == "v3":
                         render_v1(st.session_state.selected_scenarios[0])
+            if st.session_state.page == "v3":
+                        render_v1(st.session_state.selected_scenarios[2])
                         
                       
