@@ -2571,7 +2571,7 @@ if st.session_state.page == "home":
     
     if not st.session_state.scenarios_loaded:            
         scenarios = load_scenarios("grad_student_scenario.md")
-        #random.shuffle(scenarios)
+        random.shuffle(scenarios)
         st.session_state.selected_scenarios = scenarios
         st.session_state.scenarios_loaded = True
     # Only show the welcome text & cards if we have a name
