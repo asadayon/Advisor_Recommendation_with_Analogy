@@ -2967,9 +2967,9 @@ You are now ready to answer the user’s questions about their recommended gradu
                         countdown_component_html("Please read the given text carefully", COOLDOWN_TIME_LONG, reveal_button_html)
 
             if st.session_state.page == "v2":
-                        render_v2(st.session_state.selected_scenarios[1])
-            if st.session_state.page == "v4":
                         render_v2(st.session_state.selected_scenarios[3])
+            if st.session_state.page == "v4":
+                        render_v2(st.session_state.selected_scenarios[1])
                        
             if st.session_state.page == "v1":
                         render_v1(st.session_state.selected_scenarios[0])
