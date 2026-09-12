@@ -2657,7 +2657,7 @@ elif st.session_state.page == "v1" or st.session_state.page == "v2" or st.sessio
         scenario, keywords = render_recommender_page("v1", 3)
 
     if st.session_state.page == "v2":
-        scenario, keywords = render_recommender_page("v2", 2)
+        scenario, keywords = render_recommender_page("v2", 1)
 
     if st.session_state.page == "v3":
         scenario, keywords = render_recommender_page("v3", 2)
@@ -2967,7 +2967,7 @@ You are now ready to answer the user’s questions about their recommended gradu
                         countdown_component_html("Please read the given text carefully", COOLDOWN_TIME_LONG, reveal_button_html)
 
             if st.session_state.page == "v2":
-                        render_v2(st.session_state.selected_scenarios[2])
+                        render_v2(st.session_state.selected_scenarios[1])
             if st.session_state.page == "v4":
                         render_v2(st.session_state.selected_scenarios[1])
                        
